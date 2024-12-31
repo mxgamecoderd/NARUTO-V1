@@ -128,47 +128,47 @@ const db_respon_list = JSON.parse(fs.readFileSync('./src/store/list.json'))
 global.db = JSON.parse(fs.readFileSync('./database/database.json'))
 if (global.db) global.db = {
 sticker: {},
-			users: {},
-			groups: {},
-			database: {},
-			 settings: {},
-			others: {},
+      users: {},
+      groups: {},
+      database: {},
+       settings: {},
+      others: {},
 ...(global.db || {})
 }
 
 module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
-	try {
-		const {
+  try {
+    const {
             type
         } = m
         const botNumber = await XliconBotInc.decodeJid(XliconBotInc.user.id)
         const XliconTheCreator = isOwner = [botNumber, ...owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const body = (m.type === 'conversation') ? m.message.conversation : (m.type == 'imageMessage') ? m.message.imageMessage.caption : (m.type == 'videoMessage') ? m.message.videoMessage.caption : (m.type == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.type == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.type == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.type == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.type === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
-		const budy = (typeof m.text == 'string' ? m.text : '')
-		const prefix = /[\uD800-\uDBFF][\uDC00-\uDFFF]/gi.test(body) ? body.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/gi)[0] : /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@()#,'"*+÷/\%^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@()#,'"*+÷/\%^&.©^]/gi)[0] : '.'
-		const isCmd = body.startsWith(prefix)
-		//prefix 2
+    const body = (m.type === 'conversation') ? m.message.conversation : (m.type == 'imageMessage') ? m.message.imageMessage.caption : (m.type == 'videoMessage') ? m.message.videoMessage.caption : (m.type == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.type == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.type == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.type == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.type === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
+    const budy = (typeof m.text == 'string' ? m.text : '')
+    const prefix = /[\uD800-\uDBFF][\uDC00-\uDFFF]/gi.test(body) ? body.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/gi)[0] : /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@()#,'"*+÷/\%^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@()#,'"*+÷/\%^&.©^]/gi)[0] : '.'
+    const isCmd = body.startsWith(prefix)
+    //prefix 2
         const pric = /^#.¦|\\^/.test(body) ? body.match(/^#.¦|\\^/gi) : xprefix
         const xliconybody = body.startsWith(pric)
         const isCommand = xliconybody ? body.replace(pric, '').trim().split(/ +/).shift().toLowerCase() : ""
-		const args = body.trim().split(/ +/).slice(1)
-		const getQuoted = (m.quoted || m)
-		const quoted = (getQuoted.type == 'buttonsMessage') ? getQuoted[Object.keys(getQuoted)[1]] : (getQuoted.type == 'templateMessage') ? getQuoted.hydratedTemplate[Object.keys(getQuoted.hydratedTemplate)[1]] : (getQuoted.type == 'product') ? getQuoted[Object.keys(getQuoted)[0]] : m.quoted ? m.quoted : m
-		const command = XliconTheCreator ? body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase() : isCmd ? body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase() : ''
-		const text = q = args.join(' ')
-		const mime = (quoted.msg || quoted).mimetype || ''
-		const qmsg = (quoted.msg || quoted)
-		const sender = m.sender
-		const isUser = xliconverifieduser.includes(sender)
-		const groupMetadata = m.isGroup ? await XliconBotInc.groupMetadata(m.chat).catch(e => {}) : ''
-		const participants = m.isGroup ? await groupMetadata.participants : ''
-		if (m.isGroup) {
-			m.metadata = await XliconBotInc.groupMetadata(m.chat)
-			m.admins = (m.metadata.participants.reduce((a, b) => (b.admin ? a.push({ id: b.id, admin: b.admin }) : [...a]) && a, []))
-			m.isAdmin = m.admins.some((b) => b.id === m.sender)
-			m.participant = m.key.participant
-			m.isBotAdmin = !!m.admins.find((member) => member.id === botNumber)
-		}
+    const args = body.trim().split(/ +/).slice(1)
+    const getQuoted = (m.quoted || m)
+    const quoted = (getQuoted.type == 'buttonsMessage') ? getQuoted[Object.keys(getQuoted)[1]] : (getQuoted.type == 'templateMessage') ? getQuoted.hydratedTemplate[Object.keys(getQuoted.hydratedTemplate)[1]] : (getQuoted.type == 'product') ? getQuoted[Object.keys(getQuoted)[0]] : m.quoted ? m.quoted : m
+    const command = XliconTheCreator ? body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase() : isCmd ? body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase() : ''
+    const text = q = args.join(' ')
+    const mime = (quoted.msg || quoted).mimetype || ''
+    const qmsg = (quoted.msg || quoted)
+    const sender = m.sender
+    const isUser = xliconverifieduser.includes(sender)
+    const groupMetadata = m.isGroup ? await XliconBotInc.groupMetadata(m.chat).catch(e => {}) : ''
+    const participants = m.isGroup ? await groupMetadata.participants : ''
+    if (m.isGroup) {
+      m.metadata = await XliconBotInc.groupMetadata(m.chat)
+      m.admins = (m.metadata.participants.reduce((a, b) => (b.admin ? a.push({ id: b.id, admin: b.admin }) : [...a]) && a, []))
+      m.isAdmin = m.admins.some((b) => b.id === m.sender)
+      m.participant = m.key.participant
+      m.isBotAdmin = !!m.admins.find((member) => member.id === botNumber)
+    }
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -184,7 +184,7 @@ const containsEmoji = (text) => {
 const cleanMessage = (messageText) => {
   // Remove timestamps like "Wed, 01 Jan 2024 00:00:00 GMT" but keep other numbers
   messageText = messageText.replace(/\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\w{3}\s+\d{1,2}\s+\d{4}\s+\d{2}:\d{2}:\d{2}\s+GMT[^\s]+\s\(.+\)\b/gi, ''); 
-  
+
   return messageText.trim(); // Trim any extra spaces
 };
 //---------------------------------------------------------------------------------------------------------------------------//
@@ -240,44 +240,44 @@ const isQuotedDocument = type === 'extendedTextMessage';
         const senderbot = m.key.fromMe ? XliconBotInc.user.id.split(':')[0] + "@s.whatsapp.net" || XliconBotInc.user.id : m.key.participant || m.key.remoteJid;
         const senderId = senderbot.split('@')[0];
         const isBot = clientId.includes(senderId);
-		
-		try {
-		const isNumber = x => typeof x === 'number' && !isNaN(x)
-		const isBoolean = x => typeof x === 'boolean' && Boolean(x)
-		let user = global.db.users[m.sender]
-		let limitUser = user ? (user.vip ? global.limit.vip : prem.checkPremiumUser(m.sender, premium) ? global.limit.premium : global.limit.free) : prem.checkPremiumUser(m.sender, premium) ? global.limit.premium : global.limit.free
-		let uangUser = user ? (user.vip ? global.uang.vip : prem.checkPremiumUser(m.sender, premium) ? global.uang.premium : global.uang.free) : prem.checkPremiumUser(m.sender, premium) ? global.uang.premium : global.uang.free
-		if (typeof user !== 'object') global.db.users[m.sender] = {}
-		if (user) {
-			if (!('vip' in user)) user.afkReason = false
-			if (!isNumber(user.afkTime)) user.afkTime = -1
-			if (!('afkReason' in user)) user.afkReason = ''
-			if (!isNumber(user.limit)) user.limit = limitUser
-			if (!('uang' in user)) user.uang = uangUser
-			if (!('lastclaim' in user)) user.lastclaim = new Date * 1
-			if (!('lastrampok' in user)) user.lastrampok = new Date * 1
-		} else {
-			global.db.users[m.sender] = {
-				vip: false,
-				afkTime: -1,
-				afkReason: '',
-				limit: limitUser,
-				uang: uangUser,
-				lastclaim: new Date * 1,
-				lastrampok: new Date * 1,
-			}
-		}
+
+    try {
+    const isNumber = x => typeof x === 'number' && !isNaN(x)
+    const isBoolean = x => typeof x === 'boolean' && Boolean(x)
+    let user = global.db.users[m.sender]
+    let limitUser = user ? (user.vip ? global.limit.vip : prem.checkPremiumUser(m.sender, premium) ? global.limit.premium : global.limit.free) : prem.checkPremiumUser(m.sender, premium) ? global.limit.premium : global.limit.free
+    let uangUser = user ? (user.vip ? global.uang.vip : prem.checkPremiumUser(m.sender, premium) ? global.uang.premium : global.uang.free) : prem.checkPremiumUser(m.sender, premium) ? global.uang.premium : global.uang.free
+    if (typeof user !== 'object') global.db.users[m.sender] = {}
+    if (user) {
+      if (!('vip' in user)) user.afkReason = false
+      if (!isNumber(user.afkTime)) user.afkTime = -1
+      if (!('afkReason' in user)) user.afkReason = ''
+      if (!isNumber(user.limit)) user.limit = limitUser
+      if (!('uang' in user)) user.uang = uangUser
+      if (!('lastclaim' in user)) user.lastclaim = new Date * 1
+      if (!('lastrampok' in user)) user.lastrampok = new Date * 1
+    } else {
+      global.db.users[m.sender] = {
+        vip: false,
+        afkTime: -1,
+        afkReason: '',
+        limit: limitUser,
+        uang: uangUser,
+        lastclaim: new Date * 1,
+        lastrampok: new Date * 1,
+      }
+    }
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
     //database values
-			let group = global.db.groups[m.chat]
-			if (typeof group !== 'object') global.db.groups[m.chat] = {}
-			if (group) {
-				if (!('ntnsfw' in group)) group.ntnsfw = false
-				          if (!('welcome' in group)) group.welcome = false
+      let group = global.db.groups[m.chat]
+      if (typeof group !== 'object') global.db.groups[m.chat] = {}
+      if (group) {
+        if (!('ntnsfw' in group)) group.ntnsfw = false
+                  if (!('welcome' in group)) group.welcome = false
                   if (!('setinfo' in group)) group.setinfo = false
-				          if (!('badword' in group)) group.badword = false
+                  if (!('badword' in group)) group.badword = false
                   if (!('antiforeignnum' in group)) group.antiforeignnum = false
                   if (!('antibot' in group)) group.antibot = false
                   if (!('antiviewonce' in group)) group.antiviewonce = false
@@ -296,12 +296,12 @@ const isQuotedDocument = type === 'extendedTextMessage';
                   if (!('antipromotion' in group)) group.antipromotion = false
                   if (!('antidelete' in group)) group.antidelete = false
                   if (!('antiemoji' in group)) group.antiemoji = false 
-			} else {
-				global.db.groups[m.chat] = {
-				  ntsfw: false,
-				  welcome: false,
-				  setinfo: false,
-				  badword: false,
+      } else {
+        global.db.groups[m.chat] = {
+          ntsfw: false,
+          welcome: false,
+          setinfo: false,
+          badword: false,
                   antiforeignnum: false,
                   antibot: false,
                   antiviewonce: false,
@@ -320,12 +320,12 @@ const isQuotedDocument = type === 'extendedTextMessage';
                   antipromotion: false,
                   antidelete: false,
                   antiemoji: false,
-				}
-			}
-		    let setting = global.db.settings[botNumber]
+        }
+      }
+        let setting = global.db.settings[botNumber]
             if (typeof setting !== 'object') global.db.settings[botNumber] = {}
             if (setting) {
-            	if (!('anticall' in setting)) setting.anticall = false
+              if (!('anticall' in setting)) setting.anticall = false
                if (!('antiswview' in setting)) setting.antiswview = false
                if (!('totalhit' in setting)) setting.totalhit = 0
                if (!('totalError' in setting)) setting.totalError = 0
@@ -344,7 +344,7 @@ const isQuotedDocument = type === 'extendedTextMessage';
                if (!('onlypc' in setting)) setting.onlypc = false
             } else global.db.settings[botNumber] = {
                anticall: false,
-           	antiswview: false,
+            antiswview: false,
                totalhit: 0,
                totalError: 0,
                online: false,
@@ -361,47 +361,47 @@ const isQuotedDocument = type === 'extendedTextMessage';
                autorecord: false,
                autotype: false,               
             }
-	} catch (e) {
-		throw e;
-	}
-		
-		const isVip = global.db.users[m.sender] ? global.db.users[m.sender].vip : false
-		const isPremium = XliconTheCreator || prem.checkPremiumUser(m.sender, premium) || false
-		const AntiNsfw = m.isGroup ? global.db.groups[m.chat].ntnsfw : false
-		
-		function pickRandom(list) {
-			return list[Math.floor(list.length * Math.random())]
-		}
+  } catch (e) {
+    throw e;
+  }
+
+    const isVip = global.db.users[m.sender] ? global.db.users[m.sender].vip : false
+    const isPremium = XliconTheCreator || prem.checkPremiumUser(m.sender, premium) || false
+    const AntiNsfw = m.isGroup ? global.db.groups[m.chat].ntnsfw : false
+
+    function pickRandom(list) {
+      return list[Math.floor(list.length * Math.random())]
+    }
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
-		// Reset Limit
-		cron.schedule('00 00 * * *', () => {
-			let user = Object.keys(global.db.users)
-			for (let jid of user) {
-				const limitUser = global.db.users[jid].vip ? global.limit.vip : prem.checkPremiumUser(jid, premium) ? global.limit.premium : global.limit.free
-				global.db.users[jid].limit = limitUser
-				console.log('Limit Reseted')
-			}
-		}, {
-			scheduled: true,
-			timezone: 'Asia/Karachi'
-		})
-		
-		if (!XliconBotInc.public) {
-			if (!m.key.fromMe) return
-		}
+    // Reset Limit
+    cron.schedule('00 00 * * *', () => {
+      let user = Object.keys(global.db.users)
+      for (let jid of user) {
+        const limitUser = global.db.users[jid].vip ? global.limit.vip : prem.checkPremiumUser(jid, premium) ? global.limit.premium : global.limit.free
+        global.db.users[jid].limit = limitUser
+        console.log('Limit Reseted')
+      }
+    }, {
+      scheduled: true,
+      timezone: 'Asia/Karachi'
+    })
+
+    if (!XliconBotInc.public) {
+      if (!m.key.fromMe) return
+    }
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
-		//Log
-		if (m.message) {
-			console.log(chalk.black.bgWhite('[ MESSAGE ]:'),chalk.black.bgGreen(new Date), chalk.black.bgHex('#00EAD3')(budy || m.type) + '\n' + chalk.black(chalk.bgCyanBright('[ FROM ] :'),chalk.bgYellow(m.pushName),chalk.bgHex('#FF449F')(m.sender),chalk.bgBlue('(' + (m.isGroup ? m.pushName : 'Private Chat', m.chat) + ')')));
-		}
+    //Log
+    if (m.message) {
+      console.log(chalk.black.bgWhite('[ MESSAGE ]:'),chalk.black.bgGreen(new Date), chalk.black.bgHex('#00EAD3')(budy || m.type) + '\n' + chalk.black(chalk.bgCyanBright('[ FROM ] :'),chalk.bgYellow(m.pushName),chalk.bgHex('#FF449F')(m.sender),chalk.bgBlue('(' + (m.isGroup ? m.pushName : 'Private Chat', m.chat) + ')')));
+    }
 //---------------------------------------------------------------------------------------------------------------------------//
 
-        
-        
+
+
 // 🚫 Group Only 🚫
                if (!m.isGroup && !XliconTheCreator && db.settings[botNumber].onlygrub) { 
                    if (isCommand) { 
@@ -416,25 +416,25 @@ const isQuotedDocument = type === 'extendedTextMessage';
                    } 
                } 
 
-		
-		// Auto Read
-		if (db.settings[botNumber].autoread) {
+
+    // Auto Read
+    if (db.settings[botNumber].autoread) {
             XliconBotInc.readMessages([m.key]);
         }
-        
+
         // 🔄 Auto Set Bio 🔄
-	if (db.settings[botNumber].autobio) {
+  if (db.settings[botNumber].autobio) {
             XliconBotInc.updateProfileStatus(`🚀 ${botname} is Live! 🎉\n\n           🕒 𝙐𝙥𝙩𝙞𝙢𝙚: 𝘙𝘶𝘯𝘯𝘪𝘯𝘨 𝘍𝘰𝘳 ${runtime(process.uptime())} ⏳\n\n                               ©NARUTO-V1 🙁 ⛩️`).catch(_ => _);
         }
 
         //auto type
         if (db.settings[botNumber].autotype){
         if (m.message) {
-        	let xliconpos = ['composing']
+          let xliconpos = ['composing']
             XliconBotInc.sendPresenceUpdate(xliconpos, m.chat)
         }
         }
-        
+
         //auto type record
         if (db.settings[botNumber].autorecordtype){
         if (m.message) {
@@ -443,22 +443,22 @@ const isQuotedDocument = type === 'extendedTextMessage';
             XliconBotInc.sendPresenceUpdate(xliconmix2, m.chat)
         }
         }
-        
+
         //autorecord
         if (db.settings[botNumber].autorecord){
         if (m.message) {
-        	let xliconpos = ['recording']
+          let xliconpos = ['recording']
             XliconBotInc.sendPresenceUpdate(xliconpos, m.chat)
         }
         }
-        
+
         //unavailable
         if (db.settings[botNumber].online) {
-        	if (isCmd) {
-        	XliconBotInc.sendPresenceUpdate('unavailable', m.chat)
+          if (isCmd) {
+          XliconBotInc.sendPresenceUpdate('unavailable', m.chat)
         }
         }
-        
+
         // 🚫 Auto Block Number 🚫
         if (m.sender.startsWith(`${autoblocknumber}`) && db.settings[botNumber].autoblocknum === true) {
             return XliconBotInc.updateBlockStatus(m.sender, 'block');
@@ -471,7 +471,7 @@ const isQuotedDocument = type === 'extendedTextMessage';
         if (!m.sender.startsWith('62') && db.settings[botNumber].onlyindo === true) {
             return XliconBotInc.updateBlockStatus(m.sender, 'block');
         } 
-        
+
         if (!m.sender.startsWith(`${antiforeignnumber}`) && db.groups[m.chat].antiforeignnum === true) { 
             if (XliconTheCreator || m.isAdmin || !m.isBotAdmin) return;
             XliconBotInc.sendMessage(m.chat, { text: `🚫 *Sorry buddy!* 😔\n\nYou will be removed because the group admin/owner has enabled *Anti Foreign Number*. Only +${antiforeignnumber} country code is allowed to join the group.` }, {quoted: m});
@@ -522,15 +522,15 @@ const isQuotedDocument = type === 'extendedTextMessage';
                 }
               }
             }, { quoted: m });
-        
+
             // Send the message via the client
             await XliconBotInc.relayMessage(m.chat, msgs.message, {});
           } catch (error) {
             console.error('Error sending message with footer:', error);
           }
         }
-        
-        
+
+
         async function sendMessageWithFooter(XliconBotInc, m, imagePath, footerText, messageText) {
           try {
             // Prepare the message content with the image and footer
@@ -565,18 +565,18 @@ const isQuotedDocument = type === 'extendedTextMessage';
                 }
               }
             }, { quoted: m });
-        
-            
-            
+
+
+
             // Send the message via the client
             await XliconBotInc.relayMessage(m.chat, msgs.message, {});
           } catch (error) {
             console.error('Error sending message with footer:', error);
           }
         }
-        
+
 //---------------------------------------------------------------------------------------------------------------------------//
-        
+
        // 📥 Download Status #ctto
         try {
             const textLower = m.text.toLowerCase();
@@ -605,7 +605,7 @@ const isQuotedDocument = type === 'extendedTextMessage';
 
         //autosticker
         if (db.settings[botNumber].autosticker) {
-        	if (m.key.fromMe) return
+          if (m.key.fromMe) return
             if (/image/.test(mime) && !/webp/.test(mime)) {
                 let mediac = await quoted.download()
                 XliconBotInc.sendImageAsSticker(m.chat, mediac, m, { packname: global.packname, author: global.author })
@@ -616,7 +616,7 @@ const isQuotedDocument = type === 'extendedTextMessage';
                 XliconBotInc.sendVideoAsSticker(m.chat, mediac, m, { packname: global.packname, author: global.author })
             }
         }
-        
+
         // 🚫 Anti-Bot Protection 🚫
         if (db.groups[m.chat].antibot) {
             if (m.isBaileys && m.fromMe == false) {
@@ -629,7 +629,7 @@ const isQuotedDocument = type === 'extendedTextMessage';
             }
         }
 
-   
+
 // 🚫 Anti-View Once 🚫
     if (db.groups[m.chat].antiviewonce && (isViewOnce)) {
         if (XliconTheCreator || m.isAdmin || !m.isBotAdmin) {
@@ -651,7 +651,7 @@ if (db.groups[m.chat].antiemoji && (isEmoji)) {
     }
 }
 
-    
+
 // 🚫 Anti-Promotion 🚫
 if (db.groups[m.chat].antipromotion) {
     if (budy.match(`instagram booster|tiktok booster|ml booster|bgmi selling|selling uc|selling diamonds|selling coin|selling id|selling account|selling ids|buy account|sell account|buy id|sell id|instagram followers|tiktok followers|buy panel|sell panel|sell bug bot|buy bug bot|buy bot bug|sell bot bug|adminpanel5kpm|open jasa push member grup|yangmaubuypanelpm|admin panel 10k pm|Hanya menyediakan Jasa Push Member Grup|admin panel 5k pm|yang mau beli panel murah pm|list harga panel by|list harga vps|LIST HARGA VPS|OPEN JASA PUSH MEMBER GRUP|READY|Redy|LIST HARGA PANEL BY|list harga panel|menyediakan|MENYEDIAKAN|OPEN MURBUG|open|OPEN|PANEL READY|PANEL|PANNEL READY|panel|panel ready|pannel ready minat pm|mau panel pm|MAU PANNEL PM|Admin panel ready|ADMIN PANEL READY|Chat aja om ready selalu|OPEN JASA INSTALL|open jasa installMENYEDIAKAN JASA INSTALL`)) {
@@ -717,9 +717,9 @@ if (m.isGroup && db.groups[m.chat].antivirtex) {
         budy.includes('ٯٯٯٯٯ') 
     ) {
         if (m.isBotAdmin) return replygcxlicon('*⚠️ VIRTEX DETECTED*');
-        
+
         console.log(color('[KICK]', 'red'), color('Received a virus text!', 'yellow'));
-        
+
         XliconBotInc.sendText(m.chat, `*📩 MARK AS READ*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n *Virus sender here👇:* \nwa.me/${sender.split("@")[0]}`);
 
         if (!m.m.isBotAdmin) return;
@@ -733,7 +733,7 @@ if (m.isGroup && db.groups[m.chat].antivirtex) {
         });
     }
 }
-    
+
   // 🚫 ANTI MEDIA 🚫
 if (db.groups[m.chat].antimedia && isMedia) {
     if (XliconTheCreator || m.isAdmin || !m.isBotAdmin) {		  
@@ -893,10 +893,10 @@ if (db.groups[m.chat].antilink) {
         });
     }
 }
- 
+
 //---------------------------------------------------------------------------------------------------------------------------//
 
-        
+
 // auto download #ctto
 // Auto-download feature
 if (db.settings[botNumber].autodownload && !m.key.fromMe) {
@@ -977,43 +977,43 @@ if (db.settings[botNumber].autodownload && !m.key.fromMe) {
 //---------------------------------------------------------------------------------------------------------------------------//
 
 // Group Settings
-		if (m.isGroup) {
-			// Mute
-			if (db.groups[m.chat].mute && !XliconTheCreator) {
-				return
-			}
+    if (m.isGroup) {
+      // Mute
+      if (db.groups[m.chat].mute && !XliconTheCreator) {
+        return
+      }
 
-      
-			// Anti Delete
-			if (m.type == 'protocolMessage' && db.groups[m.chat].antidelete) {
-				const mess = chatUpdate.messages[0].message.protocolMessage
-				if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
-					const chats = store.messages[m.chat].array.find(a => a.id === mess.key.id);
-					chats.msg.contextInfo = { mentionedJid: [chats.key.participant], isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: '*Anti Delete❗*'}, ...chats.key }
-					await XliconBotInc.relayMessage(m.chat, { [chats.type]: chats.msg }, {})
-				}
-			}
-		}
+
+      // Anti Delete
+      if (m.type == 'protocolMessage' && db.groups[m.chat].antidelete) {
+        const mess = chatUpdate.messages[0].message.protocolMessage
+        if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
+          const chats = store.messages[m.chat].array.find(a => a.id === mess.key.id);
+          chats.msg.contextInfo = { mentionedJid: [chats.key.participant], isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: '*Anti Delete❗*'}, ...chats.key }
+          await XliconBotInc.relayMessage(m.chat, { [chats.type]: chats.msg }, {})
+        }
+      }
+    }
 
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
-		//user db //friend
+    //user db //friend
         if (isCmd && !isUser) {
 xliconverifieduser.push(sender)
 fs.writeFileSync('./src/user.json', JSON.stringify(xliconverifieduser, null, 2))
 }
-	
+
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
 
 //All games featres here
 
-		// Check Expiry
-		prem.expiredCheck(XliconBotInc, premium);
-		
-		// TicTacToe
+    // Check Expiry
+    prem.expiredCheck(XliconBotInc, premium);
+
+    // TicTacToe
 let room = Object.values(game.tictactoe).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING');
 if (room) {
     let ok;
@@ -1098,10 +1098,10 @@ if (roof) {
         roof.asal = m.chat;
         clearTimeout(roof.waktu);
         replygcxlicon(`🎊 The suit has been sent to chat\n\n👤 @${roof.p.split`@`[0]} and @${roof.p2.split`@`[0]}\n\n✏️ *Please select a suit in the respective chat* https://wa.me/${botNumber.split`@`[0]}`);
-        
+
         if (!roof.pilih) XliconBotInc.sendMessage(roof.p, { text: `🔄 *Please select* \n\n🪨 Rock\n📄 Paper\n✂️ Scissors` }, { quoted: m });
         if (!roof.pilih2) XliconBotInc.sendMessage(roof.p2, { text: `🔄 *Please select* \n\n🪨 Rock\n📄 Paper\n✂️ Scissors` }, { quoted: m });
-        
+
         roof.waktu_milih = setTimeout(() => {
             if (!roof.pilih && !roof.pilih2) replygcxlicon(`🚫 Both players have no intention of playing,\n❌ *Suit cancelled*`);
             else if (!roof.pilih || !roof.pilih2) {
@@ -1139,7 +1139,7 @@ if (roof) {
 
     if (roof.pilih && roof.pilih2) {
         clearTimeout(roof.waktu_milih);
-        
+
         if (b.test(stage) && g.test(stage2)) win = roof.p;
         else if (b.test(stage) && k.test(stage2)) win = roof.p2;
         else if (g.test(stage) && k.test(stage2)) win = roof.p;
@@ -1158,65 +1158,65 @@ if (roof) {
 }
 
         // Guess Bomb
-		let pilih = '🌀', bomb = '💣';
-		if (m.sender in game.tebakbom) {
-			if (!/^[1-9]|10$/i.test(body) && !isCmd) return !0;
-			if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 1) return !0;
-			if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 2) {
-				game.tebakbom[m.sender].board[parseInt(body) - 1] = bomb;
-				game.tebakbom[m.sender].pick++;
-				XliconBotInc.sendMessage(m.chat, {react: {text: '❌', key: m.key}})
-				game.tebakbom[m.sender].bomb--;
-				game.tebakbom[m.sender].nyawa.pop();
-				let brd = game.tebakbom[m.sender].board;
-				if (game.tebakbom[m.sender].nyawa.length < 1) {
-					global.db.users[m.sender].limit -= 1
-					await replygcxlicon(`*THE GAME IS OVER*\nYou were hit by a bomb\n\n ${brd.join('')}\n\n*Selected :* ${game.tebakbom[m.sender].pick}\n_Limit Reduction : 1_`);
-					XliconBotInc.sendMessage(m.chat, {react: {text: '😂', key: m.key}})
-					delete game.tebakbom[m.sender];
-				} else await replygcxlicon(`*SELECT A NUMBER*\n\nYou were hit by a bomb\n ${brd.join('')}\n\nSelected: ${game.tebakbom[m.sender].pick}\nRemaining life: ${game.tebakbom[m.sender].nyawa}`);
-				return !0;
-			}
-			if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 0) {
-				game.tebakbom[m.sender].petak[parseInt(body) - 1] = 1;
-				game.tebakbom[m.sender].board[parseInt(body) - 1] = pilih;
-				game.tebakbom[m.sender].pick++;
-				game.tebakbom[m.sender].lolos--;
-				let brd = game.tebakbom[m.sender].board;
-				if (game.tebakbom[m.sender].lolos < 1) {
-					global.db.users[m.sender].limit += 3
-					global.db.users[m.sender].uang += 3000
-					await replygcxlicon(`*YOU ARE GREAT ಠ⁠ᴥ⁠ಠ*\n\n${brd.join('')}\n\n*Selected :* ${game.tebakbom[m.sender].pick}\n*Remaining life :* ${game.tebakbom[m.sender].nyawa}\n*Bomb :* ${game.tebakbom[m.sender].bomb}\n*Present :* Money(3000) & Limit(3)`);
-					delete game.tebakbom[m.sender];
-				} else replygcxlicon(`*SELECT A NUMBER*\n\n${brd.join('')}\n\nSelected : ${game.tebakbom[m.sender].pick}\nRemaining life : ${game.tebakbom[m.sender].nyawa}\nBomb : ${game.tebakbom[m.sender].bomb}`)
-			}
-		}
-		
-		// Math
-		if (game.kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
-			kuis = true
-			jawaban = game.kuismath[m.sender.split('@')[0]].jawaban
-			const difficultyMap = { 'noob': 1, 'easy': 2, 'medium': 3, 'hard': 4, 'extreme': 5, 'impossible': 6, 'impossible2': 7 };
-			let hasilLimit = difficultyMap[game.kuismath[m.sender.split('@')[0]].mode]
-			if (isNaN(budy)) return
-			if (budy.toLowerCase() == jawaban) {
-				global.db.users[m.sender].limit += hasilLimit
-				global.db.users[m.sender].uang += hasilLimit * 1000
-				await replygcxlicon(`🎮 Math Quiz  🎮\n\nCorrect answer 🎉\nYou Get a Limit *${hasilLimit}*\n\nWant to play again? Send ${prefix}math mode`)
-				delete game.kuismath[m.sender.split('@')[0]]
-			} else replygcxlicon('*Wrong answer!*')
-		}
-		
-		// Menfes
-		if (!m.isGroup) {
-			if (game.menfes[m.sender] && m.key.remoteJid !== 'status@broadcast') {
-				if (!/^del(menfe(s|ss)|confe(s|ss))$/i.test(command)) {
-					m.msg.contextInfo = { isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: `*Order From ${game.menfes[m.sender].nama ? game.menfes[m.sender].nama : 'Somebody'}*`}, key: { remoteJid: '0@s.whatsapp.net', fromMe: false, participant: '0@s.whatsapp.net' }}
-					const pesan = m.type === 'conversation' ? { extendedTextMessage: { text: m.msg, contextInfo: { isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: `*Order From ${game.menfes[m.sender].nama ? game.menfes[m.sender].nama : 'Somebody'}*`}, key: { remoteJid: '0@s.whatsapp.net', fromMe: false, participant: '0@s.whatsapp.net' }}}} : { [m.type]: m.msg }
-					await XliconBotInc.relayMessage(game.menfes[m.sender].tujuan, pesan, {});
-				}
-			}
-		}
+    let pilih = '🌀', bomb = '💣';
+    if (m.sender in game.tebakbom) {
+      if (!/^[1-9]|10$/i.test(body) && !isCmd) return !0;
+      if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 1) return !0;
+      if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 2) {
+        game.tebakbom[m.sender].board[parseInt(body) - 1] = bomb;
+        game.tebakbom[m.sender].pick++;
+        XliconBotInc.sendMessage(m.chat, {react: {text: '❌', key: m.key}})
+        game.tebakbom[m.sender].bomb--;
+        game.tebakbom[m.sender].nyawa.pop();
+        let brd = game.tebakbom[m.sender].board;
+        if (game.tebakbom[m.sender].nyawa.length < 1) {
+          global.db.users[m.sender].limit -= 1
+          await replygcxlicon(`*THE GAME IS OVER*\nYou were hit by a bomb\n\n ${brd.join('')}\n\n*Selected :* ${game.tebakbom[m.sender].pick}\n_Limit Reduction : 1_`);
+          XliconBotInc.sendMessage(m.chat, {react: {text: '😂', key: m.key}})
+          delete game.tebakbom[m.sender];
+        } else await replygcxlicon(`*SELECT A NUMBER*\n\nYou were hit by a bomb\n ${brd.join('')}\n\nSelected: ${game.tebakbom[m.sender].pick}\nRemaining life: ${game.tebakbom[m.sender].nyawa}`);
+        return !0;
+      }
+      if (game.tebakbom[m.sender].petak[parseInt(body) - 1] === 0) {
+        game.tebakbom[m.sender].petak[parseInt(body) - 1] = 1;
+        game.tebakbom[m.sender].board[parseInt(body) - 1] = pilih;
+        game.tebakbom[m.sender].pick++;
+        game.tebakbom[m.sender].lolos--;
+        let brd = game.tebakbom[m.sender].board;
+        if (game.tebakbom[m.sender].lolos < 1) {
+          global.db.users[m.sender].limit += 3
+          global.db.users[m.sender].uang += 3000
+          await replygcxlicon(`*YOU ARE GREAT ಠ⁠ᴥ⁠ಠ*\n\n${brd.join('')}\n\n*Selected :* ${game.tebakbom[m.sender].pick}\n*Remaining life :* ${game.tebakbom[m.sender].nyawa}\n*Bomb :* ${game.tebakbom[m.sender].bomb}\n*Present :* Money(3000) & Limit(3)`);
+          delete game.tebakbom[m.sender];
+        } else replygcxlicon(`*SELECT A NUMBER*\n\n${brd.join('')}\n\nSelected : ${game.tebakbom[m.sender].pick}\nRemaining life : ${game.tebakbom[m.sender].nyawa}\nBomb : ${game.tebakbom[m.sender].bomb}`)
+      }
+    }
+
+    // Math
+    if (game.kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
+      kuis = true
+      jawaban = game.kuismath[m.sender.split('@')[0]].jawaban
+      const difficultyMap = { 'noob': 1, 'easy': 2, 'medium': 3, 'hard': 4, 'extreme': 5, 'impossible': 6, 'impossible2': 7 };
+      let hasilLimit = difficultyMap[game.kuismath[m.sender.split('@')[0]].mode]
+      if (isNaN(budy)) return
+      if (budy.toLowerCase() == jawaban) {
+        global.db.users[m.sender].limit += hasilLimit
+        global.db.users[m.sender].uang += hasilLimit * 1000
+        await replygcxlicon(`🎮 Math Quiz  🎮\n\nCorrect answer 🎉\nYou Get a Limit *${hasilLimit}*\n\nWant to play again? Send ${prefix}math mode`)
+        delete game.kuismath[m.sender.split('@')[0]]
+      } else replygcxlicon('*Wrong answer!*')
+    }
+
+    // Menfes
+    if (!m.isGroup) {
+      if (game.menfes[m.sender] && m.key.remoteJid !== 'status@broadcast') {
+        if (!/^del(menfe(s|ss)|confe(s|ss))$/i.test(command)) {
+          m.msg.contextInfo = { isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: `*Order From ${game.menfes[m.sender].nama ? game.menfes[m.sender].nama : 'Somebody'}*`}, key: { remoteJid: '0@s.whatsapp.net', fromMe: false, participant: '0@s.whatsapp.net' }}
+          const pesan = m.type === 'conversation' ? { extendedTextMessage: { text: m.msg, contextInfo: { isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: `*Order From ${game.menfes[m.sender].nama ? game.menfes[m.sender].nama : 'Somebody'}*`}, key: { remoteJid: '0@s.whatsapp.net', fromMe: false, participant: '0@s.whatsapp.net' }}}} : { [m.type]: m.msg }
+          await XliconBotInc.relayMessage(game.menfes[m.sender].tujuan, pesan, {});
+        }
+      }
+    }
 
 
 
@@ -1227,7 +1227,7 @@ if (roof) {
 
 
 //reply features
-		// AFK
+    // AFK
 let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])];
 for (let jid of mentionUser) {
     let user = global.db.users[jid];
@@ -1246,7 +1246,7 @@ if (global.db.users[m.sender].afkTime > -1) {
 
 
 
-		//reply
+    //reply
         async function replygcxlicon(teks) {
             if (typereply === 'v1') {
                m.reply(teks)
@@ -1260,7 +1260,7 @@ if (global.db.users[m.sender].afkTime > -1) {
                             body: ownername,
                             previewType: "PHOTO",
                             thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-                            sourceUrl: wagc
+                            sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`
                         }
                     },
                     text: teks
@@ -1277,7 +1277,7 @@ if (global.db.users[m.sender].afkTime > -1) {
                         title: botname,
                         body: ownername,
                         thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-                        sourceUrl: websitex,
+                        sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
                         mediaType: 1,
                         renderLargerThumbnail: true
                      }
@@ -1289,7 +1289,7 @@ if (global.db.users[m.sender].afkTime > -1) {
             }
         }
 
-        
+
 //fake reply with channel link embedded
 async function replygcxlicon2(txt) {
 const xliconnewrep = {      
@@ -1305,7 +1305,7 @@ showAdAttribution: true,
 title: botname,
 body: ownername,
 thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
-sourceUrl: websitex
+sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`
 },
 },
 text: txt,
@@ -1359,7 +1359,7 @@ quoted: m,
         let XliconStikRep = fs.readFileSync('./XliconMedia/theme/sticker_reply/private.webp')
         XliconBotInc.sendMessage(m.chat, { sticker: XliconStikRep }, { quoted: m })
         }
-  
+
 //theme sticker reply end here        
 //---------------------------------------------------------------------------------------------------------------------------//
 
@@ -1547,7 +1547,7 @@ case 'google': {
   await XliconStickWait(); // Show loading message or animation
 
   const axios = require('axios');
-  
+
   try {
     // Perform the GET request to the custom search API
     const searchUrl = `https://aemt.uk.to/googlesearch?query=${encodeURIComponent(text)}`;
@@ -1595,7 +1595,7 @@ case 'weather':{
               textw += `🗺️ *Latitude:* ${wdata.data.coord.lat}\n`;
               textw += `🗺️ *Longitude:* ${wdata.data.coord.lon}\n`;
               textw += `🏳️ *Country:* ${wdata.data.sys.country}\n`;
-              
+
              XliconBotInc.sendMessage(
                   m.chat, {
                       text: textw,
@@ -1605,7 +1605,7 @@ case 'weather':{
              )
              }
              break
-        
+
 
 
 case 'wikipedia': case 'wiki': {
@@ -1838,24 +1838,24 @@ await XliconStickWait()
                 quoted: m,
             })
             break
-        
-      
+
+
             case 'wanumber': case 'nowa': case 'searchno': case 'searchnumber': {
               if (!text) return replygcxlicon(`📱 Provide Number with last number x\n\nExample: ${prefix + command} 23xxxxxxxx`);
-            
+
               var inputnumber = text.split(" ")[0];
               await XliconStickWait();
               replygcxlicon(`🔍 Searching for WhatsApp account in the given range...`);
-            
+
               function countInstances(string, word) {
                   return string.split(word).length - 1;
               }
-            
+
               var number0 = inputnumber.split('x')[0];
               var number1 = inputnumber.split('x')[countInstances(inputnumber, 'x')] ? inputnumber.split('x')[countInstances(inputnumber, 'x')] : '';
               var random_length = countInstances(inputnumber, 'x');
               var randomxx;
-            
+
               if (random_length == 1) {
                   randomxx = 10;
               } else if (random_length == 2) {
@@ -1863,11 +1863,11 @@ await XliconStickWait()
               } else if (random_length == 3) {
                   randomxx = 1000;
               }
-            
+
               var text66 = `*==[ List of WhatsApp Numbers ]==*\n\n`;
               var nobio = `\n*Bio:* || \nHey there! I am using WhatsApp.📲\n`;
               var nowhatsapp = `\n*Numbers with no WhatsApp account within provided range.*❌\n`;
-            
+
               for (let i = 0; i < randomxx; i++) {
                   var nu = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
                   var status1 = nu[Math.floor(Math.random() * nu.length)];
@@ -1875,7 +1875,7 @@ await XliconStickWait()
                   var status3 = nu[Math.floor(Math.random() * nu.length)];
                   var dom4 = nu[Math.floor(Math.random() * nu.length)];
                   var random21;
-            
+
                   if (random_length == 1) {
                       random21 = `${status1}`;
                   } else if (random_length == 2) {
@@ -1885,10 +1885,10 @@ await XliconStickWait()
                   } else if (random_length == 4) {
                       random21 = `${status1}${status2}${status3}${dom4}`;
                   }
-            
+
                   var anu = await XliconBotInc.onWhatsApp(`${number0}${i}${number1}@s.whatsapp.net`);
                   var anuu = anu.length !== 0 ? anu : false;
-            
+
                   try {
                       try {
                           var anu1 = await XliconBotInc.fetchStatus(anu[0].jid);
@@ -1904,11 +1904,11 @@ await XliconStickWait()
                       nowhatsapp += `${number0}${i}${number1} ❌\n`;
                   }
               }
-            
+
               replygcxlicon(`${text66}${nobio}${nowhatsapp}`);
             }
             break;
-            
+
             case 'friend':
               case 'searchfriend':{
               await XliconStickWait()
@@ -1927,21 +1927,21 @@ await XliconStickWait()
 
               case 'lyrics': {
                 if (!text) return replygcxlicon(`What lyrics are you looking for? 🎶\nExample usage: ${prefix}lyrics Thunder`);
-              
+
                 await XliconStickWait();
                 const { lyrics, lyricsv2 } = require('@bochilteam/scraper');
-              
+
                 try {
                   const result = await lyricsv2(text).catch(async () => await lyrics(text));
                   const xliconlirik = `
               🎵 *Title:* ${result.title}
               🎤 *Author:* ${result.author}
               🔗 *URL:* ${result.link}
-              
+
               📝 *Lyrics:*
               ${result.lyrics}
               `.trim();
-              
+
                   // If there is an image URL in the result, we can send the lyrics with the image
                   if (result.thumbnail) {
                     await XliconBotInc.sendMessage(m.chat, { image: { url: result.thumbnail }, caption: xliconlirik }, { quoted: m });
@@ -1959,7 +1959,7 @@ await XliconStickWait()
 
               case 'pixiv': {
     if (!text) return replygcxlicon(`Example: ${prefix + command} furina,10`); // Example usage
-    
+
     const [query, limit] = text.split(','); // Split the input by comma
     let numImages = parseInt(limit) || 5; // Default to 5 if no number is provided
     numImages = Math.min(numImages, 30); // Ensure the number does not exceed 30
@@ -1967,7 +1967,7 @@ await XliconStickWait()
     try {
         const res = await axios.get(`https://ironman.koyeb.app/ironman/search/pixiv?q=${encodeURIComponent(query)}`);
         if (!res.data || res.data.length === 0) return replygcxlicon('Not found!');
-        
+
         const selectedImages = res.data.sort(() => 0.5 - Math.random()).slice(0, numImages); // Get the specified number of images
         for (const url of selectedImages) {
             await XliconBotInc.sendMessage(
@@ -1985,8 +1985,8 @@ await XliconStickWait()
     }
 }
 break;
-        
-              
+
+
 //---------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -2025,7 +2025,7 @@ case 'define': {
 break;
 
 case 'readmore': {
-	let [l, r] = text.split`|`
+  let [l, r] = text.split`|`
     if (!l) l = ''
     if (!r) r = ''
     XliconBotInc.sendMessage(m.chat, {text: l + readmore + r}, {quoted: m})
@@ -2050,7 +2050,7 @@ case 'yomamajoke': {
       // Image URL to use
       const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg';
 
-     
+
       // Send the message with the image and caption
       await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
@@ -2063,21 +2063,21 @@ case 'yomamajoke': {
   }
 }
 break;
-      
-      
-      
+
+
+
   case 'fact': {
   try {
       // Fetch a random fact from the API
       const { data } = await axios.get(`https://nekos.life/api/v2/fact`);
-      
+
       // Define the fact text with the theme emoji
       let factText = `${themeemoji} *Fact:* ${data.fact}\n`;
 
       // Image URL to use
       const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg';
 
-    
+
       // Send the message with the image and caption
       await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
@@ -2102,7 +2102,7 @@ case 'soulmate': {
   const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg';
 
   try {
-     
+
       // Send the message with the image, caption, and mention the users
       await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
@@ -2116,8 +2116,8 @@ case 'soulmate': {
   }            
   break;
 
-      
-      
+
+
       case 'couple': {
   if (!m.isGroup) return XliconStickGroup(); // Ensure it's a group
 
@@ -2235,12 +2235,12 @@ case 'handsomecheck': {
 break;
 
 
-  
+
       case 'charactercheck': {
         if (!m.mentionedJid || m.mentionedJid.length === 0) {
             return replygcxlicon(`Please tag someone! Example: ${prefix + command} @Naruto`);
         }
-    
+
         const traits = [
             'Compassionate', 
             'Generous', 
@@ -2256,19 +2256,19 @@ break;
             'Helpful'
         ];
         const randomTrait = traits[Math.floor(Math.random() * traits.length)];
-    
+
         const mentionedUser = m.mentionedJid[0];
         const username = mentionedUser.split('@')[0];
-    
+
         const messageText = `
 *Character Check* 🕵️‍♂️✨
-    
+
 👤 Name: *@${username}*
 📜 Trait: *${randomTrait}*
         `.trim();
-    
+
         const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg'; // Replace with your desired image URL
-    
+
         try {
             // Send the message with the image URL
             await XliconBotInc.sendMessage(m.chat, {
@@ -2338,7 +2338,7 @@ case 'pick': {
   const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg';
 
   try {
-     
+
       // Send the message with the image, text, and mention
       await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
@@ -2360,14 +2360,14 @@ case 'pickupline': {
       if (!res.ok) {
           throw new Error(`API request failed with status ${res.status}`);
       }
-      
+
       let json = await res.json();
       let pickupLine = `*Here's a pickup line for you 😘💖:*\n\n${json.pickupline} 😂❤️`;
 
       // Image URL to use
       const imageUrl = 'https://i.ibb.co/SfWq6Lj/naruto.jpg';
 
-     
+
       // Send the message with the image, caption, and footer
       await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
@@ -2560,7 +2560,7 @@ try {
 }
 }
 break;
-    
+
 case 'rate': {
 if (!text) return replygcxlicon(`❓ Example: ${prefix + command} my profile`);
 
@@ -4324,7 +4324,7 @@ case 'hug': {
       }
 
         break;
-        
+
 
 //---------------------------------------------------------------------------------------------------------------------------//
 
@@ -4424,7 +4424,7 @@ break;
 
 
 
-     
+
 case 'play2':
 case 'song2': {
   try {
@@ -4540,7 +4540,7 @@ case 'spotify': {
   }
 }
 break;
-        				
+
 
 
 //FOR LOCAL HOST USERS ( TERMUX, UBUNTU AND LINUX )
@@ -4584,11 +4584,11 @@ break;
 case 'ytmp3': case 'ytaudio': case 'ytplayaudio': {
   if (!text) return replygcxlicon(`📌 *Example:* ${prefix + command} youtube_url`);
   if (!text.includes('youtu')) return replygcxlicon('❌ *The URL does not contain results from YouTube!*');
-  
+
   try {
       const hasil = await ytMp3(text); // Use the primary ytMp3 function
       XliconStickWait();
-      
+
       await XliconBotInc.sendMessage(m.chat, {
           audio: { url: hasil.result },
           mimetype: 'audio/mpeg',
@@ -4622,7 +4622,7 @@ break;
 case 'ytmp4': case 'ytvideo': case 'ytplayvideo': {
   if (!text) return replygcxlicon(`📌 *Example:* ${prefix + command} youtube_url`);
   if (!text.includes('youtu')) return replygcxlicon('❌ *The URL does not contain results from YouTube!*');
-  
+
   try {
       const hasil = await ytMp4(text); // Use the primary ytMp4 function
       XliconStickWait();
@@ -5076,7 +5076,7 @@ case 'live-wallpaper': {
   }
 }
 break;
-           
+
 
 case 'tiktok': case 'tiktokdown': case 'ttdown': case 'ttdl': case 'tt': case 'ttmp4': case 'ttvideo': case 'tiktokmp4': case 'tiktokvideo': {
   if (!text) return replygcxlicon(`Example: ${prefix + command} url_tiktok`)
@@ -5139,7 +5139,7 @@ case 'instagram': case 'insta': case 'ig': case 'igvideo': case 'igvid': {
     // Extract the video URL from the response
     const videoUrl = api_response.data[0].url;
     const thumbnail = api_response.data[0].thumbnail;
-    
+
     // Caption for the video
     const cap = `✨ *Enjoy your video!* 🎥\n🔥 *Powered by NARUTO-V1* 💻`;
 
@@ -5156,7 +5156,7 @@ case 'instagram': case 'insta': case 'ig': case 'igvideo': case 'igvid': {
   }
 }
 break;
-        
+
 case 'instagramimg': case 'instaimg': case 'igimage': case 'igimg': {
   if (!text) {
     return replygcxlicon('❗ *You need to provide the URL of an Instagram post.*');
@@ -5201,28 +5201,28 @@ case 'fb':
       if (!text) {
         return replygcxlicon(`📌 Please provide a Facebook video link.\n\nExample:\n*${prefix + command}* https://www.facebook.com/share/v/HVm2yjse1usgfF4T`);
       }
-    
+
       try {
         XliconStickWait();
         // Fetch video data from the API
         const response = await fetch(`https://bk9.fun/download/videodownloader?input=${encodeURIComponent(text)}`);
         const data = await response.json();
-    
+
         if (!data || !data.status || !data.video || !data.video.videoInfo || data.video.videoInfo.length === 0) {
           return replygcxlicon('❌ No video found or invalid response from API.');
         }
-    
+
         // Prefer HD video, fallback to SD
         const video = data.video.videoInfo.find(v => v.quality.toLowerCase().includes('hd')) ||
                       data.video.videoInfo.find(v => v.quality.toLowerCase().includes('sd'));
-    
+
         if (!video) {
           return replygcxlicon('❌ No HD or SD video found.');
         }
-    
+
         const caption = `
  🎥 *Facebook Video Download* 🎥
-    
+
 📺 *Info*: ${data.video.info || "Not provided"}
 ⏳ *Duration*: ${data.video.duration || "Unknown"}
 📹 *Quality*: ${video.quality}
@@ -5230,21 +5230,21 @@ case 'fb':
 ✨ *Enjoy your video!* 🎥\n🔥 *Powered by NARUTO-V1* 💻    
 
     `.trim();
-    
+
         // Send the video with the caption
         await XliconBotInc.sendMessage(m.chat, {
           video: { url: video.downloadLink },
           caption,
         }, { quoted: m });
-    
+
       } catch (error) {
         console.error(error);
         return replygcxlicon('❌ An error occurred while processing your request. Please try again later.');
       }
     }
     break;
-                    
-                             
+
+
     case 'twitter':
   case 'twitterdl': {
     if (!args[0]) {
@@ -5293,25 +5293,25 @@ case 'fb':
     }
   }
   break;
-                  
+
       case 'threads': {
         try {
           // URL of the Threads API endpoint
           const threadsApiUrl = 'https://api.nexoracle.com/downloader/threads?apikey=free_key@maher_apis&url=https://www.threads.net/t/Cujx6ryoYx6/?igshid=NTc4MTIwNjQ2YQ==';
-          
+
           // Fetching the data from the Threads API
           let res = await fetch(threadsApiUrl);
           let apiResponse = await res.json();
-      
+
           // Check if the response is valid and contains the required data
           if (apiResponse.status === 200 && apiResponse.result) {
             const { username, profile, downloadLink } = apiResponse.result;
-      
+
             // Ensure both profile and download link are available
             if (profile && downloadLink) {
               // Check the file type of the downloadLink (image or video)
               const fileExtension = downloadLink.split('.').pop().toLowerCase();
-              
+
               // If the download link is a video or image, send the corresponding type
               if (fileExtension === 'mp4' || fileExtension === 'mov') {
                 // If it's a video, send the video file
@@ -5329,24 +5329,24 @@ case 'fb':
                 // Handle if the file format is unrecognized
                 return replygcxlicon('❌ *Unrecognized file format for the download link.*');
               }
-      
+
             } else {
               return replygcxlicon('❌ *Missing profile or download link.*');
             }
-            
+
           } else {
             return replygcxlicon('❌ *Failed to fetch thread content.*');
           }
-      
+
         } catch (error) {
           console.error('Error fetching thread data:', error.message);
           return replygcxlicon('❌ *An error occurred while fetching thread content.*');
         }
       }
       break;
-                
-          
-       
+
+
+
       case 'bilibili': {
         if (!isPremium) return replyprem(mess.premium);
         if (!text) return replygcxlicon(`Example : ${prefix + command} https://www.bilibili.com/video/BV1cy4y1k7A2`);
@@ -5354,34 +5354,34 @@ case 'fb':
         try {
           // Fetch video information from the Bilibili API
           const response = await axios.get(`https://api.nexoracle.com/downloader/bilibili?apikey=free_key@maher_apis&url=${encodeURIComponent(text)}`);
-      
+
           if (response.status !== 200 || !response.data.result || !response.data.result.medias || response.data.result.medias.length === 0) {
             return replygcxlicon('❌ No video found. Please check the URL and try again.');
           }
-      
+
           const video = response.data.result.medias.find(media => media.videoAvailable) || response.data.result.medias[0];
           const videoUrl = video.url;
-      
+
           // Prepare message with video details
           const caption = `📹 *NARUTO-V1 Video Downloaded*\n\n📂 Title: ${response.data.result.title}\n📅 Duration: ${response.data.result.duration}\n👤 Uploader: ${response.data.result.uploader}`;
-      
+
           // Send video message
           await XliconBotInc.sendMessage(m.chat, {
             video: { url: videoUrl },
             caption: caption
           }, { quoted: m });
-      
+
         } catch (error) {
           console.error('Failed to fetch video:', error);
           replygcxlicon('❌ An error occurred while fetching the video. Please try again later.');
         }
       }
       break;
-      
-      
-      
-      
-      
+
+
+
+
+
       case 'dailymotion': {
         if (!isPremium) return replyprem(mess.premium);
         if (!text) return replygcxlicon(`Example : ${prefix + command} https://dai.ly/x9492ja`);
@@ -5389,38 +5389,38 @@ case 'fb':
         try {
           // Ensure global.api is an absolute URL
           const apiUrl = new URL(`${global.api}downloader/dailymotion?apikey=${global.id}&url=${encodeURIComponent(text)}`);
-      
+
           // Fetch video information from Dailymotion API
           const response = await fetch(apiUrl.toString());
           const json = await response.json();
-      
+
           // Check if the response contains video data
           if (!json || !json.result || json.result.length === 0) {
             return replygcxlicon('❌ Failed to fetch video. Please try again.');
           }
-      
+
           // Access the first result
           const videoInfo = json.result[0];
-      
+
           // Choose the best quality video available from formats
           const bestQualityVideo = videoInfo.formats.find(format => format.format_id === 'hls-1080') || 
                                    videoInfo.formats.find(format => format.format_id === 'hls-720') || 
                                    videoInfo.formats[videoInfo.formats.length - 1]; // fallback to the lowest
-      
+
           const videoUrl = bestQualityVideo.url;
-      
+
           // Send a reaction to indicate the start of the download
           await XliconBotInc.sendMessage(m.chat, { react: { text: "⏱️", key: m.key } });
-      
+
           // Send the video
           await XliconBotInc.sendMessage(m.chat, {
             video: { url: videoUrl },
             caption: `📹 *NARUTO-V1 Video Downloaded*\n\n📂 Title: ${videoInfo.title}\n📅 Duration: ${videoInfo.duration_string}\n🌐 Source: ${videoInfo.source}`
           }, { quoted: m });
-      
+
           // Send a reaction to indicate the download is complete
           await XliconBotInc.sendMessage(m.chat, { react: { text: "☑️", key: m.key } });
-      
+
         } catch (err) {
           console.error(err);
           await XliconBotInc.sendMessage(m.chat, { react: { text: "✖️", key: m.key } });
@@ -5428,33 +5428,33 @@ case 'fb':
         }
       }
       break;
-       
+
       case 'apk': {
         if (!text) return replygcxlicon(`*[❗] Please provide the APK Name you want to download.*`);
         await XliconStickWait();
-      
+
         try {
           // Fetch APK data from the new API
           let apiUrl = `https://bk9.fun/download/apk?id=${encodeURIComponent(text)}`;
           let response = await fetch(apiUrl);
           let data = await response.json();
-      
+
           if (data.status !== true) {
             return replygcxlicon(`*[❗] No results found for the APK Name you provided.*`);
           }
-      
+
           let apkData = data.BK9;
-      
+
           // Ensure size is a valid string before parsing it
           let sizeMB = 0;
           if (apkData.size && typeof apkData.size === 'string') {
             sizeMB = parseFloat(apkData.size.replace(' MB', ''));
           }
-      
+
           if (sizeMB > 200) {
             return await XliconBotInc.sendMessage(m.chat, { text: '*[⛔] The file is too large.*' }, { quoted: m });
           }
-      
+
           // Send the APK file
           await XliconBotInc.sendMessage(
             m.chat,
@@ -5472,8 +5472,8 @@ case 'fb':
         }
       }
       break;
-      
-      
+
+
       case 'mega': {
         try {
           if (!text) return replygcxlicon(`${prefix + command} https://mega.nz/file/ovJTHaQZ#yAbkrvQgykcH_NDKQ8eIc0zvsN7jonBbHZ_HTQL6lZ8`);
@@ -5481,13 +5481,13 @@ case 'fb':
           const file = File.fromURL(text);
           await file.loadAttributes();
           if (file.size >= 300000000) return replygcxlicon('Error: File size is too large (Maximum Size: 300MB)');
-      
+
           const downloadingMessage = `🌩️ *Downloading file... Please wait.*`;
           replygcxlicon(downloadingMessage);
-      
+
           const caption = `🎉 *_Download Complete!_* 🎉\n\n📂 *File Name:* ${file.name}\n📊 *Size:* ${formatBytes(file.size)}\n\n✅ *Enjoy your download!* ✅`;
 
-      
+
           const data = await file.downloadBuffer();
           const fileExtension = path.extname(file.name).toLowerCase();
           const mimeTypes = {
@@ -5501,35 +5501,35 @@ case 'fb':
             ".png": "image/png",
           };
           let mimetype = mimeTypes[fileExtension] || "application/octet-stream";
-      
+
           await XliconBotInc.sendMessage(m.chat, { document: data, mimetype: mimetype, fileName: file.name, caption: caption }, { quoted: m });
         } catch (error) {
           return replygcxlicon(`Error: ${error.message}`);
         }
       }
       break;
-      
+
       case 'mediafire': {
         if (!args[0]) return replygcxlicon(`🚫 *Enter the MediaFire link next to the command*`);
         if (!args[0].match(/mediafire/gi)) return replygcxlicon(`❌ *Link incorrect. Please provide a valid MediaFire link*`);
-      
+
         await XliconStickWait();
-      
+
         // Construct the API URL
         const apiUrl = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(args[0])}`;
-      
+
         // Notify the user that the download is starting
         replygcxlicon(`⏳ *Downloading file, please wait...*`);
-      
+
         try {
           // Fetch the API response
           const res = await fetch(apiUrl);
           const api_response = await res.json();
-      
+
           // Check if the response is valid
           if (api_response.status === 200 && api_response.result.length > 0) {
             const { nama, mime, size, link } = api_response.result[0];
-      
+
             // MIME types mapping for extensions
             const mimeTypes = {
               "mp4": "video/mp4",
@@ -5541,61 +5541,61 @@ case 'fb':
               "jpeg": "image/jpeg",
               "png": "image/png",
             };
-      
+
             // Get mimetype from file extension
             const mimetype = mimeTypes[mime] || "application/octet-stream";
-      
+
             // Caption with file details
             const caption = `
               ≡ *📂 MEDIAFIRE FILE DETAILS*
-              
+
               ▢ *📄 Filename:* ${nama}
               ▢ *📏 Size:* ${size}
               ▢ *🗂️ Extension:* ${mime}
             `.trim();
-      
+
             // Send the file
             await XliconBotInc.sendMessage(m.chat, {
               document: { url: link },
               fileName: nama,
               mimetype: mimetype,
             }, { quoted: m });
-      
+
             // Notify the user that the download is complete
             return replygcxlicon(`✅ *Download complete!* 🎉\n\n${caption}`);
           }
-      
+
           // Handle invalid or empty response
           return replygcxlicon(`❌ *Failed to fetch the download link. Please try again later.*`);
-      
+
         } catch (error) {
           console.error(`❌ Error during MediaFire download: ${error.message}`);
           return replygcxlicon(`⚠️ *Failed to download the file. Please try again later.*`);
         }
       }
       break;
-            
+
       case 'mediafire2': {
         if (!args[0]) return replygcxlicon(`🚫 *Please provide a MediaFire link next to the command!*`);
         if (!args[0].match(/mediafire/gi)) return replygcxlicon(`❌ *Invalid link! Please provide a valid MediaFire link.*`);
-      
+
         await XliconStickWait();
-      
+
         // Construct the API URL
         const apiUrl = `https://bk9.fun/download/mediafire?url=${encodeURIComponent(args[0])}`;
-      
+
         try {
           // Notify the user that the process is starting
           replygcxlicon(`⏳ *Fetching file details, please wait...*`);
-      
+
           // Fetch the API response
           const res = await fetch(apiUrl);
           const api_response = await res.json();
-      
+
           // Check if the response is valid and contains the link
           if (api_response.status && api_response.BK9 && api_response.BK9.link) {
             const { link, name, mime, size, uploaded } = api_response.BK9;
-      
+
             // Mime types mapping
             const mimeTypes = {
               "mp4": "video/mp4",
@@ -5607,95 +5607,95 @@ case 'fb':
               "jpeg": "image/jpeg",
               "png": "image/png",
             };
-      
+
             // Get mimetype from file extension, defaulting to "application/octet-stream"
             const mimetype = mimeTypes[mime] || "application/octet-stream";
-      
+
             const caption = `
               📂 *📥 MEDIAFIRE FILE DETAILS*
-              
+
               📄 *Filename:* ${name || "Unknown"}
               📏 *Size:* ${size || "Unknown"}
               🗂️ *Extension:* ${mime || "Unknown"}
               📅 *Uploaded On:* ${uploaded || "Unknown"}
             `.trim();
-      
+
             // Send the file
             await XliconBotInc.sendMessage(m.chat, {
               document: { url: link },
               fileName: name || "file",
               mimetype: mimetype,
             }, { quoted: m });
-      
+
             // Notify the user that the download is complete
             return replygcxlicon(`✅ *Download Complete!* 🎉\n\n${caption}`);
           }
-      
+
           // Handle cases where the response does not contain the expected data
           return replygcxlicon(`❌ *Failed to fetch the download link. Please check the link or try again later.*`);
-      
+
         } catch (error) {
           console.error('⚠️ Error fetching MediaFire data:', error.message);
           return replygcxlicon(`⚠️ *An error occurred while processing your request. Please try again later.*`);
         }
       }
       break;
-      
+
       case 'soundcloud': {
         if (!text) return replygcxlicon(`*Where is the Song Name?*\n_Example:_\n${prefix}${command} Metamorphosis`);
-        
+
         await XliconStickWait();
-      
+
         try {
           // Construct the API URL
           const apiUrl = `https://btch.us.kg/soundcloud?url=${encodeURIComponent(text)}`;
-      
+
           // Fetch the SoundCloud song details
           let api = await fetchJson(apiUrl);
-      
+
           // Log the API response for debugging
           console.log('SoundCloud API Response:', api);
-      
+
           if (!api || api.status !== true || !api.result) {
             console.error('API response is invalid or no results found:', api);
             await XliconBotInc.sendMessage(m.chat, '❌ No results found on SoundCloud. Please try again with a different query.', { quoted: m });
             return;
           }
-      
+
           // Extract song details from the response
           const { title, url, author, imageURL } = api.result;
-      
+
           // Prepare the response message with song information
           const songInfo = `*🎵 S O U N D C L O U D 🎵*\n\n` +
                            `• 🎵 *Title*: ${title}\n` +
                            `• 🎤 *Artist*: ${author.username}\n` +
                            `• 🔗 *Download Link*: [Click Here](${url})`;
-      
+
           // Send the song info to the user
           await XliconBotInc.sendMessage(m.chat, { text: songInfo }, { quoted: m });
-      
+
           // Check if the download URL exists and is valid
           if (!url || !url.startsWith('https://')) {
             console.error('Invalid download URL:', url);
             await XliconBotInc.sendMessage(m.chat, '❌ No valid download link found. Please try again.', { quoted: m });
             return;
           }
-      
+
           // Log the download URL for debugging
           console.log('Download URL:', url);
-      
+
           // Fetch the audio file
           const audioResponse = await fetch(url);
           if (!audioResponse.ok) {
             throw new Error(`Failed to fetch audio. Status: ${audioResponse.status}`);
           }
-      
+
           const audioBuffer = await audioResponse.buffer();
           if (!audioBuffer || audioBuffer.length === 0) {
             await XliconBotInc.sendMessage(m.chat, '❌ Failed to fetch audio. The file might be empty or inaccessible.', { quoted: m });
             return;
           }
-      
+
           // Send the SoundCloud song as an audio message with additional context (external ad reply)
           await XliconBotInc.sendMessage(m.chat, {
             audio: { buffer: audioBuffer },
@@ -5712,15 +5712,15 @@ case 'fb':
               }
             }
           }, { quoted: m });
-      
+
         } catch (error) {
           console.error('Error fetching SoundCloud data:', error.message);
           await XliconBotInc.sendMessage(m.chat, { text: '❌ An error occurred while fetching the SoundCloud data. Please try again later.' }, { quoted: m });
         }
       }
       break;
-       
-        
+
+
       case 'git': case 'gitclone':
         if (!args[0]) return replygcxlicon(`Where is the link?\nExample :\n${prefix}${command} https://github.com/MXKPCODE/NARUTO-V1`)
         if (!isUrl(args[0]) && !args[0].includes('github.com')) return replygcxlicon(`Link invalid!!`)
@@ -5734,26 +5734,26 @@ case 'fb':
         break
 
 
-                
+
         case 'gdrive': {
           if (!args[0]) return replygcxlicon(`❌ *Please provide a Google Drive link!*`);
-        
+
           await XliconStickWait();
-        
+
           try {
             // Fetch Google Drive file details using the new API
             const apiUrl = `https://api.siputzx.my.id/api/d/gdrive?url=${encodeURIComponent(args[0])}`;
             let res = await fetch(apiUrl);
             let apiResponse = await res.json();
-        
+
             if (apiResponse.status !== true || !apiResponse.data) {
               return replygcxlicon('❌ *Failed to fetch data from Google Drive link.* Please check the URL and try again.');
             }
-        
+
             // Extract file details from the API response
             const { name: fileName, download: downloadUrl, link } = apiResponse.data;
             const fileSize = "Unknown"; // You can update this if your API provides file size
-        
+
             // Determine the MIME type and file type based on the file extension
             let fileExtension = fileName.split('.').pop().toLowerCase();
             let mimeTypes = {
@@ -5771,7 +5771,7 @@ case 'fb':
               'txt': 'text/plain',
             };
             let mimetypeDetected = mimeTypes[fileExtension] || 'application/octet-stream';
-        
+
             // Send file based on MIME type
             if (mimetypeDetected.includes('image')) {
               // Send as an image
@@ -5810,7 +5810,7 @@ case 'fb':
           }
         }
         break;
-        
+
 
         case 'pinterest': 
 case 'pin': {
@@ -5869,20 +5869,20 @@ break;
           if (!text) {
             return replygcxlicon(`❗ *Example:* ${prefix + command} pinterest_url`);
           }
-        
+
           const pinterestUrl = text.trim();
-        
+
           XliconStickWait();
-        
+
           try {
             // Fetch the download details for the Pinterest link (image or video)
             const downloadApiUrl = `https://btch.us.kg/download/pindl?url=${encodeURIComponent(pinterestUrl)}`;
             const response = await axios.get(downloadApiUrl);
-        
+
             if (response.data.status === true && response.data.result.success) {
               const mediaType = response.data.result.data.media_type;
               const downloadUrl = mediaType === 'image' ? response.data.result.data.image : response.data.result.data.video;
-        
+
               if (downloadUrl) {
                 if (mediaType === 'video/mp4') {
                   // Send video message if it's a video
@@ -5909,8 +5909,8 @@ break;
           }
         }
         break;
-        
-        
+
+
         case 'ringtone': {
           if (!text) return replygcxlicon(`Example: ${prefix + command} black rover`)
           let anu = await ringtone(text)
@@ -5918,8 +5918,8 @@ break;
           await XliconBotInc.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title + '.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
         }
         break
-        
-          
+
+
       case 'autodownload': case 'autodl': {
         if (!XliconTheCreator) return XliconStickOwner();
     await XliconStickWait()
@@ -5930,17 +5930,17 @@ break;
             db.settings[botNumber].autodownload = false;
             return replygcxlicon(`Successfully changed Auto Download to ${q} ❌`);
         } else {
-           
+
             const replyMessage = `Hi ${m.pushName},\n\nPlease choose to *${command}*:\n\n`
                 + `✅ *Enable Auto Download*\n❌ *Disable Auto Download*`;
-    
+
             return replygcxlicon(replyMessage);
         }
     }
     break;
-    
-          
-			
+
+
+
 
 //-------------------------------------------------------------------------------------------------------------//
 
@@ -6097,8 +6097,8 @@ case 'dare': {
 }
 break;
 
-      
-      
+
+
 case 'slot': {
   await gameSlot(XliconBotInc, m, global.db.users)
 }
@@ -6305,7 +6305,7 @@ case 'travel-assistant': {
   }
 }
 break;
-                
+
 case 'dalle': {
   if (!text) return replygcxlicon(`🎤 *• Example:* ${prefix + command} a girl singing in public 🎶`);
 
@@ -6436,7 +6436,7 @@ case 'photoleap': {
     }
 }
 break;
-                
+
 case 'ai': case 'gpt': case 'openai': {
     if (!text) return replygcxlicon(`*• Example:* ${prefix + command} what is your name`);
 
@@ -6550,10 +6550,10 @@ case 'bing': {
   try {
     // Choose a random API URL from the list
     const apiUrl = apiUrls[Math.floor(Math.random() * apiUrls.length)] + encodeURIComponent(text);
-    
+
     // Fetch data from the selected API
     let response = await (await fetch(apiUrl)).json();
-    
+
     // Prepare the response text with emojis
     const reply = `🔥 *NARUTO-V1 AI Response* 🔥\n\n💬 *Response:* ${response.result}\n\n📝 *Your Request:* ${text}`;
 
@@ -6576,7 +6576,7 @@ break;
 
 case 'mathsai': {
   if (!text) return replygcxlicon(`*• Example:* ${prefix + command} what is your name`);
-  
+
   try {
     // Fetch data from the Maths AI API
     let gpt = await (await fetch(`${global.api}ai/math?apikey=${global.id}&prompt=${text}`)).json();
@@ -6696,7 +6696,7 @@ case 'remini': {
     });
 }
 break;
-    
+
 //---------------------------------------------------------------------------------------------------------//			
 
 //█▀▀ █▀█ █▀█ █ █ █▀█   █▀▀ █▀█ █▄ ▄█ █▄ ▄█ ▄▀▄ █▄ █ █▀▄ █▀▀ 
@@ -6845,7 +6845,7 @@ case 'antiforeign': {
     }
 }
 break;
-           
+
             case 'antidocument': {
   if (!m.isGroup) return XliconStickGroup();
   if (!m.isBotAdmin) return XliconStickBotAdmin();
@@ -6882,7 +6882,7 @@ case 'anticontact': {
   break;
 
 
-            
+
             case 'antilocation': {
   if (!m.isGroup) return XliconStickGroup();
   if (!m.isBotAdmin) return XliconStickBotAdmin();
@@ -6938,8 +6938,8 @@ case 'antitoxic': {
     }
 }
 break;
-        
-        
+
+
 case 'antinsfw':
 case 'nsfw': {
    if (!m.isGroup) return XliconStickGroup();
@@ -7026,10 +7026,10 @@ case 'antiemoji': {
 }
 break;
 
-        
 
 
-        
+
+
          case 'antiimage': {
   if (!m.isGroup) return XliconStickGroup();
   if (!m.isBotAdmin) return XliconStickBotAdmin();
@@ -7080,7 +7080,7 @@ case 'antivirtex': case 'antivirus': {
   }
 }
 break;
-    
+
 
 case 'anticall':
     if (!XliconTheCreator) return XliconStickOwner();
@@ -7119,11 +7119,11 @@ case 'anticall':
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable Anti-Delete.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Anti-Delete
               - ${prefix + command} off : Disable Anti-Delete
-  
+
               Example: ${prefix + command} on
           `);
       }
@@ -7140,7 +7140,7 @@ case 'anticall':
           let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1]);
           let anu = groups.map((v) => v.id);
           let teks = `💬 *GROUP LIST BELOW* 🌟\n\n📝 Total Groups: *${anu.length}* Groups\n\n`;
-  
+
           for (let x of anu) {
               try {
                   let metadata2 = await XliconBotInc.groupMetadata(x);
@@ -7149,14 +7149,14 @@ case 'anticall':
                   teks += `❌ Error fetching metadata for group ID: ${x}\n`;
               }
           }
-  
+
           replygcxlicon(teks + `⚡ To use, please type command: ${prefix}pushcontact idgroup|teks\n\nBefore using, please first copy the group ID above. 👇`);
       } catch (err) {
           replygcxlicon("⚠️ There was an error while fetching the group list. Please try again later.");
       }
   }
   break;
-    
+
 
   case 'linkgroup':
     case 'linkgrup':
@@ -7177,29 +7177,29 @@ case 'anticall':
 
     case 'tagadmin': case 'listadmin': case 'admin': {
       if (!m.isGroup) return XliconStickGroup();
-    
+
       const groupAdmins = participants.filter(p => p.admin);
       const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n');
       const owner = groupMetadata.owner || groupAdmins.find(p => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net';
-    
+
       let text = `👑 *Group Admins:*\n${listAdmin}\n\n📜 *Group Owner*: @${owner.split('@')[0]}`;
-    
+
       // Send message with admin list
       await replygcxlicon(text);
     }
     break;
-    
+
     case 'invite': {
       if (!m.isGroup) return XliconStickGroup();
       if (!m.isBotAdmin) return XliconStickBotAdmin();
-    
+
       if (!text) return replygcxlicon(`❗ Please provide the number you want to invite to the group.\n\nExample: *${prefix + command} 2349021506036*`);
       if (text.includes('+')) return replygcxlicon(`⚠️ Please enter the number without the '+' sign.`);
       if (isNaN(text)) return replygcxlicon(`🚫 Please enter only the digits, along with your country code, without spaces.`);
-    
+
       let group = m.chat;
       let link = 'https://chat.whatsapp.com/' + await XliconBotInc.groupInviteCode(group);
-    
+
       try {
           await XliconBotInc.sendMessage(text + '@s.whatsapp.net', {
               text: `🌟 *GROUP INVITATION*\n\nYou have been invited to join the group. Click the link below to join:\n\n🔗 ${link}`,
@@ -7212,13 +7212,13 @@ case 'anticall':
       }
     }
     break;
-    
-        
+
+
     case 'ephemeral': {
       if (!m.isGroup) return XliconStickGroup();
       if (!m.isBotAdmin) return await replygcxlicon('I need to be an admin to use this command.');
       if (!m.isAdmin) return await replygcxlicon('You need to be an admin to use this command.');
-  
+
       if (args[0] === 'on') {
           await XliconBotInc.sendMessage(m.chat, { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL });
           await replygcxlicon('Ephemeral messages are now enabled.');
@@ -7232,83 +7232,83 @@ case 'anticall':
   break;
 
   case 'delmsg': case 'deletemsg': {
-		if (!XliconTheCreator) return XliconStickOwner()
-	        let msgs = global.db.database
-	        if (!(text.toLowerCase() in msgs)) return replygcxlicon(`'${text}' not listed in the message list`)
-		delete msgs[text.toLowerCase()]
-		replygcxlicon(`Successfully deleted '${text}' from the message list`)
+    if (!XliconTheCreator) return XliconStickOwner()
+          let msgs = global.db.database
+          if (!(text.toLowerCase() in msgs)) return replygcxlicon(`'${text}' not listed in the message list`)
+    delete msgs[text.toLowerCase()]
+    replygcxlicon(`Successfully deleted '${text}' from the message list`)
             }
-	    break
-  
+      break
+
 
       case 'add': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`EXAMPLE: ${prefix + command} 91xxx`)
-				} else {
-					const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
-					try {
-						await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'add').then(async (res) =>{
-							for (let i of res) {
-								let invv = await XliconBotInc.groupInviteCode(m.chat)
-								if (i.status == 408) return replygcxlicon('User Just Left This Group!')
-								if (i.status == 401) return replygcxlicon('User Blocked The Bot!')
-								if (i.status == 409) return replygcxlicon('User has joined!')
-								if (i.status == 500) return replygcxlicon('Group Full!')
-								if (i.status == 403) {
-									await XliconBotInc.sendMessage(m.chat, { text: `@${numbersOnly.split('@')[0]} Cannot Be Added\n\nBecause Target Private\n\nInvitations will be sent to\n-> wa.me/${numbersOnly.replace(/\D/g, '')}\nVia Private Chat`, mentions: [numbersOnly] }, { quoted : m })
-									await XliconBotInc.sendMessage(`${numbersOnly ? numbersOnly : '2349021506036@s.whatsapp.net'}`, { text: `${'https://chat.whatsapp.com/' + invv}\n------------------------------------------------------\n\nAdmin: wa.me/${m.sender}\nInvite you to this group\nPlease enter if you wish🙇`, detectLink: true, mentions: [numbersOnly] }, { quoted : floc2 }).catch((err) => replygcxlicon('Failed to Send Invitation!'))
-								} else {
-									replygcxlicon('Success!!')
-								}
-							}
-						})
-					} catch (e) {
-						replygcxlicon('Failed to Add User')
-					}
-				}
-			}
-			break
-			case 'kick': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`Example: ${prefix + command} 23xxx`)
-				} else {
-					const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
-					await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'remove').catch((err) => replygcxlicon('Failed to Kick User!'))
-				}
-			}
-			break
-			case 'promote': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`Example: ${prefix + command} 23xxx`)
-				} else {
-					const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
-					await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'promote').catch((err) => replygcxlicon('Fail!'))
-					replygcxlicon(mess.done)
-				}
-			}
-			break
-			case 'demote': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`Example: ${prefix + command} 23xxx`)
-				} else {
-					const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
-					await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'demote').catch((err) => replygcxlicon('Failed!'))
-					replygcxlicon(mess.done)
-				}
-			}
-			break
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`EXAMPLE: ${prefix + command} 91xxx`)
+        } else {
+          const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
+          try {
+            await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'add').then(async (res) =>{
+              for (let i of res) {
+                let invv = await XliconBotInc.groupInviteCode(m.chat)
+                if (i.status == 408) return replygcxlicon('User Just Left This Group!')
+                if (i.status == 401) return replygcxlicon('User Blocked The Bot!')
+                if (i.status == 409) return replygcxlicon('User has joined!')
+                if (i.status == 500) return replygcxlicon('Group Full!')
+                if (i.status == 403) {
+                  await XliconBotInc.sendMessage(m.chat, { text: `@${numbersOnly.split('@')[0]} Cannot Be Added\n\nBecause Target Private\n\nInvitations will be sent to\n-> wa.me/${numbersOnly.replace(/\D/g, '')}\nVia Private Chat`, mentions: [numbersOnly] }, { quoted : m })
+                  await XliconBotInc.sendMessage(`${numbersOnly ? numbersOnly : '2349021506036@s.whatsapp.net'}`, { text: `${'https://chat.whatsapp.com/' + invv}\n------------------------------------------------------\n\nAdmin: wa.me/${m.sender}\nInvite you to this group\nPlease enter if you wish🙇`, detectLink: true, mentions: [numbersOnly] }, { quoted : floc2 }).catch((err) => replygcxlicon('Failed to Send Invitation!'))
+                } else {
+                  replygcxlicon('Success!!')
+                }
+              }
+            })
+          } catch (e) {
+            replygcxlicon('Failed to Add User')
+          }
+        }
+      }
+      break
+      case 'kick': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`Example: ${prefix + command} 23xxx`)
+        } else {
+          const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
+          await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'remove').catch((err) => replygcxlicon('Failed to Kick User!'))
+        }
+      }
+      break
+      case 'promote': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`Example: ${prefix + command} 23xxx`)
+        } else {
+          const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
+          await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'promote').catch((err) => replygcxlicon('Fail!'))
+          replygcxlicon(mess.done)
+        }
+      }
+      break
+      case 'demote': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`Example: ${prefix + command} 23xxx`)
+        } else {
+          const numbersOnly = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted?.sender
+          await XliconBotInc.groupParticipantsUpdate(m.chat, [numbersOnly], 'demote').catch((err) => replygcxlicon('Failed!'))
+          replygcxlicon(mess.done)
+        }
+      }
+      break
 
       case 'kickall': {
         if (!m.isGroup) return XliconStickGroup()
@@ -7331,35 +7331,35 @@ case 'anticall':
         await sleep(100);
         }
         replygcxlicon(`✅ Success`);
-       
+
        }
        break
 
-			case 'setnamegc': case 'setsubject': case 'setname': case 'setnamegc': case 'setsubject': case 'setsubjectgc': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`Example: ${prefix + command} text`)
-				} else {
-					const teksnya = text ? text : m.quoted.text
-					await XliconBotInc.groupUpdateSubject(m.chat, teksnya).catch((err) => replygcxlicon('Fail!'))
-				}
-			}
-			break
-			case 'setdesc': case 'setdescgc': case 'setdesk': case 'setdeskgc': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (!text && !m.quoted) {
-					replygcxlicon(`Example: ${prefix + command} textnya`)
-				} else {
-					const teksnya = text ? text : m.quoted.text
-					await XliconBotInc.groupUpdateDescription(m.chat, teksnya).catch((err) => replygcxlicon('Fail!'))
-				}
-			}
-			break
-			case 'setppgroup':
+      case 'setnamegc': case 'setsubject': case 'setname': case 'setnamegc': case 'setsubject': case 'setsubjectgc': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`Example: ${prefix + command} text`)
+        } else {
+          const teksnya = text ? text : m.quoted.text
+          await XliconBotInc.groupUpdateSubject(m.chat, teksnya).catch((err) => replygcxlicon('Fail!'))
+        }
+      }
+      break
+      case 'setdesc': case 'setdescgc': case 'setdesk': case 'setdeskgc': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (!text && !m.quoted) {
+          replygcxlicon(`Example: ${prefix + command} textnya`)
+        } else {
+          const teksnya = text ? text : m.quoted.text
+          await XliconBotInc.groupUpdateDescription(m.chat, teksnya).catch((err) => replygcxlicon('Fail!'))
+        }
+      }
+      break
+      case 'setppgroup':
             case 'setppgrup':
             case 'setppgc':
             case 'setgrouppp':
@@ -7414,7 +7414,7 @@ case 'anticall':
                       break
 
 
-  
+
                       case 'promoteall': {
                         if (!m.isGroup) return XliconStickGroup()
                         if (!m.isAdmin && !XliconTheCreator) return XliconStickAdmin()
@@ -7433,12 +7433,12 @@ case 'anticall':
                         await sleep(100);
                         }
                         replygcxlicon(`✅ Success`);
-                       
+
                        }
                        break
-                       
-                       
-                       
+
+
+
                        case 'demoteall': {
                         if (!m.isGroup) return XliconStickGroup()
                         if (!m.isAdmin && !XliconTheCreator) return XliconStickAdmin()
@@ -7457,11 +7457,11 @@ case 'anticall':
                         await sleep(100);
                         }
                         replygcxlicon(`✅ Success`);
-                       
+
                        }
                        break
-                       
-                       
+
+
                        case 'getcontact': case 'getcon': {
                         if (!m.isGroup) return XliconStickGroup()
                         if (!(m.isAdmin || XliconTheCreator)) return XliconStickAdmin()
@@ -7513,7 +7513,7 @@ case 'anticall':
                         XliconBotInc.sendMessage(m.chat, {contacts: sngContact, mentions: participants.map(a => a.id)}, {ephemeralExpiration: 86400})
                         }
                         break
-                              
+
                         case 'tagall': {
                           if (!m.isGroup) return XliconStickGroup()
                           if (!m.isAdmin) return XliconStickAdmin()
@@ -7540,12 +7540,12 @@ case 'anticall':
                           await XliconBotInc.sendMessage(m.chat, { forward: m.quoted.fakeObj, mentions: m.metadata.participants.map(a => a.id) })
                         }
                         break
-                        
+
                         case 'editinfo': {
                           if (!m.isGroup) return XliconStickGroup(); // Ensure the command is used in a group
                           if (!m.isBotAdmin) return await replygcxlicon('❌ I need to be an admin to use this command.');
                           if (!m.isAdmin && !XliconTheCreator) return await replygcxlicon('❌ You need to be an admin or the bot creator to use this command.');
-                      
+
                           if (args[0] === 'open') {
                               await XliconBotInc.groupSettingUpdate(m.chat, 'unlocked');
                               await replygcxlicon('🔓 Successfully opened the group info edit settings. Now, all members can edit group info.');
@@ -7557,12 +7557,12 @@ case 'anticall':
                           }
                       }
                       break;
-                     
+
                       case 'opentime':
               if (!m.isGroup) return XliconStickGroup(); // Ensure the command is used in a group
               if (!m.isAdmin && !XliconTheCreator) return replygcxlicon(mess.admin); // Check if the user is an admin
               if (!m.isBotAdmin) return XliconStickBotAdmin(); // Check if the bot is an admin
-          
+
               // Determine the time based on the user's input
               if (args[1] == 'second') {
                   var timer = args[0] * `1000`; // Convert to milliseconds
@@ -7575,10 +7575,10 @@ case 'anticall':
               } else {
                   return replygcxlicon('*Select:*\nsecond\nminute\nhour\n\n*Example:*\n10 second');
               }
-          
+
               // Notify about the open time
               replygcxlicon(`⏰ *Open time* ${q} starting from now...`);
-          
+
               setTimeout(() => {
                   var nomor = m.participant;
                   const open = `🔓 *Open time*: The group is now opened by admin. Members can send messages.`;
@@ -7586,7 +7586,7 @@ case 'anticall':
                   replygcxlicon(open); // Notify the group that the group is open again
               }, timer);
               break;
-              
+
               case 'closetime':
     if (!m.isGroup) return XliconStickGroup(); // Ensure the command is used in a group
     if (!m.isAdmin && !XliconTheCreator) return XliconStickAdmin(); // Check if the user is an admin
@@ -7615,7 +7615,7 @@ case 'anticall':
         replygcxlicon(close); // Notify the group that the group is now closed
     }, timer);
     break;
-   
+
     case 'resetlink': case 'revoke': case 'newlink': case 'newurl': {
       if (!m.isGroup) return XliconStickGroup()
       if (!m.isAdmin) return XliconStickAdmin()
@@ -7625,7 +7625,7 @@ case 'anticall':
       }).catch((err) => replygcxlicon('Fail!'))
     }
     break
-    
+
     case 'getbio':{
       try {
 let who
@@ -7645,7 +7645,7 @@ return replygcxlicon(`bio is private or you haven't replied to the person's mess
 }
 }
 break                         
-      
+
 
 case 'vote': {
   if (!m.isGroup) return XliconStickGroup()
@@ -7749,7 +7749,7 @@ Please Type Below
   XliconBotInc.sendMessage(m.chat, {text: teks_vote, mentions: menvote}, {quoted:m})
 }
   break
-       
+
 case 'checkvote':
 if (!m.isGroup) return XliconStickGroup()
 if (!(m.chat in vote)) return replygcxlicon(`_*no voting in this group!*_\n\n*${prefix}vote* - to start voting`)
@@ -7788,7 +7788,7 @@ case 'deletevote': case'delvote': case 'hapusvote': {
 }
   break
 
-  
+
   case 'getjoinrequest':{
     if (!m.isGroup) return XliconStickGroup()
     if (!m.isBotAdmin) return XliconStickBotAdmin()
@@ -7807,7 +7807,7 @@ case 'deletevote': case'delvote': case 'hapusvote': {
       replyMessage += `\n🧪 *Method:* ${request_method}`;
       replyMessage += `\n⏰ *Time:* ${formattedTime}\n`;
     });
-  
+
     XliconBotInc.sendMessage(m.chat, {text: replyMessage}, {quoted:m});
   };
   break
@@ -7820,8 +7820,8 @@ case 'deletevote': case'delvote': case 'hapusvote': {
 
 //█▀█ █ █ █ █▄ █ █▀▀ █▀█   █▀▀ █▀█ █▄ ▄█ █▄ ▄█ ▄▀▄ █▄ █ █▀▄ █▀▀ 
 //█▄█ ▀▄▀▄▀ █ ▀█ ██▄ █▀▄   █▄▄ █▄█ █ ▀ █ █ ▀ █ █▀█ █ ▀█ █▄▀ ▄██ 
-                        
-                        
+
+
 
 
 case 'autobio':
@@ -7848,7 +7848,7 @@ case 'autobio':
 
     case 'unavailable': {
       if (!XliconTheCreator) return XliconStickOwner();
-  
+
       if (q === 'on') {
           db.settings[botNumber].online = true;
           replygcxlicon(`Successfully changed unavailable to ${q}`);
@@ -7860,14 +7860,14 @@ case 'autobio':
       }
   }
   break;
-  
-  
-            
-  
-  
-  
-  
-              
+
+
+
+
+
+
+
+
         case 'pinchat': {
   if (!XliconTheCreator) return XliconStickOwner()
   if (m.isGroup) return XliconStickPrivate()
@@ -7885,20 +7885,20 @@ case 'autobio':
   XliconBotInc.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp }] }, m.chat)
   }
   break
-  
-  
-  
-  
+
+
+
+
         case 'checkmember': case 'cekmember':{
                                   if (!m.isAdmin && !XliconTheCreator) return XliconStickAdmin()
                                   if (!m.isGroup) return XliconStickGroup()
   replygcxlicon(`Group: *${groupMetadata.subject}*\nTotal participants: *${participants.length}*`)
                                   }
                                   break
-  
-  
-  
-  
+
+
+
+
         case 'jpm': case 'post': case 'pushcontactgc': {
   if (!XliconTheCreator) return XliconStickOwner()
   if (!m.isGroup) return XliconStickGroup()
@@ -7920,7 +7920,7 @@ case 'autobio':
   await sleep(text.split('|')[1])
   }}
   replygcxlicon(`✅ Success!`);
-  
+
   }
   break
 
@@ -7935,7 +7935,7 @@ case 'autobio':
       XliconBotInc.sendMessage(pler, { text: q})
        }  
        replygcxlicon(`✔️ Done!`);
-  
+
         }
         break
 
@@ -7953,7 +7953,7 @@ case 'autobio':
   await sleep(5000)
   }
   replygcxlicon(`✅ Success!`);
-  
+
   } catch {
     replygcxlicon(`Incorrect Usage Please Use Command Like This\n${prefix+command} idgc|text`)
     }
@@ -7967,9 +7967,9 @@ case 'autobio':
   if (!text) return replygcxlicon(
   `
   *Usage example :*
-  
+
   ${prefix+command} pause|text
-  
+
   ‼️Reply Image To Send Images to All Participants, For a pause, 1000 = 1 second
   `
   )
@@ -7989,14 +7989,14 @@ case 'autobio':
   }
   }
   replygcxlicon(`✅ Success!`);
-  
+
   } catch {
     replygcxlicon(
   `
   *Usage example :*
-  
+
   ${prefix+command} pause|text
-  
+
   ‼️Reply Image To Send Images to All Participants, For a pause, 1000 = 1 second
   `
   )
@@ -8008,7 +8008,7 @@ case 'autobio':
 
         case 'autosticker': case 'autostickergc': {
     if (!XliconTheCreator) return XliconStickOwner();
-  
+
     if (q === 'on') {
       db.settings[botNumber].autosticker = true;
       return replygcxlicon(`Auto Sticker has been successfully enabled ✅`);
@@ -8020,11 +8020,11 @@ case 'autobio':
     }
   }
     break;
-  
-  
-  
-      
-      
+
+
+
+
+
   case 'setprefix':
     if (!XliconTheCreator) return XliconStickOwner()
     if (!text) return replygcxlicon(`Example : ${prefix + command} #`)
@@ -8036,48 +8036,48 @@ case 'autobio':
         case 'addowner':
       if (!XliconTheCreator) return XliconStickOwner();
       if (!args[0]) return replygcxlicon(`🔑 Use ${prefix + command} number\nExample: ${prefix + command} ${ownernumber}`);
-      
+
       bnnd = q.split("|")[0].replace(/[^0-9]/g, '');
       let ceknye = await XliconBotInc.onWhatsApp(bnnd);
-      
+
       if (ceknye.length == 0) return replygcxlicon(`⚠️ Enter a valid and registered number on WhatsApp!!!`);
-      
+
       owner.push(bnnd);
       fs.writeFileSync('./src/owner.json', JSON.stringify(owner));
-      
+
       replygcxlicon(`✅ Number ${bnnd} has become an owner!!!`);
       break;
-  
+
   case 'delowner':
       if (!XliconTheCreator) return XliconStickOwner();
       if (!args[0]) return replygcxlicon(`❌ Use ${prefix + command} number\nExample: ${prefix + command} 23xxxxx`);
-      
+
       ya = q.split("|")[0].replace(/[^0-9]/g, '');
       unp = owner.indexOf(ya);
       owner.splice(unp, 1);
       fs.writeFileSync('./src/owner.json', JSON.stringify(owner));
-      
+
       replygcxlicon(`⚠️ The number ${ya} has been deleted from the owner list by the owner!!!`);
       break;
-  
+
   case 'listowner':
       let teks = '┌──⭓「 *List Owner* 」\n│\n';
       for (let x of owner) {
           teks += `│👑 ${x}\n`;
       }
       teks += `│\n└────────────⭓\n\n*Total Owners: ${owner.length}*`;
-      
+
       replygcxlicon(teks);
       break;
-  
+
   case 'shutdown':
       if (!XliconTheCreator) return XliconStickOwner();
       replygcxlicon(`🔄 Restarting the bot. This will take a few seconds...`);
-      
+
       await sleep(3000);
       process.exit();
       break;
-  
+
         case 'totalfeature':
 case 'totalfitur': 
 case 'totalcmd': 
@@ -8114,27 +8114,27 @@ case 'casenames': {
 }
 break;
 
-       
-         
+
+
   case 'delsession': {
     try {
       const { exec } = require('child_process'); // Ensure this is declared before usage
       XliconStickWait(); // Notify the user of processing
-  
+
       const command = "find session -type f ! -name 'creds.json' -delete";
-  
+
       // Execute the shell command
       exec(command, (error, stdout, stderr) => {
         if (error) {
           console.error(`Error executing command: ${error.message}`);
           return replygcxlicon('Failed to delete session files.');
         }
-  
+
         if (stderr) {
           console.warn(`Warning: ${stderr}`);
           return replygcxlicon('Session cleanup completed, but there were warnings.');
         }
-  
+
         replygcxlicon('Session files deleted successfully!');
       });
     } catch (error) {
@@ -8143,8 +8143,8 @@ break;
     }
   }
   break;
-        
-        
+
+
   case 'update-now': { 
     if (!XliconTheCreator) { 
         return replygcxlicon('❌ You are not authorized to use this command.');
@@ -8253,8 +8253,8 @@ break;
     }
 }
 break;
-      
-  
+
+
   case 'update-repo': {
     if (!XliconTheCreator) { 
         return replygcxlicon('You are not authorized to use this command.');
@@ -8334,7 +8334,7 @@ break;
 
             // Store the latest commit SHA
             await fs.promises.writeFile(commitFile, latestCommitSha, 'utf8');
-            
+
             // Notify the user and restart the bot
             replygcxlicon('Bot has been updated. Restarting...');
 
@@ -8343,7 +8343,7 @@ break;
 
             // Restart the bot
             process.exit();
-            
+
             // This will be logged after the bot restarts (on the next run)
             console.log('Bot restarted successfully and is now running the latest version.');
             replygcxlicon('Bot has been successfully updated and restarted.');
@@ -8365,29 +8365,29 @@ break;
               replygcxlicon(m.chat)
              }
             break
-  
-  
+
+
             case 'banchat': {
               if (!XliconTheCreator) {
                   if (m.isGroup) {
                       const groupId = m.chat;
-                      
+
                       try {
                           // Load the list of banned groups from the JSON file
                           let bannedGroups = require('./database/jid.json');
-                          
+
                           // Check if the group is already banned
                           if (!bannedGroups.includes(groupId)) {
                               // Add the group ID to the list of banned groups
                               bannedGroups.push(groupId);
-                              
+
                               // Save the updated list to the JSON file
                               const fs = require('fs');
                               fs.writeFileSync('./database/jid.json', JSON.stringify(bannedGroups, null, 2));
-                              
+
                               // Notify the group that it has been banned
                               replygcxlicon(`🚫 This chat has been banned from using the bot.`);
-                              
+
                               // Leave the group
                               await XliconBotInc.groupLeave(groupId);
                               replygcxlicon(`👋 The bot has left the group.`);
@@ -8406,29 +8406,29 @@ break;
               }
           }
           break;
-            
-             
-  
-  
-  
+
+
+
+
+
           case 'getexif': case 'getwm': case 'getwatermark': {
             if (!XliconTheCreator) return XliconStickOwner()
             replygcxlicon(`*Water Mark/Exif of ${botname} is* 🖼️\n\n${setv} 📦 Packname : ${packname}\n${setv} ✒️ Author : ${author}`)
         }
         break
-        
+
         case 'getautoblocknumber': case 'getautoblockno': case 'getautoblock': {
             if (!XliconTheCreator) return XliconStickOwner()
             replygcxlicon(`*Auto Block Country Code of ${botname} is* 🌍\n\n${setv} 🇺🇳 Country Code : ${autoblocknumber}\n\n_Note: Once autoblock number is activated, numbers related to this country code will be blocked automatically_ 🚫`)
         }
         break
-        
+
         case 'getantiforeign': case 'getantiforeignno': case 'getantiforeignnumber': {
             if (!XliconTheCreator) return XliconStickOwner()
             replygcxlicon(`*Anti Foreign Country Code of ${botname} is* 🛡️\n\n${setv} 🌏 Country Code : ${antiforeignnumber}\n\n_Note: Once antiforeign number is activated in any group chat, only members related to this country code are allowed to stay in the group chat, others will be kicked immediately, if chatted._ ❌`)
         }
         break
-        
+
         case 'setexif': case 'setwm': {
             if (!XliconTheCreator) return XliconStickOwner()
             if (!text) return replygcxlicon(`Example : ${prefix + command} packname|author 💡`)
@@ -8437,7 +8437,7 @@ break;
             replygcxlicon(`Exif successfully changed to ✅\n\n• 📦 Packname : ${global.packname}\n• ✒️ Author : ${global.author}`)
         }
         break
-        
+
         case 'creategc': case 'creategroup': {
             if (!XliconTheCreator) return XliconStickOwner()
             if (!args.join(" ")) return replygcxlicon(`Use ${prefix + command} groupname ✍️`)
@@ -8445,11 +8445,11 @@ break;
                 let cret = await XliconBotInc.groupCreate(args.join(" "), [])
                 let response = await XliconBotInc.groupInviteCode(cret.id)
                 const teksop = `     「 Create Group 」 🏗️
-        
+
         ▸ 🏷️ Name : ${cret.subject}
         ▸ 👤 Owner : @${cret.owner.split("@")[0]}
         ▸ 📅 Creation : ${moment(cret.creation * 1000).tz("Asia/Karachi").format("DD/MM/YYYY HH:mm:ss")}
-        
+
         🔗 https://chat.whatsapp.com/${response}`
                 XliconBotInc.sendMessage(m.chat, { text: teksop, mentions: await XliconBotInc.parseMention(teksop)}, {quoted: m})
             } catch {
@@ -8457,7 +8457,7 @@ break;
             }
         }
         break
-        
+
         case 'resetuser': case 'resetdbuser': {
             if (!XliconTheCreator) return XliconStickOwner()
             let totalusernya = db.users[0]
@@ -8465,22 +8465,22 @@ break;
             db.users = []
         }
         break
-        
+
         case 'resethit': case 'resettotalhit': {
             if (!XliconTheCreator) return XliconStickOwner()
             global.db.settings[botNumber].totalhit = 0
             replygcxlicon(`Done! ✅`)
         }
         break
-        
+
         case 'setreply': {
             if (!XliconTheCreator) return XliconStickOwner()
             if (!text) return replygcxlicon(`There are 4 reply options (v1, v2, v3, v4) 📬\nPlease select one.\nExample: ${prefix + command} v1 💭`)
-        
+
             // Handle button responses
             if (text.startsWith('v')) {
                 typereply = text;  // Set the selected reply option
-        
+
                 // Map button IDs to reply text
                 const buttonTextMap = {
                     [`${prefix + command} v1`]: "📝 QUOTED NORMALLY",
@@ -8488,7 +8488,7 @@ break;
                     [`${prefix + command} v3`]: "📎 LARGE LINK + THUMBNAIL",
                     [`${prefix + command} v4`]: "📡 CHANNEL + LINK THUMB"
                 };
-        
+
                 // Check if the selected reply is valid
                 if (buttonTextMap[text]) {
                     return replygcxlicon(`You selected: ${buttonTextMap[text]} ✔️`);
@@ -8500,7 +8500,7 @@ break;
             }
             break;
         }
-        
+
               case 'statustext': 
               case 'upswtext':
               case 'upswteks': {
@@ -8581,7 +8581,7 @@ break;
                     }
                 }
                 break
-                
+
                 case 'setimgmenu':
                 case 'sim': {
                     if (!XliconTheCreator) return XliconStickOwner()
@@ -8595,10 +8595,10 @@ break;
                     }
                 }
                 break
-                
+
                 case 'setmenu': {
                     if (!XliconTheCreator) return XliconStickOwner()
-                
+
                     // Check if the input starts with 'v' and set the menu accordingly
                     if (text.startsWith('v')) {
                         typemenu = text;  // Set the selected menu type
@@ -8607,7 +8607,7 @@ break;
                         // If the input is not valid, show the available menu options
                         return replygcxlicon(`
                             Please select a menu option by specifying 'v' followed by the choice 📋.
-                
+
                             Available menu options:
                             - v12: BUTTON + CHANNEL V2 📱 + 📺
                             - v11: BUTTON + CHANNEL 📱 + 📺
@@ -8621,13 +8621,13 @@ break;
                             - v3: VIDEO THUMBNAIL 🎥🖼️
                             - v2: CHANNEL + THUMBNAIL 📺 + 🖼️
                             - v1: IMAGE THUMBNAIL 🖼️
-                
+
                             Example: ${prefix + command} v1
                         `);
                     }
                     break;
                 }
-                
+
         case 'bc':
               case 'broadcast': {
                  if (!XliconTheCreator) return XliconStickOwner()
@@ -8675,7 +8675,7 @@ break;
                                   title: botname,
                                   body: `Sent in ${i.length} Group`,
                                   thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
-                                  sourceUrl: wagc,
+                                  sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
                                   mediaType: 1,
                                   renderLargerThumbnail: true
                               }
@@ -8688,24 +8688,24 @@ break;
               case 'spam':
                 if (!XliconTheCreator) return XliconStickOwner()
                 if (!text) return replygcxlicon(`Use ${prefix + command} text|amount 📝`)
-                
+
                 xliconarg = text.split("|")
                 if (!xliconarg) return replygcxlicon(`Use ${prefix + command} text|amount 📝`)
-                
+
                 if (Number(xliconarg[1]) >= 50) return replygcxlicon('Max 50! 🚫')
-                
+
                 if (isNaN(xliconarg[1])) return replygcxlicon(`The amount must be a number 🔢`)
-            
+
                 // Send the message multiple times
                 for (let i = 0; i < xliconarg[1]; i++) {
                     XliconBotInc.sendMessage(m.chat, {text: xliconarg[0]})
                 }
-            
+
                 replygcxlicon(`Successfully sent ${xliconarg[1]} messages ✉️!`)
                 break
-            
-        
-  
+
+
+
               case 'poll': {
     if (!XliconTheCreator) return XliconStickOwner()
               let [poll, opt] = text.split("|")
@@ -8733,7 +8733,7 @@ break;
           break
         case 'autoblock':
       if (!XliconTheCreator) return XliconStickOwner();
-      
+
       if (q == 'on') {
           db.settings[botNumber].autoblocknum = true;
           return replygcxlicon(`Successfully changed Auto-Block to ${q}`);
@@ -8743,20 +8743,20 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Auto-Block
               - ${prefix + command} off : Disable Auto-Block
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'onlygroup':
   case 'onlygc':
       if (!XliconTheCreator) return XliconStickOwner();
-      
+
       if (q == 'on') {
           db.settings[botNumber].onlygrub = true;
           return replygcxlicon(`Successfully changed Onlygroup to ${q}`);
@@ -8766,16 +8766,16 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Onlygroup
               - ${prefix + command} off : Disable Onlygroup
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
           case 'onlyprivatechat':
   case 'onlypc':
       if (!XliconTheCreator) return XliconStickOwner();
@@ -8788,16 +8788,16 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Only-Pc
               - ${prefix + command} off : Disable Only-Pc
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'onlyindia':
   case 'onlyindianumber':
       if (!XliconTheCreator) return XliconStickOwner();
@@ -8810,16 +8810,16 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Only-Indian
               - ${prefix + command} off : Disable Only-Indian
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'onlyindo':
   case 'onlyindonumber':
       if (!XliconTheCreator) return XliconStickOwner();
@@ -8832,30 +8832,30 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Only-Indonesian
               - ${prefix + command} off : Disable Only-Indonesian
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'setautoblock':
       if (!XliconTheCreator) return XliconStickOwner();
       if (!text) return replygcxlicon(`Example : ${prefix + command} 92`);
       global.autoblocknumber = text;
       replygcxlicon(`Auto-Block number successfully changed to ${text}`);
       break;
-  
+
   case 'setantiforeign':
       if (!XliconTheCreator) return XliconStickOwner();
       if (!text) return replygcxlicon(`Example : ${prefix + command} 91`);
       global.antiforeignnumber = text;
       replygcxlicon(`Anti-foreign number successfully changed to ${text}`);
       break;
-  
+
   case 'autoswview':
   case 'autostatusview':
       if (!XliconTheCreator) return XliconStickOwner();
@@ -8868,17 +8868,17 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable ${command}
               - ${prefix + command} off : Disable ${command}
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
-  
+
+
   case 'autorecordtype':
       if (!XliconTheCreator) return XliconStickOwner();
       if (q === 'on') {
@@ -8890,16 +8890,16 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Auto-RecordingTyping
               - ${prefix + command} off : Disable Auto-RecordingTyping
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'autorecord':
       if (!XliconTheCreator) return XliconStickOwner();
       if (q === 'on') {
@@ -8911,20 +8911,20 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Auto-Recording
               - ${prefix + command} off : Disable Auto-Recording
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
-          
+
+
   case 'autotype':
       if (!XliconTheCreator) return XliconStickOwner();
-  
+
       if (q === 'on') {
           db.settings[botNumber].autotype = true;
           return replygcxlicon(`Successfully changed Auto-Typing to ${q}`);
@@ -8934,19 +8934,19 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Auto-Typing
               - ${prefix + command} off : Disable Auto-Typing
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
+
   case 'autoread':
       if (!XliconTheCreator) return XliconStickOwner();
-  
+
       if (q === 'on') {
           db.settings[botNumber].autoread = true;
           return replygcxlicon(`Successfully changed Auto-Read to ${q}`);
@@ -8956,21 +8956,21 @@ break;
       } else {
           return replygcxlicon(`
               Please choose an option to enable or disable ${command}.
-  
+
               Usage:
               - ${prefix + command} on  : Enable Auto-Read
               - ${prefix + command} off : Disable Auto-Read
-  
+
               Example: ${prefix + command} on
           `);
       }
       break;
-  
-  
-          
+
+
+
         case 'self': case 'public': case 'mode': {
       if (!XliconTheCreator) return XliconStickOwner();
-  
+
       // Check if the command is to toggle on or off directly
       if (q == 'on') {
           XliconBotInc.public = true;
@@ -8984,7 +8984,7 @@ break;
       }
   }
   break;
-  
+
         case 'setbio': case 'setbotbio': {
           if (!XliconTheCreator) return XliconStickOwner()
           if (!text) return replygcxlicon(`Where's the text??`)
@@ -8992,8 +8992,8 @@ break;
           replygcxlicon(`*Bio has been changed to ${q}*`)
         }
         break
-  
-  
+
+
         case 'setbotpp':
               case 'setpp':
               case 'setpp':
@@ -9145,7 +9145,7 @@ break;
           replygcxlicon(txt)
         }
         break
-  
+
 
 
 //-------------------------------------------------------------------------------------------------------------//
@@ -9182,36 +9182,36 @@ replygcxlicon(teks)
 }
 break
 
-  
+
       case 'addvideo': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('🎥 Please provide the video name.');
         if (VideoXlicon.includes(q)) return replygcxlicon("❌ The name is already in use.");
-      
+
         let delb = await XliconBotInc.downloadAndSaveMediaMessage(quoted);
         VideoXlicon.push(q);
         await fsx.copy(delb, `./XliconMedia/video/${q}.mp4`);
         fs.writeFileSync('./XliconMedia/database/xliconvideo.json', JSON.stringify(VideoXlicon));
         fs.unlinkSync(delb);
-      
+
         replygcxlicon(`✅ Success adding video\nCheck by typing ${prefix}listvideo`);
       }
       break;
-      
+
       case 'delvideo': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('❌ Enter the video name.');
         if (!VideoXlicon.includes(q)) return replygcxlicon("❌ The name does not exist in the database.");
-      
+
         let wanu = VideoXlicon.indexOf(q);
         VideoXlicon.splice(wanu, 1);
         fs.writeFileSync('./XliconMedia/database/xliconvideo.json', JSON.stringify(VideoXlicon));
         fs.unlinkSync(`./XliconMedia/video/${q}.mp4`);
-      
+
         replygcxlicon(`✅ Success deleting video: ${q}`);
       }
       break;
-      
+
       case 'listvideo': {
         let teks = '🎬┌──⭓「 *Video List* 」\n│\n';
         for (let x of VideoXlicon) {
@@ -9221,36 +9221,36 @@ break
         replygcxlicon(teks);
       }
       break;
-      
+
       case 'addimage': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('🖼️ Please provide the image name.');
         if (ImageXlicon.includes(q)) return replygcxlicon("❌ The name is already in use.");
-      
+
         let delb = await XliconBotInc.downloadAndSaveMediaMessage(quoted);
         ImageXlicon.push(q);
         await fsx.copy(delb, `./XliconMedia/image/${q}.jpg`);
         fs.writeFileSync('./XliconMedia/database/xliconimage.json', JSON.stringify(ImageXlicon));
         fs.unlinkSync(delb);
-      
+
         replygcxlicon(`✅ Success adding image\nCheck by typing ${prefix}listimage`);
       }
       break;
-      
+
       case 'delimage': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('❌ Enter the image name.');
         if (!ImageXlicon.includes(q)) return replygcxlicon("❌ The name does not exist in the database.");
-      
+
         let wanu = ImageXlicon.indexOf(q);
         ImageXlicon.splice(wanu, 1);
         fs.writeFileSync('./XliconMedia/database/xliconimage.json', JSON.stringify(ImageXlicon));
         fs.unlinkSync(`./XliconMedia/image/${q}.jpg`);
-      
+
         replygcxlicon(`✅ Success deleting image: ${q}`);
       }
       break;
-      
+
       case 'listimage': {
         let teks = '🖼️┌──⭓「 *Image List* 」\n│\n';
         for (let x of ImageXlicon) {
@@ -9260,7 +9260,7 @@ break
         replygcxlicon(teks);
       }
       break;
-      
+
       case 'addsticker': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('💬 What’s the sticker name?');
@@ -9273,7 +9273,7 @@ break
         replygcxlicon(`✅ Success Adding Sticker\nCheck by typing ${prefix}liststicker`);
       }
       break;
-      
+
       case 'delsticker': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('❌ Enter the sticker name');
@@ -9285,7 +9285,7 @@ break
         replygcxlicon(`✅ Success deleting sticker ${q}`);
       }
       break;
-      
+
       case 'liststicker': {
         let teks = '💬┌──⭓「 *Sticker List* 」\n│\n';
         for (let x of StickerXlicon) {
@@ -9295,7 +9295,7 @@ break
         replygcxlicon(teks);
       }
       break;
-      
+
       case 'addvn': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('🎵 What’s the audio name?');
@@ -9308,7 +9308,7 @@ break
         replygcxlicon(`✅ Success Adding Audio\nCheck by typing ${prefix}listvn`);
       }
       break;
-      
+
       case 'delvn': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('❌ Enter the vn name');
@@ -9320,7 +9320,7 @@ break
         replygcxlicon(`✅ Success deleting vn ${q}`);
       }
       break;
-      
+
       case 'listvn': {
         let teks = '🎵┌──⭓「 *VN List* 」\n│\n';
         for (let x of VoiceNoteXlicon) {
@@ -9330,7 +9330,7 @@ break
         replygcxlicon(teks);
       }
       break;
-      
+
       case 'addzip': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('📦 What’s the zip name?');
@@ -9346,7 +9346,7 @@ break
         }
       }
       break;
-      
+
       case 'delzip': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (args.length < 1) return replygcxlicon('❌ Enter the text in the zip list');
@@ -9361,7 +9361,7 @@ break
         }
       }
       break;
-      
+
       case 'listzip': {
         let teksooooo = '📦┌──⭓「 *ZIP LIST* 」\n│\n';
         for (let x of ZipXlicon) {
@@ -9371,11 +9371,11 @@ break
         replygcxlicon(teksooooo);
       }
       break;
-      
-      
+
+
       case 'addapk': {
         if (!XliconTheCreator) return XliconStickOwner();
-      
+
         if (args.length < 1) return replygcxlicon('📱 What is the name of the apk?');
         let teks = `${text}`;
         {
@@ -9389,10 +9389,10 @@ break
         }
       }
       break;
-      
+
       case 'delapk': {
         if (!XliconTheCreator) return XliconStickOwner();
-      
+
         if (args.length < 1) return replygcxlicon('❌ Enter the name of the apk to delete');
         let teks = `${text}`;
         {
@@ -9405,7 +9405,7 @@ break
         }
       }
       break;
-      
+
       case 'listapk': {
         let teksoooooo = '📱┌──⭓「 *APK LIST* 」\n│\n';
         for (let x of ApkXlicon) {
@@ -9415,10 +9415,10 @@ break
         replygcxlicon(teksoooooo);
       }
       break;
-      
+
       case 'addpdf': {
         if (!XliconTheCreator) return XliconStickOwner();
-      
+
         if (args.length < 1) return replygcxlicon('📄 What is the name of the pdf?');
         let teks = `${text}`;
         {
@@ -9432,10 +9432,10 @@ break
         }
       }
       break;
-      
+
       case 'delpdf': {
         if (!XliconTheCreator) return XliconStickOwner();
-      
+
         if (args.length < 1) return replygcxlicon('❌ Enter the name of the PDF to delete');
         let teks = `${text}`;
         {
@@ -9448,7 +9448,7 @@ break
         }
       }
       break;
-      
+
       case 'listpdf': {
         let teksoooo = '📄┌──⭓「 *PDF LIST* 」\n│\n';
         for (let x of DocXlicon) {
@@ -9458,26 +9458,26 @@ break
         replygcxlicon(teksoooo);
       }
       break;
-      
+
       case 'addmsg': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (!m.quoted) return replygcxlicon('🔄 Please reply to the message you want to save in the database');
         if (!text) return replygcxlicon(`💡 Example: ${prefix + command} file name`);
-        
+
         let msgs = global.db.database;
         if (text.toLowerCase() in msgs) return replygcxlicon(`❌ '${text}' is already registered in the message list`);
-        
+
         msgs[text.toLowerCase()] = m.quoted;
         delete msgs[text.toLowerCase()].chat;
-        
+
         replygcxlicon(`✅ Successfully added the message to the message list as '${text}'\nAccess it with ${prefix}getmsg ${text}\nView the list of messages with ${prefix}listmsg`);
       }
       break;
-      
+
       case 'delmsg': case 'deletemsg': {
         if (!XliconTheCreator) return XliconStickOwner();
         if (!text) return replygcxlicon('❌ What is the name of the message you want to delete?');
-        
+
         let msgs = global.db.database;
         if (text == 'allmsg') {
             global.db.database = {};
@@ -9489,29 +9489,29 @@ break
         }
       }
       break;
-      
+
       case 'getmsg': {
         if (!text) return replygcxlicon(`💡 Example: ${prefix + command} file name\n\nYou can view the list of messages with ${prefix}listmsg`);
-        
+
         let msgs = global.db.database;
         if (!(text.toLowerCase() in msgs)) return replygcxlicon(`❌ '${text}' not found in the message list`);
-        
+
         await XliconBotInc.relayMessage(m.chat, msgs[text.toLowerCase()], {});
       }
       break;
-      
+
       case 'listmsg': {
         let seplit = Object.entries(global.db.database).map(([nama, isi]) => { return { nama, ...isi } });
         let teks = '📜「 *LIST DATABASE* 」\n\n';
-        
+
         for (let i of seplit) {
             teks += `${setv} *Name:* ${i.nama}\n${setv} *Type:* ${getContentType(i.message)?.replace(/Message/i, '')}\n────────────────────────\n\n`;
         }
-        
+
         replygcxlicon(teks);
       }
       break;
-      
+
       case 'setcmd': {
         if (!m.quoted) return replygcxlicon('Reply Message!')
         if (!m.quoted.fileSha256) return replygcxlicon('SHA256 Hash Missing')
@@ -9651,7 +9651,7 @@ ${translatedChapterHindi.text}`
     }
   }
   break
-  
+
         case 'quran': {
       try {
       // Extract the surah number or name from the command text.
@@ -9674,15 +9674,15 @@ ${translatedChapterHindi.text}`
         let error = await res.json();
         throw new Error(`API request failed with status ${res.status} and message ${error.message}`)
       }
-  
+
       let json = await res.json()
-  
+
       // Translate tafsir from Bahasa Indonesia to Urdu
       let translatedTafsirUrdu = await translate(json.data.tafsir.id, { to: 'ur', autoCorrect: true })
-  
+
       // Translate tafsir from Bahasa Indonesia to English
       let translatedTafsirEnglish = await translate(json.data.tafsir.id, { to: 'en', autoCorrect: true })
-  
+
       let quranSurah = `
   🕌 *Quran: The Holy Book*\n
   📜 *Surah ${json.data.number}: ${json.data.asma.ar.long} (${json.data.asma.en.long})*\n
@@ -9692,9 +9692,9 @@ ${translatedChapterHindi.text}`
   ${translatedTafsirUrdu.text}\n
   🔮 *Explanation (English):*\n
   ${translatedTafsirEnglish.text}`
-  
+
       replygcxlicon(quranSurah)
-  
+
       if (json.data.recitation.full) {
         XliconBotInc.sendMessage(m.chat, { audio: {url: json.data.recitation.full}, mimetype: 'audio/mp4', ptt: true, fileName: `recitation.mp3`, }, {quoted: m})
       }
@@ -9711,10 +9711,10 @@ ${translatedChapterHindi.text}`
     case 'namazchk': {
       // Poll options for prayer times
       const options = ['Fajr', 'Zuhr', 'Asr', 'Maghrib', 'Isha'];
-    
+
       // Check if the user is authorized
       if (!XliconTheCreator) return XliconStickOwner();
-    
+
       // Prepare the question and options for the poll
       const pollQuestion = 'Which prayer(s) did you offer?';
       try {
@@ -9732,20 +9732,20 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
-    
-    
-    
+
+
+
+
     case 'kisahnabi': {
       const prophets = [
           'adam', 'ayyub', 'daud', 'dzulkifli', 'harun', 'hud', 'ibrahim', 'idris', 
           'ilyas', 'ilyasa', 'isa', 'ishaq', 'ismail', 'luth', 'muhammad', 'musa', 
           'nuh', 'sholeh', 'sulaiman', 'syuaib', 'yahya', 'yaqub', 'yunus', 'yusuf', 'zakariya'
       ];
-    
+
       // Ensure the text input is properly trimmed and lowercased
       const selectedProphet = text?.trim().toLowerCase();
-    
+
       // Check if a text was provided
       if (!text) {
           const prophetList = prophets.map(prophet => `- ${prophet.charAt(0).toUpperCase() + prophet.slice(1)}`).join('\n');
@@ -9753,22 +9753,22 @@ ${translatedChapterHindi.text}`
           await XliconBotInc.sendText(m.chat, message);
           return;
       }
-    
+
       // Check if the selected prophet is valid
       if (!prophets.includes(selectedProphet)) {
           return XliconBotInc.sendText(
               m.chat, "*Not Found*\n*📮 Tips:* Please select a valid prophet from the list."
           );
       }
-    
+
       // Fetch and display the story and image of the selected prophet
       try {
           const response = await fetch(`https://raw.githubusercontent.com/ZeroChanBot/Api-Freee/a9da6483809a1fbf164cdf1dfbfc6a17f2814577/data/kisahNabi/${selectedProphet}.json`);
           const story = await response.json();
-    
+
           // Static image URL for all prophets
           const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with actual image URL for each prophet if needed
-    
+
           // Format the story with relevant details
           const formattedStory = `_*👳 Prophet:*_ ${story.name}\n`
                                 + `_*📅 Date of Birth:*_ ${story.thn_kelahiran}\n`
@@ -9776,10 +9776,10 @@ ${translatedChapterHindi.text}`
                                 + `_*📊 Age:*_ ${story.usia}\n\n`
                                 + `*— — —  [ S T O R Y ] — — —*\n\n`
                                 + `${story.description}`;
-    
+
           // Translate the story to English if possible
           const translation = await translate(formattedStory, { to: 'en' }).catch(() => null);
-    
+
           // Send the message with the story and image
           if (translation?.text) {
               await XliconBotInc.sendMessage(m.chat, {
@@ -9799,15 +9799,15 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
-    
-    
+
+
+
     case 'asmaulhusna': {
       const contoh = `*Asmaul Husna*`;
       const anjuran = `
     Dari Abu hurarirah radhiallahu anhu, Rasulullah Saw bersabda: "إِنَّ لِلَّهِ تَعَالَى تِسْعَةً وَتِسْعِينَ اسْمًا، مِائَةٌ إِلَّا وَاحِدًا، مَنْ أَحْصَاهَا دخل الجنة، وهو وتر يُحِبُّ الْوِتْرَ"
     Artinya: "Sesungguhnya Allah mempunyai sembilan puluh sembilan nama, alias seratus kurang satu. Barang siapa yang menghitung-hitungnya, niscaya masuk surga; Dia Witir dan menyukai yang witir".`;
-    
+
       const asmaulhusna = [
           { index: 1, latin: "Ar Rahman", arabic: "الرَّحْمَنُ", translation_id: "مطلق صفت رحمت والا", translation_en: "The All Beneficent" },
           { index: 2, latin: "Ar Rahiim", arabic: "الرَّحِيمُ", translation_id: "مطلق صفت شفقت والا", translation_en: "The Most Merciful" },
@@ -9909,21 +9909,21 @@ ${translatedChapterHindi.text}`
           { index: 98, latin: "Al Mu’izz", arabic: "الْمُعِزُّ", translation_id: "مطلق صفت عزت دینے والا", translation_en: "The Giver of Honor" },
           { index: 99, latin: "Al Muthir", arabic: "الْمُثِيرُ", translation_id: "مطلق صفت جوش دلانے والا", translation_en: "The Infuser of Enthusiasm" }
       ];
-    
+
       const result = asmaulhusna.map(a => `\n${a.index}. ${a.latin}: ${a.translation_en} (${a.translation_id})\n   Arabic: ${a.arabic}\n   `).join("");
       await XliconBotInc.sendText(m.chat, contoh + anjuran + result);
     }
       break
-    
+
       case 'duas': {
         if (!q) return replygcxlicon(`*Where is the text*\n\n*𝙴xample usage*\n*${prefix + command} <language id>*\n*${prefix + command} en*`);
-    
+
         // Read and parse the JSON file
         let { result } = JSON.parse(fs.readFileSync('./lib/tahlil.json', 'utf-8'));
-    
+
         // Extract language code from command arguments
         let lang = args[0] || 'en';
-    
+
         // Translate and map the result to create captions
         let caption = await Promise.all(result.map(async (v, i) => {
             try {
@@ -9933,28 +9933,28 @@ ${translatedChapterHindi.text}`
                     return { text: v.title };
                 });
                 let translatedTitle = translatedTitleResponse.text || v.title;
-    
+
                 let translatedTranslationResponse = await translate(v.translation, { to: lang, autoCorrect: true }).catch(err => {
                     console.error(`Error translating translation: ${err}`);
                     return { text: v.translation };
                 });
                 let translatedTranslation = translatedTranslationResponse.text || v.translation;
-    
+
                 return `*${i + 1}.* ${translatedTitle}
-    
+
     ❃ Arabic :
     ${v.arabic}
-    
+
     ❃ Translate :
     ${translatedTranslation}
     `.trim();
             } catch (error) {
                 console.error(`Error translating text: ${error}`);
                 return `*${i + 1}.* ${v.title}
-    
+
     ❃ Arabic :
     ${v.arabic}
-    
+
     ❃ Translate :
     ${v.translation}
     `.trim();
@@ -9962,7 +9962,7 @@ ${translatedChapterHindi.text}`
         })).then(captions => captions.join('\n\n'));
          // URL for each image (replace with actual URLs or dynamic URLs)
       const imageUrl = `https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png`;
-    
+
         // Send the caption along with an image
         await XliconBotInc.sendMessage(m.chat, {
             image: { url: imageUrl }, // Image URL
@@ -9970,7 +9970,7 @@ ${translatedChapterHindi.text}`
         });
     }
     break;
-    
+
     case 'namaz': {
       const namazData = {
         "result": [
@@ -10032,7 +10032,7 @@ ${translatedChapterHindi.text}`
           }
         ]
       };
-    
+
       // Generate the message text
       let captionText = namazData.result.map((v, i) => 
         `*${i + 1}. ${v.name}*\n` +
@@ -10040,12 +10040,12 @@ ${translatedChapterHindi.text}`
         `*Latin:* ${v.latin}\n` +
         `*Translation:* _${v.translation}_`
       ).join('\n\n');
-    
+
       let introduction = `*「 Namaz Prayers 」*\n\n`;
       let finalMessage = `${introduction}${captionText}\n\n*Image of Namaz:* [Insert Image URL or Attachment Here]`;
        // URL for each image (replace with actual URLs or dynamic URLs)
       const imageUrl = `https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png`;
-    
+
       // Send the message
        await XliconBotInc.sendMessage(m.chat, {
             image: { url: imageUrl },
@@ -10053,17 +10053,17 @@ ${translatedChapterHindi.text}`
         });
     }
     break;
-    
-    
+
+
     case 'masnoonduas': {
         // Read and parse the JSON file
         let src = JSON.parse(fs.readFileSync('./lib/doaharian.json', 'utf-8'));
-    
+
         // Delay function to throttle requests
         function delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-    
+
         // Translation function with retry logic
         async function translateText(text, targetLang) {
             let retries = 5;
@@ -10084,33 +10084,33 @@ ${translatedChapterHindi.text}`
             }
             return text; // Return original text if all retries fail
         }
-    
+
         // Create the caption with translations
         let caption = await Promise.all(src.map(async (v, i) => {
             // Translate title and translation to English
             let translatedTitle = await translateText(v.title, 'en');
             let translatedTranslation = await translateText(v.translation, 'en');
-    
+
             return `
     *${i + 1}.* ${translatedTitle}
-    
+
     ❃ Latin :
     ${v.latin}
-    
+
     ❃ Arabic :
     ${v.arabic}
-    
+
     ❃ Translate :
     ${translatedTranslation}
     `.trim();
         }));
-    
+
         // Join all captions
         let captionText = caption.join('\n\n');
-    
+
         // URL for the image (replace with actual image URL if necessary)
         const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Change this if needed
-    
+
         // Send the caption along with the image
         await XliconBotInc.sendMessage(m.chat, {
             image: { url: imageUrl }, // Image URL
@@ -10118,24 +10118,24 @@ ${translatedChapterHindi.text}`
         });
     }
     break;
-    
-    
-    
+
+
+
     case 'ayatalkursi': {
       let caption = `
     *「 Ayat Kursi 」*
     اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ
     “Alloohu laa ilaaha illaa huwal hayyul qoyyuum, laa ta’khudzuhuu sinatuw walaa naum. Lahuu maa fissamaawaati wa maa fil ardli man dzal ladzii yasyfa’u ‘indahuu illaa biidznih, ya’lamu maa baina aidiihim wamaa kholfahum wa laa yuhiithuuna bisyai’im min ‘ilmihii illaa bimaa syaa’ wasi’a kursiyyuhus samaawaati wal ardlo walaa ya’uuduhuu hifdhuhumaa wahuwal ‘aliyyul ‘adhiim.”
-    
+
     ترجمہ:
     اللہ، کوئی معبود نہیں سوائے اس کے، جو زندہ ہے، دائمی اور مسلسل اپنے مخلوقات کی دیکھ بھال کرتا ہے؛ نہ اونگھتا ہے اور نہ ہی سوتا ہے۔ جو کچھ آسمانوں اور زمین میں ہے، وہ سب اللہ کا ہے۔ اللہ کے پاس شفاعت کرنے کا اختیار کسی کو بھی نہیں، سوائے اس کے کہ اللہ اجازت دے۔
     اللہ جانتا ہے جو کچھ ان کے سامنے ہے اور جو کچھ ان کے پیچھے ہے، اور وہ اللہ کے علم کے کسی بھی چیز کو نہیں جان سکتے سوائے اس کے جو اللہ چاہے۔ اللہ کی کرسی آسمانوں اور زمین کو محیط ہے، اور اللہ کو ان دونوں کو محفوظ رکھنے میں کوئی بوجھ نہیں محسوس ہوتا، اور اللہ بہت بلند اور عظیم ہے۔
     (QS. Al Baqarah: 255)
       `.trim();
-    
+
       // URL for the image (replace with your preferred image URL)
       const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Update as needed
-    
+
       // Send the caption with the image
       await XliconBotInc.sendMessage(m.chat, {
         image: { url: imageUrl }, // Image URL
@@ -10143,10 +10143,10 @@ ${translatedChapterHindi.text}`
       });
     }
     break;
-    
+
     case 'niyatnamaz': {
       if (!q) return replygcxlicon(`Usage Example:\nniyatnamaz Subuh`);
-    
+
       // Array containing the prayer intentions
       const niyatnamaz = [
         {
@@ -10180,32 +10180,32 @@ ${translatedChapterHindi.text}`
           translation_en: "I intend to perform the Fardh of Ashar (Asr) with four raka'ats facing the Qibla for the sake of Allah Ta'ala",
         }
       ];
-    
+
       // Convert user input to lowercase for matching
       let text = q.toLowerCase() || '';
       let data = niyatnamaz.find(v => v.solat === text);
-    
+
       // If the requested prayer is not found
       if (!data) {
         return replygcxlicon(`Command ${text} Not Found\n\nList of 5 Daily Prayers:\n• Subuh\n• Maghrib\n• Dzuhur\n• Isha\n• Ashar`);
       }
-    
+
       // Format the response
       const responseText = `
     _*Intention for the ${text.charAt(0).toUpperCase() + text.slice(1)} Prayer*_
-    
+
     *Arabic:* ${data.arabic}
-    
+
     *Latin:* ${data.latin}
-    
+
     *Translation:* ${data.translation_en}`.trim();
-    
+
       // URL for the image (replace with your preferred image URL)
       const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Update as needed
-    
+
       // Send the response with the image and caption using replygcxlicon
       await replygcxlicon(responseText);
-      
+
       // Send the image separately as the last reply
       await XliconBotInc.sendMessage(m.chat, {
         image: { url: imageUrl }, // Image URL
@@ -10213,8 +10213,8 @@ ${translatedChapterHindi.text}`
       });
     }
     break;
-    
-    
+
+
     case 'quotesislami': {
       // Array of Islamic quotes
       const islami = [
@@ -10244,15 +10244,15 @@ ${translatedChapterHindi.text}`
         { id: "24", arabic: "لَيْسَ الجَمَالُ بِأَثْوَابٍ تُزَيِّنُنُا إِنَّ الجَمَالَ جمَاَلُ العِلْمِ وَالأَدَبِ", translation_en: "Beauty is not in the clothes that adorn us, but in knowledge and manners." },
         { id: "25", arabic: "مَنْ أَعاَنَكَ عَلىَ الشَّرِّ ظَلَمَكَ", translation_en: "Whoever helps you in wrongdoing has wronged you." }
       ];
-    
+
       // Select a random quote
       const randomIndex = Math.floor(Math.random() * islami.length);
       const randomQuote = islami[randomIndex];
       const { arabic, translation_en } = randomQuote;
-    
+
       // Format the response text
       const responseText = `${arabic}\n\n${translation_en}`;
-    
+
       // Now send the image with the last reply
       const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
       await XliconBotInc.sendMessage(m.chat, {
@@ -10261,7 +10261,7 @@ ${translatedChapterHindi.text}`
       });
     }
     break;
-    
+
     case 'assalamualaikum': {
       const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
       await XliconBotInc.sendMessage(m.chat, {
@@ -10270,30 +10270,30 @@ ${translatedChapterHindi.text}`
       });
     }
     break;
-    
-    
-    
+
+
+
     case 'hadith': {
       const apiUrl = 'https://api.lolhuman.xyz/api/hadits/detail/Sunan_Tirmidzi/1769?apikey=dcb4198762eb793a386a9c1c';
-    
+
       try {
         // Fetch Hadith details from the API
         let response = await fetch(apiUrl);
         let data = await response.json();
-    
+
         if (data.status !== 200) {
           return await XliconBotInc.sendText(m.chat, "Failed to fetch Hadith details.");
         }
-    
+
         // Extract the Hadith text and ID
         let hadith = data.result['1'];
         let hadithText = hadith.nass;
-    
+
         // Delay function to throttle requests
         function delay(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
         }
-    
+
         // Translate function with retry logic
         async function translateText(text, targetLang) {
           let retries = 5;
@@ -10314,101 +10314,101 @@ ${translatedChapterHindi.text}`
           }
           return text; // Return original text if all retries fail
         }
-    
+
         // Translate the Hadith text to Urdu
         let translatedHadith = await translateText(hadithText, 'ur');
-    
+
         // Create the caption with translations
         let captionText = `
     *Hadith ID:* ${hadith.id}
-    
+
     ❃ Original Text:
     ${hadithText}
-    
+
     ❃ Translated Text (Urdu):
     ${translatedHadith}
     `.trim();
-    
+
         // Send the image with caption directly
         const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
         await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
           caption: captionText // Directly use captionText here
         });
-    
+
       } catch (error) {
         console.error('Error fetching or processing Hadith:', error);
         return await XliconBotInc.sendText(m.chat, "An error occurred while fetching the Hadith.");
       }
     }
     break;
-    
-    
+
+
     case 'prophetname': {
       try {
         // Define the API URL
         const apiUrl = `${global.api}islamic/prophet-names?apikey=${global.id}`;
-    
+
         // Fetch data from the API
         let response = await fetch(apiUrl);
         let data = await response.json();
-    
+
         // Check if the request was successful
         if (data.status !== 200) {
           return await XliconBotInc.sendText(m.chat, "Failed to fetch Prophet's name.");
         }
-    
+
         // Extract the Prophet's name
         let prophetName = data.result.name;
-    
+
         // Create the message content
         let captionText = `
     *Prophet's Name:*
     ${prophetName}
     `.trim();
-    
+
         // Now send the image with the last reply
         const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
         await XliconBotInc.sendMessage(m.chat, {
           image: { url: imageUrl },
           caption: captionText // Directly use captionText here
         });
-    
+
       } catch (error) {
         console.error('Error fetching Prophet\'s name:', error);
         return await XliconBotInc.sendText(m.chat, "An error occurred while fetching the Prophet's name.");
       }
     }
     break;
-    
-            
+
+
     case 'prayertime': {
       // Extract the city name from the command input
       let city = m.text.split(' ').slice(1).join(' ');
       if (!city) {
           return await replygcxlicon("Please provide a city name, e.g., `prayertime Lahore`.");
       }
-    
+
       // Define the API URL with the city parameter using global variables
       const apiUrl = `${global.api}islamic/prayer-times?city=${encodeURIComponent(city)}&apikey=${global.id}`;
-    
+
       try {
           // Fetch data from the API
           let response = await fetch(apiUrl);
           let data = await response.json();
-    
+
           // Check if the request was successful
           if (data.status !== 200 || data.result.status_valid !== 1) {
               return await replygcxlicon("Failed to fetch prayer times. Please check the city name and try again.");
           }
-    
+
           // Assign emojis for each prayer time
           let fajrEmoji = '🌅';
           let dhuhrEmoji = '🌞';
           let asrEmoji = '🌤';
           let maghribEmoji = '🌇';
           let ishaEmoji = '🌙';
-    
+
           // Extract relevant data
           let cityName = data.result.city;
           let method = data.result.prayer_method_name;
@@ -10418,35 +10418,35 @@ ${translatedChapterHindi.text}`
           let asr = asrEmoji + ' Asr: ' + items.asr;
           let maghrib = maghribEmoji + ' Maghrib: ' + items.maghrib;
           let isha = ishaEmoji + ' Isha: ' + items.isha;
-    
+
           // Create the message content
           let captionText = `
     *Prayer Times for ${cityName}:*
-    
+
     ${fajr}
     ${dhuhr}
     ${asr}
     ${maghrib}
     ${isha}
-    
+
     *Method:* ${method}
     `.trim();
-    
-        
+
+
           // Now send the image with the last reply
           const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
           await XliconBotInc.sendMessage(m.chat, {
             image: { url: imageUrl },
             caption: captionText // Directly use captionText here
           });
-    
+
       } catch (error) {
           console.error('Error fetching prayer times:', error);
           return await replygcxlicon("An error occurred while fetching the prayer times.");
       }
     }
     break;
-    
+
     case 'sahihbukhari': {
       // Supported languages
       const languageNames = {
@@ -10459,7 +10459,7 @@ ${translatedChapterHindi.text}`
         'tr': 'Turkish',
         'ta': 'Tamil'
       };
-    
+
       // If no language is specified, send the list of available languages
       if (!text || !Object.keys(languageNames).includes(text.toLowerCase())) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10469,10 +10469,10 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease specify a language using the format: \`sahihbukhari <language code>\` (e.g., \`sahihbukhari en\`)`;
         return await replygcxlicon(languageList);
       }
-    
+
       // Extract the language from the text (e.g., "en" from "sahihbukhari en")
       const lang = text.toLowerCase();
-    
+
       // If the language is not valid, show the language options
       if (!languageNames[lang]) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10482,16 +10482,16 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease choose a valid language.`;
         return await replygcxlicon(languageList);
       }
-    
+
       // Generate a random Hadith number between 1 and 7560
       const randomHadithNumber = Math.floor(Math.random() * 7560) + 1;
-    
+
       try {
         // Fetch the Hadith from the API
         let url = `${global.api}islamic/hadith-sahih-al-bukhari?q=${randomHadithNumber}/${lang}&apikey=${global.id}`;
         let response = await fetch(url);
         let data = await response.json();
-    
+
         // Check if the response is successful and contains Hadith data
         if (data.status === 200 && data.result && data.result.data && data.result.data.hadiths) {
           let hadiths = data.result.data.hadiths;
@@ -10502,8 +10502,8 @@ ${translatedChapterHindi.text}`
                             + `*Text:* ${hadith.text}\n`
                             + `*Book:* ${hadith.reference.book}\n`
                             + `*Hadith:* ${hadith.reference.hadith}`;
-            
-          
+
+
             // Now send the image with the last reply
             const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
             await XliconBotInc.sendMessage(m.chat, {
@@ -10521,7 +10521,7 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
+
     case 'jamiattirmidhi': {
       // Supported languages
       const languageNames = {
@@ -10532,7 +10532,7 @@ ${translatedChapterHindi.text}`
         'bn': 'Bengali',
         'tr': 'Turkish'
       };
-    
+
       // If no language is specified, send the list of available languages
       if (!text || !Object.keys(languageNames).includes(text.toLowerCase())) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10542,10 +10542,10 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease specify a language using the format: \`jamiattirmidhi <language code>\` (e.g., \`jamiattirmidhi en\`)`;
         return await replygcxlicon(languageList);
       }
-    
+
       // Extract the language from the text (e.g., "en" from "jamiattirmidhi en")
       const lang = text.toLowerCase();
-    
+
       // If the language is not valid, show the language options
       if (!languageNames[lang]) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10555,16 +10555,16 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease choose a valid language.`;
         return await replygcxlicon(languageList);
       }
-    
+
       // Generate a random Hadith number between 1 and 148
       const randomHadithNumber = Math.floor(Math.random() * 148) + 1;
-    
+
       try {
         // Fetch the Hadith from the API
         let url = `${global.api}islamic/hadith-jami-at-tirmidhi?q=${randomHadithNumber}/${lang}&apikey=${global.id}`;
         let response = await fetch(url);
         let data = await response.json();
-    
+
         // Check if the response is successful and contains Hadith data
         if (data.status === 200 && data.result && data.result.data && data.result.data.hadiths) {
           let hadiths = data.result.data.hadiths;
@@ -10576,10 +10576,10 @@ ${translatedChapterHindi.text}`
                             + `*Book:* ${hadith.reference.book}\n`
                             + `*Hadith:* ${hadith.reference.hadith}\n`
                             + `*Grades:*\n${hadith.grades.map(grade => `  *${grade.name}:* ${grade.grade}`).join('\n')}`;
-            
+
             // Send the Hadith text using replygcxlicon
             await replygcxlicon(captionText);
-    
+
             // Now send the image with the final response
             const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
             await XliconBotInc.sendMessage(m.chat, {
@@ -10597,8 +10597,8 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
-    
+
+
     case 'sunanannasai': {
       // Supported languages
       const languageNames = {
@@ -10609,7 +10609,7 @@ ${translatedChapterHindi.text}`
         'bn': 'Bengali',
         'tr': 'Turkish'
       };
-    
+
       // If no language is specified, send the list of available languages
       if (!text || !Object.keys(languageNames).includes(text.toLowerCase())) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10619,10 +10619,10 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease specify a language using the format: \`sunanannasai <language code>\` (e.g., \`sunanannasai en\`)`;
         return await replygcxlicon(languageList); // Send with replygcxlicon for intermediate message
       }
-    
+
       // Extract the language from the text (e.g., "en" from "sunanannasai en")
       const lang = text.toLowerCase();
-    
+
       // If the language is not valid, show the language options
       if (!languageNames[lang]) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10632,16 +10632,16 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease choose a valid language.`;
         return await replygcxlicon(languageList); // Send with replygcxlicon for invalid language
       }
-    
+
       // Generate a random Hadith number between 1 and 324
       const randomHadithNumber = Math.floor(Math.random() * 324) + 1;
-    
+
       try {
         // Fetch the Hadith from the API
         let url = `${global.api}islamic/hadith-sunan-nasai?q=${randomHadithNumber}/${lang}&apikey=${global.id}`;
         let response = await fetch(url);
         let data = await response.json();
-    
+
         // Check if the response is successful and contains Hadith data
         if (data.status === 200 && data.result && data.result.data && data.result.data.hadiths) {
           let hadiths = data.result.data.hadiths;
@@ -10653,9 +10653,9 @@ ${translatedChapterHindi.text}`
                             + `*Book:* ${hadith.reference.book}\n`
                             + `*Hadith:* ${hadith.reference.hadith}\n`
                             + `*Grades:*\n${hadith.grades.map(grade => `  *${grade.name}:* ${grade.grade}`).join('\n')}`;
-    
-           
-    
+
+
+
             // Now send the final message with the image and caption
             const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
             await XliconBotInc.sendMessage(m.chat, {
@@ -10673,7 +10673,7 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
+
     case 'jamiattirmidhi': {
       // Supported languages
       const languageNames = {
@@ -10684,7 +10684,7 @@ ${translatedChapterHindi.text}`
         'bn': 'Bengali',
         'tr': 'Turkish'
       };
-    
+
       // If no language is specified, send the list of available languages
       if (!text || !Object.keys(languageNames).includes(text.toLowerCase())) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10694,10 +10694,10 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease specify a language using the format: \`jamiattirmidhi <language code>\` (e.g., \`jamiattirmidhi en\`)`;
         return await replygcxlicon(languageList); // Send with replygcxlicon for intermediate message
       }
-    
+
       // Extract the language from the text (e.g., "en" from "jamiattirmidhi en")
       const lang = text.toLowerCase();
-    
+
       // If the language is not valid, show the language options
       if (!languageNames[lang]) {
         let languageList = 'Available languages for Hadith:\n\n';
@@ -10707,16 +10707,16 @@ ${translatedChapterHindi.text}`
         languageList += `\nPlease choose a valid language.`;
         return await replygcxlicon(languageList); // Send with replygcxlicon for invalid language
       }
-    
+
       // Generate a random Hadith number between 1 and 148
       const randomHadithNumber = Math.floor(Math.random() * 148) + 1;
-    
+
       try {
         // Fetch the Hadith from the API
         let url = `${global.api}islamic/hadith-jami-at-tirmidhi?q=${randomHadithNumber}/${lang}&apikey=${global.id}`;
         let response = await fetch(url);
         let data = await response.json();
-    
+
         // Check if the response is successful and contains Hadith data
         if (data.status === 200 && data.result && data.result.data && data.result.data.hadiths) {
           let hadiths = data.result.data.hadiths;
@@ -10728,8 +10728,8 @@ ${translatedChapterHindi.text}`
                             + `*Book:* ${hadith.reference.book}\n`
                             + `*Hadith:* ${hadith.reference.hadith}\n`
                             + `*Grades:*\n${hadith.grades.map(grade => `  *${grade.name}:* ${grade.grade}`).join('\n')}`;
-    
-            
+
+
             // Now send the final message with the image and caption
             const imageUrl = 'https://i.ibb.co/8NksWfT/ISLAM-IMAGE.png'; // Replace with the actual image URL
             await XliconBotInc.sendMessage(m.chat, {
@@ -10747,8 +10747,8 @@ ${translatedChapterHindi.text}`
       }
     }
     break;
-    
-    
+
+
 
 
 //-------------------------------------------------------------------------------------------------------------//
@@ -10804,7 +10804,7 @@ case 'animequote': {
     const json = await res.json()
     const { sentence, character, anime } = json
     const message = `🌟Quote\n${sentence}\n\n🌟Character: \`\`\`${character}\`\`\`\n🌟Anime: \`\`\`${anime}\`\`\`\n`
-    
+
     // Send the message using replygcxlicon
     return replygcxlicon(message)
   } catch (error) {
@@ -10901,7 +10901,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickhandhold': {
 axios.get(`https://api.waifu.pics/sfw/handhold`)
 .then(({data}) => {
@@ -10909,7 +10909,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickshinobu': {
 axios.get(`https://api.waifu.pics/sfw/shinobu`)
 .then(({data}) => {
@@ -10917,7 +10917,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickhighfive': {
 axios.get(`https://api.waifu.pics/sfw/highfive`)
 .then(({data}) => {
@@ -10925,7 +10925,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickcuddle': {
 axios.get(`https://api.waifu.pics/sfw/cuddle`)
 .then(({data}) => {
@@ -10933,7 +10933,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickcringe': {
 axios.get(`https://api.waifu.pics/sfw/cringe`)
 .then(({data}) => {
@@ -10941,7 +10941,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickdance': {
 axios.get(`https://api.waifu.pics/sfw/dance`)
 .then(({data}) => {
@@ -10949,7 +10949,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickhappy': {
 axios.get(`https://api.waifu.pics/sfw/happy`)
 .then(({data}) => {
@@ -10957,7 +10957,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickglomp': {
 axios.get(`https://api.waifu.pics/sfw/glomp`)
 .then(({data}) => {
@@ -10965,7 +10965,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'sticksmug': {
 axios.get(`https://api.waifu.pics/sfw/smug`)
 .then(({data}) => {
@@ -10973,7 +10973,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickblush': {
 axios.get(`https://api.waifu.pics/sfw/blush`)
 .then(({data}) => {
@@ -10981,7 +10981,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickawoo': {
 axios.get(`https://api.waifu.pics/sfw/awoo`)
 .then(({data}) => {
@@ -10989,7 +10989,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickwave': {
 axios.get(`https://api.waifu.pics/sfw/wave`)
 .then(({data}) => {
@@ -10997,7 +10997,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'sticksmile': {
 axios.get(`https://api.waifu.pics/sfw/smile`)
 .then(({data}) => {
@@ -11005,8 +11005,8 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
-      
+
+
 case 'stickslap': {
 axios.get(`https://api.waifu.pics/sfw/slap`)
 .then(({data}) => {
@@ -11014,7 +11014,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'sticknom': {
 axios.get(`https://api.waifu.pics/sfw/nom`)
 .then(({data}) => {
@@ -11022,7 +11022,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickpoke': {
 axios.get(`https://api.waifu.pics/sfw/poke`)
 .then(({data}) => {
@@ -11030,7 +11030,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickwink': {
 axios.get(`https://api.waifu.pics/sfw/wink`)
 .then(({data}) => {
@@ -11038,7 +11038,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickbonk': {
 axios.get(`https://api.waifu.pics/sfw/bonk`)
 .then(({data}) => {
@@ -11046,7 +11046,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickbully': {
 axios.get(`https://api.waifu.pics/sfw/bully`)
 .then(({data}) => {
@@ -11054,7 +11054,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickyeet': {
 axios.get(`https://api.waifu.pics/sfw/yeet`)
 .then(({data}) => {
@@ -11062,7 +11062,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickbite': {
 axios.get(`https://api.waifu.pics/sfw/bite`)
 .then(({data}) => {
@@ -11070,7 +11070,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickkiss': {
 axios.get(`https://api.waifu.pics/sfw/kiss`)
 .then(({data}) => {
@@ -11078,7 +11078,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'sticklick': {
 axios.get(`https://api.waifu.pics/sfw/lick`)
 .then(({data}) => {
@@ -11086,7 +11086,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickpat': {
 axios.get(`https://api.waifu.pics/sfw/pat`)
 .then(({data}) => {
@@ -11094,7 +11094,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickhug': {
 axios.get(`https://api.waifu.pics/sfw/hug`)
 .then(({data}) => {
@@ -11102,7 +11102,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickkill': {
 axios.get(`https://api.waifu.pics/sfw/kill`)
 .then(({data}) => {
@@ -11110,7 +11110,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickcry': {
 axios.get(`https://api.waifu.pics/sfw/cry`)
 .then(({data}) => {
@@ -11118,7 +11118,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'stickspank':{
               axios.get(`https://nekos.life/api/v2/img/spank`)
 .then(({data}) => {
@@ -11126,7 +11126,7 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 })
 }
 break
-      
+
 case 'sticktickle':{
               axios.get(`https://nekos.life/api/v2/img/tickle`)
 .then(({data}) => {
@@ -11178,7 +11178,7 @@ case 'animeinfo': {
 
 }
 break;
-               
+
 
 case 'sendanimeid': {
   if (!text) return replygcxlicon(`Please provide the anime name to fetch IDs.`);
@@ -11289,8 +11289,8 @@ case 'animedl': {
   }
 }
 break;
-              
-                
+
+
  //Manga Cmds               
 
 case 'mangainfo': {
@@ -11447,9 +11447,9 @@ case 'mangachapter': {
 }
 break;
 
-        
+
         case 'mangachapter2': {
-            
+
   const input = text.trim();
   if (!input) {
     return replygcxlicon('❌ Please provide a manga title and chapter, e.g., One Piece chapter 1120.');
@@ -11846,7 +11846,7 @@ case 'animeawoo': {
 }
 break;
 
-      
+
 case 'animemegumin': {
   await XliconStickWait();
   try {
@@ -11923,7 +11923,7 @@ case 'animehighfive': {
 }
 break;
 
-      
+
 case 'animedance': {
   await XliconStickWait();
   try {
@@ -12037,7 +12037,7 @@ case 'animewave': {
   }
 }
 break;
-      
+
 case 'animesmile': {
   await XliconStickWait();
   try {
@@ -12056,7 +12056,7 @@ case 'animesmile': {
   }
 }
 break;
-      
+
 case 'animepoke': {
   await XliconStickWait();
   try {
@@ -12132,7 +12132,7 @@ case 'animebully': {
   }
 }
 break;
-      
+
 case 'animeyeet': {
   await XliconStickWait();
   try {
@@ -12207,7 +12207,7 @@ case 'animecry': {
   }
 }
 break;
-      
+
 case 'animewlp': {
   await XliconStickWait();
   try {
@@ -12282,7 +12282,7 @@ case 'animepat': {
   }
 }
 break;
-      
+
 case 'animeslap': {
   await XliconStickWait();
   try {
@@ -12349,7 +12349,7 @@ case 'animefoxgirl': {
   try {
       let waifudd = await axios.get(`https://nekos.life/api/v2/img/fox_girl`);
       await XliconBotInc.sendMessage(m.chat, {
-          
+
           image: { url: waifudd.data.url },
          caption: `Hi ${m.pushName} 👋\n_*Here is the result of ${command} 📜✨*_`
       }, { quoted: m });
@@ -12663,7 +12663,7 @@ case 'bike':
       var hasil = pickRandom(notnot); // Pick a random image from the JSON
       XliconBotInc.sendMessage(m.chat, { caption: mess.success, image: { url: hasil.url } }, { quoted: m }); // Send the image to the chat
       break;
-    
+
 case 'couplepp':
 case 'ppcouple': {
   let anu = require('./src/media/randompics/ppcouple.json'); // Load couple profile pictures
@@ -12919,7 +12919,7 @@ case 'indo': {
   }
 }
 break;
-  
+
 
 //-------------------------------------------------------------------------------------------------------------//
 
@@ -12936,7 +12936,7 @@ case 'tiktokgirl': {
   try {
       // Load the list of TikTok videos from the JSON file
       var asupan = JSON.parse(fs.readFileSync('./src/media/tiktokvids/tiktokgirl.json'));
-      
+
       // Select a random TikTok video from the list
       var hasil = pickRandom(asupan);
 
@@ -13159,34 +13159,34 @@ XliconBotInc.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname
 break
 
 case 'telestick': {
-	if (m.isGroup) return XliconStickPrivate()
-		if (args[0] && args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) {
-		let xliconresources = await Telesticker(args[0])
-		await replygcxlicon(`Sending ${xliconresources.length} stickers...`)
-		if (m.isGroup && xliconresources.length > 30) {
-			await replygcxlicon('Number of stickers more than 30, bot will send it in private chat.')
-			for (let i = 0; i < xliconresources.length; i++) {
-				XliconBotInc.sendMessage(m.sender, { sticker: { url: xliconresources[i].url }})
-			}
-		} else {
-			for (let i = 0; i < xliconresources.length; i++) {
-				XliconBotInc.sendMessage(m.chat, { sticker: { url: xliconresources[i].url }})
-			}
-		}
-	} else replygcxlicon(`Where is the telegram sticker link?\nExample. ${prefix + command} https://t.me/addstickers/FriendlyDeath`)
+  if (m.isGroup) return XliconStickPrivate()
+    if (args[0] && args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) {
+    let xliconresources = await Telesticker(args[0])
+    await replygcxlicon(`Sending ${xliconresources.length} stickers...`)
+    if (m.isGroup && xliconresources.length > 30) {
+      await replygcxlicon('Number of stickers more than 30, bot will send it in private chat.')
+      for (let i = 0; i < xliconresources.length; i++) {
+        XliconBotInc.sendMessage(m.sender, { sticker: { url: xliconresources[i].url }})
+      }
+    } else {
+      for (let i = 0; i < xliconresources.length; i++) {
+        XliconBotInc.sendMessage(m.chat, { sticker: { url: xliconresources[i].url }})
+      }
+    }
+  } else replygcxlicon(`Where is the telegram sticker link?\nExample. ${prefix + command} https://t.me/addstickers/FriendlyDeath`)
 }
 break
-        
+
 case 'gura':
   case 'gurastick':{
   var ano = await fetchJson('https://raw.githubusercontent.com/DGXeon/XeonMedia/main/gura')
   var wifegerak = ano.split('\n')
   var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
   encmedia = await XliconBotInc.sendImageAsSticker(m.chat, wifegerakx, m, { packname: global.packname, author: global.author, })
-  
+
   }
   break
-  
+
 
 
 
@@ -13234,7 +13234,7 @@ replygcxlicon(`Successful Add List With Key : *${args1}*`)
 }
 break
 
-      
+
 case 'dellist':
 if (!XliconTheCreator) return XliconStickOwner()
 if (!m.isGroup) return XliconStickGroup()
@@ -13298,14 +13298,14 @@ case 'ghstalk': case 'githubstalk': {
   }, { quoted: m });
 }
 break;
-              
+
 case 'npmstalk': {
   if (!q) return replygcxlicon(`*Example:* ${prefix + command} dogapi`);
 
   await XliconStickWait();
   let npmstalk = require('./lib/scraper.js');
   let eha = await npmstalk.npmstalk(q);
-  
+
   // Create a formatted message for npm stalk
   let npmCaption = `📦 *NPM Stalker* 📦\n\n` +
                    `🌟 *Name:* ${eha.name}\n` +
@@ -13316,7 +13316,7 @@ case 'npmstalk': {
                    `📅 *Publish Dependencies:* ${eha.publishDependencies}\n` +
                    `🕒 *Publish Time:* ${eha.publishTime}\n` +
                    `📆 *Latest Publish Time:* ${eha.latestPublishTime}`;
-  
+
   replygcxlicon(npmCaption);
 }
 break;
@@ -13327,12 +13327,12 @@ case 'ffstalk': {
   await XliconStickWait();
   let ffstalk = require('./lib/scraper.js');
   let eeh = await ffstalk.ffstalk(`${q}`);
-  
+
   // Create a formatted message for Free Fire stalk
   let ffCaption = `🔥 *Free Fire Stalker* 🔥\n\n` +
                   `🆔 *ID:* ${eeh.id}\n` +
                   `👤 *Nickname:* ${eeh.nickname}`;
-  
+
   replygcxlicon(ffCaption);
 }
 break;
@@ -13343,17 +13343,17 @@ case 'mlstalk': {
   await XliconStickWait();
   let mlstalk = require('./lib/scraper.js');
   let dat = await mlstalk.mlstalk(q.split("|")[0], q.split("|")[1]);
-  
+
   // Create a formatted message for Mobile Legend stalk
   let mlCaption = `📱 *Mobile Legend Stalker* 📱\n\n` +
                   `👤 *Username:* ${dat.userName}\n` +
                   `🆔 *ID:* ${q.split("|")[0]}\n` +
                   `🌍 *ID Zone:* ${q.split("|")[1]}`;
-  
+
   replygcxlicon(mlCaption);
 }
 break;
-              
+
 case 'tiktokstalk': {
 if (!text) return replygcxlicon(`Please provide a TikTok username.`);
 
@@ -13363,7 +13363,7 @@ const apiUrl = `${global.api}stalking/tiktok-user2?apikey=${global.id}&user=${us
 try {
   // Fetch TikTok user data
   let res = await fetchJson(apiUrl);
-  
+
   if (!res.status) {
     await XliconBotInc.sendMessage(m.chat, { text: '❌ Unable to fetch data. Please try again later.' }, { quoted: m });
     return;
@@ -13502,10 +13502,10 @@ case 'rentbot':
     });
     break;
 
-        
-        
 
-        
+
+
+
 case 'repo': case 'repository': {
   try {
     const [, username, repoName] = botscript.match(/github\.com\/([^/]+)\/([^/]+)/)
@@ -13547,7 +13547,7 @@ case 'repo': case 'repository': {
 }
 break
 
-			
+
             case 'myip':
             case 'ipbot':
                 if (!XliconTheCreator) return XliconStickOwner()
@@ -13562,8 +13562,8 @@ break
                     })
                 })
             break
-        
-           
+
+
     case 'request': case 'reportbug': {
     if (!text) return replygcxlicon(`Example : ${prefix + command} hi dev play command is not working 🐞`);
 
@@ -13590,7 +13590,7 @@ break
     });
 }
 break;
-    
+
 case 'socialmedia': 
 case 'sosmed': 
 case 'update': {
@@ -13660,8 +13660,8 @@ case 'update': {
                 url,
             ] = slide;
             let buttonParamsJson = {};
-            
-            
+
+
             switch (buttonType) {
     //button messages of slides            
     // Case for a URL button - triggers a URL when clicked
@@ -13744,7 +13744,7 @@ case 'update': {
                     }),
             };
         });
-        
+
         const msg = generateWAMessageFromContent(
             jid,
             {
@@ -13823,8 +13823,8 @@ break;
 
 
 
-  
-          
+
+
 case 'truecaller': {
   let phoneNumber = '';
 
@@ -13975,7 +13975,7 @@ case 'score':
 }
 break;
 
-                
+
 case 'runtime': {
     // Format the uptime string with emojis and decorations
     let lowq = `*⛩️ Bot Uptime ⛩️*\n\n` +
@@ -13986,14 +13986,14 @@ case 'runtime': {
     replygcxlicon(lowq);
 }
 break;
-			case 'settings': {
+      case 'settings': {
     if (XliconTheCreator) {
         // Show the current settings
         let settingsBot = Object.entries(db.settings[botNumber]).map(([key, value]) => {
             let qhk = (typeof value === 'boolean') ? (value ? '✅ On' : '❌ Off') : value;
             return `*${key.charAt(0).toUpperCase() + key.slice(1)}*: ${qhk}`;
         }).join('\n');
-        
+
         replygcxlicon(`*Current Settings:*\n${settingsBot}`);  // Return settings list
 
         // Handle specific commands to toggle settings on/off
@@ -14043,10 +14043,10 @@ break;
 }
 break;
 
-                
-        
 
-		case 'translate': {
+
+
+    case 'translate': {
     if (!q) return replygcxlicon(`*❓ Where is the text?*\n\n📌 *Example usage:*\n*${prefix + command} <language id> <text>*\n*${prefix + command} ja yo wassup*`);
         await XliconStickWait()    
 
@@ -14083,9 +14083,9 @@ break;
 break;
 
 
-   
-   
-			case 'ebinary': {
+
+
+      case 'ebinary': {
 if (!q) return replygcxlicon(`Send/reply text with captions ${prefix + command}`)
 await XliconStickWait()                
 let { eBinary } = require('./lib/binary.js')
@@ -14093,7 +14093,7 @@ let eb = await eBinary(`${q}`)
 replygcxlicon(eb)
 }
 break
-        
+
 case 'dbinary': {
 if (!q) return replygcxlicon(`Send/reply text with captions ${prefix + command}`)
 await XliconStickWait()    
@@ -14102,8 +14102,8 @@ let db = await dBinary(`${q}`)
 replygcxlicon(db)
 }
 break
-        
-			  case 'volaudio': {
+
+        case 'volaudio': {
 if (!args.join(" ")) return replygcxlicon(`Example: ${prefix + command} 10`)
 await XliconStickWait()                  
 media = await XliconBotInc.downloadAndSaveMediaMessage(quoted, "volume")
@@ -14117,7 +14117,7 @@ fs.unlinkSync(rname)
 })
 }
 break
-        
+
 case 'volvideo': {
 if (!args.join(" ")) return replygcxlicon(`Example: ${prefix + command} 10`)
 await XliconStickWait()    
@@ -14132,8 +14132,8 @@ fs.unlinkSync(rname)
 })
 }
 break
-        
-			case 'emojimix': {
+
+      case 'emojimix': {
                 let [emoji1, emoji2] = text.split`+`
                 if (!emoji1) return replygcxlicon(`Example : ${prefix + command} 😅+🤔`)
                 if (!emoji2) return replygcxlicon(`Example : ${prefix + command} 😅+🤔`)
@@ -14148,8 +14148,8 @@ break
                 }
             }
             break
-        
-			case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
+
+      case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
                 try {
                 let set
                 if (/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
@@ -14180,8 +14180,8 @@ break
                 replygcxlicon(e)
                 }
                 break
-        
-			case 'toonce':
+
+      case 'toonce':
             case 'toviewonce': {
                 if (!m.quoted) return replygcxlicon(`Reply Image/Video`)
                 await XliconStickWait()
@@ -14221,30 +14221,30 @@ break
                    })
                 }
             }
-        
+
             break
-        
-        
-			case 'fliptext': {
+
+
+      case 'fliptext': {
                 if (args.length < 1) return replygcxlicon(`Example:\n${prefix}fliptext dgxlicon`)
                 quere = args.join(" ")
                 flipe = quere.split('').reverse().join('')
                 replygcxlicon(`\`\`\`「 FLIP TEXT 」\`\`\`\n*•> Normal :*\n${quere}\n*•> Flip :*\n${flipe}`)
             }
             break
-        
-			case 'style': case 'styletext': {
-		if (!text) return replygcxlicon('Enter Query text!')
+
+      case 'style': case 'styletext': {
+    if (!text) return replygcxlicon('Enter Query text!')
                 let anu = await styletext(text)
                 let teks = `Style Text From ${text}\n\n`
                 for (let i of anu) {
                     teks += `${themeemoji} *${i.name}* : ${i.result}\n\n`
                 }
                 replygcxlicon(teks)
-	    }
-	    break
-        
-			case 'obfus': case 'obfuscate':{
+      }
+      break
+
+      case 'obfus': case 'obfuscate':{
 if (!text) return replygcxlicon(`Example ${prefix+command} const xliconbot = require('baileys')`)
 await XliconStickWait()                
 try {
@@ -14252,128 +14252,128 @@ let meg = await obfus(text)
 replygcxlicon(`Success
 ${meg.result}`)
 } catch {
-	replygcxlicon(`Use the command properly\nExample ${prefix+command} const xliconbot = require('baileys')`)
+  replygcxlicon(`Use the command properly\nExample ${prefix+command} const xliconbot = require('baileys')`)
 }
 }
 break
-        
-        
-		    
-        
-           
-        
-
-
-        
-
-	            
-                
-       
-
-			  
-           
-           
-        
-
-        
-        
-        
-			
-
-        
-        
-			
 
 
 
-			
-		
-			
-		
-        
-        
-       
-       
-        
-              
-			
-
-			
 
 
-		    
-        
-			      
-			
-			// Group Menu
-			
-			case 'delete': case 'del': case 'd': {
-				if (!m.quoted) return replygcxlicon('Reply to the message you want to delete')
-				await XliconBotInc.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: m.isBotAdmin ? false : true, id: m.quoted.id, participant: m.quoted.sender }})
-			}
-			break
-			case 'linkgroup': case 'linkgrup': case 'linkgc': case 'urlgroup': case 'urlgrup': case 'urlgc': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				let response = await XliconBotInc.groupInviteCode(m.chat)
-				await XliconBotInc.sendMessage(m.chat, { text: `https://chat.whatsapp.com/${response}\n\nLink Group : ${(await XliconBotInc.groupMetadata(m.chat)).subject}`, detectLink: true }, { quoted: m });
-			}
-			break
-			
-			case 'group': case 'grup': {
-				if (!m.isGroup) return XliconStickGroup()
-				if (!m.isAdmin) return XliconStickAdmin()
-				if (!m.isBotAdmin) return XliconStickBotAdmin()
-				if (text === 'close') {
-					await XliconBotInc.groupSettingUpdate(m.chat, 'announcement').then((res) => replygcxlicon(`*Successfully Closing The Group*`))
-				} else if (text === 'open') {
-					await XliconBotInc.groupSettingUpdate(m.chat, 'not_announcement').then((res) => replygcxlicon(`*Successfully Opening The Group*`))
-				} else {
-					let button = [{
-						name: 'single_select',
-						buttonParamsJson: {
-							title: 'SELECT',
-							sections: [{
-								title: 'Group Mode',
-								rows: [
-									{ title: 'Open Group', description: 'Open Group', id: 'grup open' },
-									{ title: 'Close Group', description: 'Close Group', id: 'grup close' },
-								]
-							}]
-						}
-					}]
-					await XliconBotInc.sendButtonMsg(m.chat, 'Group Mode', xliconytimewisher, 'Please choose', null, button, m);
-				}
-			}
-			break
-			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Group Menu
+
+      case 'delete': case 'del': case 'd': {
+        if (!m.quoted) return replygcxlicon('Reply to the message you want to delete')
+        await XliconBotInc.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: m.isBotAdmin ? false : true, id: m.quoted.id, participant: m.quoted.sender }})
+      }
+      break
+      case 'linkgroup': case 'linkgrup': case 'linkgc': case 'urlgroup': case 'urlgrup': case 'urlgc': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        let response = await XliconBotInc.groupInviteCode(m.chat)
+        await XliconBotInc.sendMessage(m.chat, { text: `https://chat.whatsapp.com/${response}\n\nLink Group : ${(await XliconBotInc.groupMetadata(m.chat)).subject}`, detectLink: true }, { quoted: m });
+      }
+      break
+
+      case 'group': case 'grup': {
+        if (!m.isGroup) return XliconStickGroup()
+        if (!m.isAdmin) return XliconStickAdmin()
+        if (!m.isBotAdmin) return XliconStickBotAdmin()
+        if (text === 'close') {
+          await XliconBotInc.groupSettingUpdate(m.chat, 'announcement').then((res) => replygcxlicon(`*Successfully Closing The Group*`))
+        } else if (text === 'open') {
+          await XliconBotInc.groupSettingUpdate(m.chat, 'not_announcement').then((res) => replygcxlicon(`*Successfully Opening The Group*`))
+        } else {
+          let button = [{
+            name: 'single_select',
+            buttonParamsJson: {
+              title: 'SELECT',
+              sections: [{
+                title: 'Group Mode',
+                rows: [
+                  { title: 'Open Group', description: 'Open Group', id: 'grup open' },
+                  { title: 'Close Group', description: 'Close Group', id: 'grup close' },
+                ]
+              }]
+            }
+          }]
+          await XliconBotInc.sendButtonMsg(m.chat, 'Group Mode', xliconytimewisher, 'Please choose', null, button, m);
+        }
+      }
+      break
+
     case 'deleteppbot': case 'delbotpp': case 'delppbot': {
 if (!XliconTheCreator) return XliconStickOwner()
     await XliconBotInc.removeProfilePicture(XliconBotInc.user.id)
     replygcxlicon(`Success in deleting bot's profile picture`)
     }
     break
-			
 
-			
-			case 'listonline': case 'liston': {
-				if (!m.isGroup) return XliconStickGroup()
-				let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
-				let online = [...Object.keys(store.presences[id]), botNumber]
-				await XliconBotInc.sendMessage(m.chat, { text: 'List Online:\n\n' + online.map(v => `${setv} @` + v.replace(/@.+/, '')).join`\n`, mentions: online }, { quoted: m }).catch((e) => replygcxlicon('Fail'))
-			}
-			break
-			
-			// Bot Menu
-			case 'owner': {
-				let list = []
+
+
+      case 'listonline': case 'liston': {
+        if (!m.isGroup) return XliconStickGroup()
+        let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
+        let online = [...Object.keys(store.presences[id]), botNumber]
+        await XliconBotInc.sendMessage(m.chat, { text: 'List Online:\n\n' + online.map(v => `${setv} @` + v.replace(/@.+/, '')).join`\n`, mentions: online }, { quoted: m }).catch((e) => replygcxlicon('Fail'))
+      }
+      break
+
+      // Bot Menu
+      case 'owner': {
+        let list = []
 for (let i of owner) {
 list.push({
-	    	displayName: await XliconBotInc.getName(i),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await XliconBotInc.getName(i)}\nFN:${await XliconBotInc.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
-	    })
-	}
+        displayName: await XliconBotInc.getName(i),
+        vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await XliconBotInc.getName(i)}\nFN:${await XliconBotInc.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+      })
+  }
                 XliconBotInc.sendMessage(m.chat, {
                     contacts: {
                         displayName: `${list.length} Contact`,
@@ -14384,7 +14384,7 @@ list.push({
                                 title: botname,
                                 body: ownername,
                                 thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-                                sourceUrl: wagc,
+                                sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
                             }
@@ -14394,15 +14394,15 @@ list.push({
                 })
             }
             break
-			
-			case 'req': case 'request': {
-				if (!text) return replygcxlicon('What do you want to request from the owner??')
-				await XliconBotInc.sendMessage(m.chat, { text: `*Request Has Been Sent To Owner*\n_Thank You🙏_` }, { quoted: m })
-				await XliconBotInc.sendFromOwner(ownernumber, `Order From : @${m.sender.split('@')[0]}\nFor Owners\n\nRequest ${text}`, m, { contextInfo: { mentionedJid: [m.sender], isForwarded: true }})
-			}
-			break
-			
-                
+
+      case 'req': case 'request': {
+        if (!text) return replygcxlicon('What do you want to request from the owner??')
+        await XliconBotInc.sendMessage(m.chat, { text: `*Request Has Been Sent To Owner*\n_Thank You🙏_` }, { quoted: m })
+        await XliconBotInc.sendFromOwner(ownernumber, `Order From : @${m.sender.split('@')[0]}\nFor Owners\n\nRequest ${text}`, m, { contextInfo: { mentionedJid: [m.sender], isForwarded: true }})
+      }
+      break
+
+
 case 'runcode': {
     if (!text) return replygcxlicon(`Example: ${prefix + command} <JavaScript code>`);
 
@@ -14436,7 +14436,7 @@ case 'runcode': {
 }
 break;
 
-                
+
             case 'p': case 'ping': case 'botstatus': case 'statusbot': {
     let timestamp = speed();
     let latensi = speed() - timestamp;
@@ -14455,15 +14455,15 @@ break;
     replygcxlicon(respon);
 }
 break;
-    
-			
-			case 'p2': case 'ping2': case 'botstatus2': case 'statusbot2': {
+
+
+      case 'p2': case 'ping2': case 'botstatus2': case 'statusbot2': {
     const used = process.memoryUsage();
     const cpus = os.cpus().map(cpu => {
         cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0);
         return cpu;
     });
-    
+
     const cpu = cpus.reduce((last, cpu, _, { length }) => {
         last.total += cpu.total;
         last.speed += cpu.speed / length;
@@ -14484,7 +14484,7 @@ break;
             irq: 0
         }
     });
-    
+
     let timestamp = speed();
     let latensi = speed() - timestamp;
     neww = performance.now();
@@ -14541,7 +14541,7 @@ case 'speed': {
     let { promisify } = require('util');
     let exec = promisify(cp.exec).bind(cp);
     let o;
-    
+
     try {
         o = await exec('python3 speed.py');
     } catch (e) {
@@ -14553,177 +14553,177 @@ case 'speed': {
     }
 }
 break;
-			case 'afk': {
-				let user = global.db.users[m.sender]
-				user.afkTime = + new Date
-				user.afkReason = text
-				replygcxlicon(`@${m.sender.split('@')[0]} Been Afk ${text ? ': ' + text : ''}`)
-			}
-			break
-        
-			case 'inspect': {
-				if (!text) return replygcxlicon('Enter Group Link!')
-				let code = q.match(/chat.whatsapp.com\/([\w\d]*)/g);
-				if (code === null) return replygcxlicon('No invite url detected.');
-				code = code[0].replace('chat.whatsapp.com/', '');
-				await XliconBotInc.groupGetInviteInfo(code).then(anu => {
-					let { id, subject, owner, subjectOwner, creation, desc, descId, participants, size, descOwner } = anu
-					console.log(anu);
-					let par = `*Gc Name* : ${subject}\n*ID* : ${id}\n${owner ? `*Creator* : @${owner.split('@')[0]}` : '*Creator* : -'}\n*Number of Members* : ${size}\n*Gc Created Date* : ${new Date(creation * 1000).toLocaleString()}\n*DescID* : ${descId ? descId : '-'}\n${subjectOwner ? `*GC Name Changed By* : @${subjectOwner.split('@')[0]}` : '*GC Name Changed By* : -'}\n${descOwner ? `*Desc changed by* : @${descOwner.split('@')[0]}` : '*Desc changed by* : -'}\n\n*Desc* : ${desc ? desc : '-'}\n`;
-					XliconBotInc.sendTextMentions(m.chat, par, m);
-				}).catch((res) => {
-					if (res.data == 406) return replygcxlicon('Group Not Found❗');
-					if (res.data == 410) return replygcxlicon('Group URL Has Been Reset❗');
-				});
-			}
-			break
-                
-                
-			case 'q': case 'quoted': {
-				if (!m.quoted) return replygcxlicon('Reply the message!')
-				const anu = await m.getQuotedObj()
-				if (!anu) return replygcxlicon('Format Not Available!')
-				if (!anu.quoted) return replygcxlicon('The Message You Reply Does Not Contain a Reply')
-				await XliconBotInc.relayMessage(m.chat, { [anu.quoted.type]: anu.quoted.msg }, {})
-			}
-			break
-                
-                
-			case 'confes': case 'confess': case 'menfes': case 'menfess': {
-				if (m.isGroup) return XliconStickPrivate();
-				if (game.menfes[m.sender]) return replygcxlicon(`You're In Session ${command}!`)
-				if (!text) return replygcxlicon(`Example : ${prefix + command} 23xxxx|Fake name`)
-				let [teks1, teks2] = text.split`|`
-				if (!isNaN(teks1) && !teks1.startsWith('0') && teks1) {
-					const tujuan = teks1.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-					const onWa = await XliconBotInc.onWhatsApp(tujuan)
-					if (!onWa.length > 0) return replygcxlicon('This number is not registered on WhatsApp!')
-					game.menfes[m.sender] = {
-						tujuan: tujuan,
-						nama: teks2,
-						waktu: setTimeout(() => {
-							if (game.menfes[m.sender]) replygcxlicon(`_Time ${command} finished_`)
-							delete game.menfes[m.sender];
-						}, 600000)
-					};
-					game.menfes[tujuan] = {
-						tujuan: m.sender,
-						nama: 'Recipient',
-						waktu: setTimeout(() => {
-							if (game.menfes[tujuan]) XliconBotInc.sendMessage(tujuan, { text: `_Time ${command} finished_` });
-							delete game.menfes[tujuan];
-						}, 600000)
-					};
-					XliconBotInc.sendMessage(tujuan, { text: `_${command} connected_\n*Note :* if you want to end, type _*${prefix}del${command}*_` });
-					replygcxlicon(`_Start ${command}..._\n*Please start sending messages/media*\n*Duration ${command} only for 10 minutes*\n*Note :* if you want to end, type _*${prefix}del${command}*_`)
-				} else {
-					replygcxlicon(`Enter the number!\nExample : ${prefix + command} 23xxxx|Fake name`)
-				}
-			}
-			break
-                
-			case 'delconfes': case 'delconfess': case 'delmenfes': case 'delmenfess': {
-				if (!game.menfes[m.sender]) return replygcxlicon(`You Are Not In ${command.split('del')[1]} session!`)
-				let anu = game.menfes[m.sender]
-				XliconBotInc.sendMessage(anu.tujuan, { text: `Chat Ended By ${anu.nama ? anu.nama : 'Somebody'}` })
-				replygcxlicon(`Successfully Ends Session ${command.split('del')[1]}!`)
-				delete game.menfes[anu.tujuan];
-				delete game.menfes[m.sender];
-			}
-			break
-			
-			// Tools Menu
-			case 'fetch': case 'get': {
-				if (!text.startsWith('http')) return replygcxlicon(`No Query?\n\nExample : ${prefix + command} https://google.com`)
-				try {
-					const res = await axios.get(isUrl(text) ? isUrl(text)[0] : text)
-					if (!/json|html|plain/.test(res.headers['content-type'])) {
-						await replygcxlicon(text)
-					} else {
-						replygcxlicon(util.format(res.data))
-					}
-				} catch (e) {
-					replygcxlicon(util.format(e))
-				}
-			}
-			break
-                
-			case 'toaud': case 'toaudio': {
-				if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
-				XliconStickWait()
-				let media = await (m.quoted ? m.quoted.download() : m.download())
-				let audio = await toAudio(media, 'mp4')
-				await XliconBotInc.sendMessage(m.chat, { audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
-			}
-			break
-                
-			case 'tomp3': {
-				if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
-				XliconStickWait()
-				let media = await (m.quoted ? m.quoted.download() : m.download())
-				let audio = await toAudio(media, 'mp4')
-				await XliconBotInc.sendMessage(m.chat, { document: audio, mimetype: 'audio/mpeg', fileName: `dgxlicon.mp3`}, { quoted : m })
-			}
-			break
-                
-			case 'tovn': case 'toptt': case 'tovoice': {
-				if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
-				XliconStickWait()
-				let media = await (m.quoted ? m.quoted.download() : m.download())
-				let audio = await toPTT(media, 'mp4')
-				await XliconBotInc.sendMessage(m.chat, { audio: audio, mimetype: 'audio/ogg; codecs=opus', ptt: true }, { quoted: m })
-			}
-			break
-                
-			case 'togif': {
-				if (!/webp/.test(mime) && !/video/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
-				XliconStickWait()
-				let { webp2mp4File } = require('./lib/uploader.js')
-				let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
-				let webpToMp4 = await webp2mp4File(media)
-				await XliconBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
-				await fs.unlinkSync(media)
-			}
-			break
-                
-			case 'tovideo': case 'tomp4': {
-				if (!/webp/.test(mime) && !/video/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
-				XliconStickWait()
-				let { webp2mp4File } = require('./lib/uploader.js')
-				let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
-				let webpToMp4 = await webp2mp4File(media)
-				await XliconBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result }, caption: 'Convert Webp To Video' }, { quoted: m })
-				await fs.unlinkSync(media)
-			}
-			break
-                
-			case 'toimage': case 'toimg': {
-				if (!/webp/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
-				XliconStickWait()
-				let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
-				let ran = await getRandom('.png')
-				exec(`ffmpeg -i ${media} ${ran}`, (err) => {
-					fs.unlinkSync(media)
-					if (err) return replygcxlicon('Fail❗')
-					let buffer = fs.readFileSync(ran)
-					XliconBotInc.sendMessage(m.chat, { image: buffer }, { quoted: m })
-					fs.unlinkSync(ran)
-				})
-			}
-			break
-                
-			case 'toptv': {
-				if (!/video/.test(mime)) return replygcxlicon(`Send/Reply the video you want to use as a PTV message with caption ${prefix + command}`)
-				if ((m.quoted ? m.quoted.type : m.type) === 'videoMessage') {
-					const anu = await (m.quoted ? m.quoted.download() : m.download())
-					const msg = await generateWAMessageContent({ video: anu }, { upload: XliconBotInc.waUploadToServer })
-					await XliconBotInc.relayMessage(m.chat, { ptvMessage: msg.videoMessage }, {})
-				} else {
-					replygcxlicon('Reply Videos You Want to Convert to PTV Messages!')
-				}
-			}
-			break
-                
+      case 'afk': {
+        let user = global.db.users[m.sender]
+        user.afkTime = + new Date
+        user.afkReason = text
+        replygcxlicon(`@${m.sender.split('@')[0]} Been Afk ${text ? ': ' + text : ''}`)
+      }
+      break
+
+      case 'inspect': {
+        if (!text) return replygcxlicon('Enter Group Link!')
+        let code = q.match(/chat.whatsapp.com\/([\w\d]*)/g);
+        if (code === null) return replygcxlicon('No invite url detected.');
+        code = code[0].replace('chat.whatsapp.com/', '');
+        await XliconBotInc.groupGetInviteInfo(code).then(anu => {
+          let { id, subject, owner, subjectOwner, creation, desc, descId, participants, size, descOwner } = anu
+          console.log(anu);
+          let par = `*Gc Name* : ${subject}\n*ID* : ${id}\n${owner ? `*Creator* : @${owner.split('@')[0]}` : '*Creator* : -'}\n*Number of Members* : ${size}\n*Gc Created Date* : ${new Date(creation * 1000).toLocaleString()}\n*DescID* : ${descId ? descId : '-'}\n${subjectOwner ? `*GC Name Changed By* : @${subjectOwner.split('@')[0]}` : '*GC Name Changed By* : -'}\n${descOwner ? `*Desc changed by* : @${descOwner.split('@')[0]}` : '*Desc changed by* : -'}\n\n*Desc* : ${desc ? desc : '-'}\n`;
+          XliconBotInc.sendTextMentions(m.chat, par, m);
+        }).catch((res) => {
+          if (res.data == 406) return replygcxlicon('Group Not Found❗');
+          if (res.data == 410) return replygcxlicon('Group URL Has Been Reset❗');
+        });
+      }
+      break
+
+
+      case 'q': case 'quoted': {
+        if (!m.quoted) return replygcxlicon('Reply the message!')
+        const anu = await m.getQuotedObj()
+        if (!anu) return replygcxlicon('Format Not Available!')
+        if (!anu.quoted) return replygcxlicon('The Message You Reply Does Not Contain a Reply')
+        await XliconBotInc.relayMessage(m.chat, { [anu.quoted.type]: anu.quoted.msg }, {})
+      }
+      break
+
+
+      case 'confes': case 'confess': case 'menfes': case 'menfess': {
+        if (m.isGroup) return XliconStickPrivate();
+        if (game.menfes[m.sender]) return replygcxlicon(`You're In Session ${command}!`)
+        if (!text) return replygcxlicon(`Example : ${prefix + command} 23xxxx|Fake name`)
+        let [teks1, teks2] = text.split`|`
+        if (!isNaN(teks1) && !teks1.startsWith('0') && teks1) {
+          const tujuan = teks1.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+          const onWa = await XliconBotInc.onWhatsApp(tujuan)
+          if (!onWa.length > 0) return replygcxlicon('This number is not registered on WhatsApp!')
+          game.menfes[m.sender] = {
+            tujuan: tujuan,
+            nama: teks2,
+            waktu: setTimeout(() => {
+              if (game.menfes[m.sender]) replygcxlicon(`_Time ${command} finished_`)
+              delete game.menfes[m.sender];
+            }, 600000)
+          };
+          game.menfes[tujuan] = {
+            tujuan: m.sender,
+            nama: 'Recipient',
+            waktu: setTimeout(() => {
+              if (game.menfes[tujuan]) XliconBotInc.sendMessage(tujuan, { text: `_Time ${command} finished_` });
+              delete game.menfes[tujuan];
+            }, 600000)
+          };
+          XliconBotInc.sendMessage(tujuan, { text: `_${command} connected_\n*Note :* if you want to end, type _*${prefix}del${command}*_` });
+          replygcxlicon(`_Start ${command}..._\n*Please start sending messages/media*\n*Duration ${command} only for 10 minutes*\n*Note :* if you want to end, type _*${prefix}del${command}*_`)
+        } else {
+          replygcxlicon(`Enter the number!\nExample : ${prefix + command} 23xxxx|Fake name`)
+        }
+      }
+      break
+
+      case 'delconfes': case 'delconfess': case 'delmenfes': case 'delmenfess': {
+        if (!game.menfes[m.sender]) return replygcxlicon(`You Are Not In ${command.split('del')[1]} session!`)
+        let anu = game.menfes[m.sender]
+        XliconBotInc.sendMessage(anu.tujuan, { text: `Chat Ended By ${anu.nama ? anu.nama : 'Somebody'}` })
+        replygcxlicon(`Successfully Ends Session ${command.split('del')[1]}!`)
+        delete game.menfes[anu.tujuan];
+        delete game.menfes[m.sender];
+      }
+      break
+
+      // Tools Menu
+      case 'fetch': case 'get': {
+        if (!text.startsWith('http')) return replygcxlicon(`No Query?\n\nExample : ${prefix + command} https://google.com`)
+        try {
+          const res = await axios.get(isUrl(text) ? isUrl(text)[0] : text)
+          if (!/json|html|plain/.test(res.headers['content-type'])) {
+            await replygcxlicon(text)
+          } else {
+            replygcxlicon(util.format(res.data))
+          }
+        } catch (e) {
+          replygcxlicon(util.format(e))
+        }
+      }
+      break
+
+      case 'toaud': case 'toaudio': {
+        if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
+        XliconStickWait()
+        let media = await (m.quoted ? m.quoted.download() : m.download())
+        let audio = await toAudio(media, 'mp4')
+        await XliconBotInc.sendMessage(m.chat, { audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+      }
+      break
+
+      case 'tomp3': {
+        if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
+        XliconStickWait()
+        let media = await (m.quoted ? m.quoted.download() : m.download())
+        let audio = await toAudio(media, 'mp4')
+        await XliconBotInc.sendMessage(m.chat, { document: audio, mimetype: 'audio/mpeg', fileName: `dgxlicon.mp3`}, { quoted : m })
+      }
+      break
+
+      case 'tovn': case 'toptt': case 'tovoice': {
+        if (!/video/.test(mime) && !/audio/.test(mime)) return replygcxlicon(`Send/Reply Video/Audio that you want to make into audio with captions ${prefix + command}`)
+        XliconStickWait()
+        let media = await (m.quoted ? m.quoted.download() : m.download())
+        let audio = await toPTT(media, 'mp4')
+        await XliconBotInc.sendMessage(m.chat, { audio: audio, mimetype: 'audio/ogg; codecs=opus', ptt: true }, { quoted: m })
+      }
+      break
+
+      case 'togif': {
+        if (!/webp/.test(mime) && !/video/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
+        XliconStickWait()
+        let { webp2mp4File } = require('./lib/uploader.js')
+        let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
+        let webpToMp4 = await webp2mp4File(media)
+        await XliconBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
+        await fs.unlinkSync(media)
+      }
+      break
+
+      case 'tovideo': case 'tomp4': {
+        if (!/webp/.test(mime) && !/video/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
+        XliconStickWait()
+        let { webp2mp4File } = require('./lib/uploader.js')
+        let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
+        let webpToMp4 = await webp2mp4File(media)
+        await XliconBotInc.sendMessage(m.chat, { video: { url: webpToMp4.result }, caption: 'Convert Webp To Video' }, { quoted: m })
+        await fs.unlinkSync(media)
+      }
+      break
+
+      case 'toimage': case 'toimg': {
+        if (!/webp/.test(mime)) return replygcxlicon(`Reply Video/Sticker with caption *${prefix + command}*`)
+        XliconStickWait()
+        let media = await XliconBotInc.downloadAndSaveMediaMessage(qmsg)
+        let ran = await getRandom('.png')
+        exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+          fs.unlinkSync(media)
+          if (err) return replygcxlicon('Fail❗')
+          let buffer = fs.readFileSync(ran)
+          XliconBotInc.sendMessage(m.chat, { image: buffer }, { quoted: m })
+          fs.unlinkSync(ran)
+        })
+      }
+      break
+
+      case 'toptv': {
+        if (!/video/.test(mime)) return replygcxlicon(`Send/Reply the video you want to use as a PTV message with caption ${prefix + command}`)
+        if ((m.quoted ? m.quoted.type : m.type) === 'videoMessage') {
+          const anu = await (m.quoted ? m.quoted.download() : m.download())
+          const msg = await generateWAMessageContent({ video: anu }, { upload: XliconBotInc.waUploadToServer })
+          await XliconBotInc.relayMessage(m.chat, { ptvMessage: msg.videoMessage }, {})
+        } else {
+          replygcxlicon('Reply Videos You Want to Convert to PTV Messages!')
+        }
+      }
+      break
+
 case 'tourl': {
   if (!isMedia) return replygcxlicon("Where Is The Media?");
   XliconStickWait();
@@ -14737,11 +14737,11 @@ case 'tourl': {
   }
 }
 break;
- 
-        
+
+
 case 'pixelate': {
   if (!isMedia) return replygcxlicon("Where Is The Image");
-  
+
   let media = await XliconBotInc.downloadAndSaveMediaMessage(quoted);
   let mediaUrl = await handleMediaUpload(m, mime);  // Call the media upload function
 
@@ -14757,16 +14757,16 @@ case 'pixelate': {
 break;
 
 
-			case 'texttospeech-indo': case 'tts-indo': case 'ttsindo': {
-				if (!text) return replygcxlicon('Where is the text you want to convert to audio??')
-				let { tts } = require('./lib/tts.js')
-				let anu = await tts(text)
-				XliconBotInc.sendMessage(m.chat, { audio: anu, ptt: true, mimetype: 'audio/mpeg' }, { quoted: m })
-			}
-			break
+      case 'texttospeech-indo': case 'tts-indo': case 'ttsindo': {
+        if (!text) return replygcxlicon('Where is the text you want to convert to audio??')
+        let { tts } = require('./lib/tts.js')
+        let anu = await tts(text)
+        XliconBotInc.sendMessage(m.chat, { audio: anu, ptt: true, mimetype: 'audio/mpeg' }, { quoted: m })
+      }
+      break
 
 
-			case 'say': case 'tts': case 'gtts':{
+      case 'say': case 'tts': case 'gtts':{
 if (!text) return replygcxlicon('Where is the text?')
             let texttts = text
             const xliconrl = googleTTS.getAudioUrl(texttts, {
@@ -14786,28 +14786,28 @@ if (!text) return replygcxlicon('Where is the text?')
             })
         }
         break
-                
-			case 'toqr': case 'qr': {
-				if (!text) return replygcxlicon(`Please include a text or link\n\nFor Example:\n*${prefix + command}* wassup`)
-				XliconStickWait()
-				await XliconBotInc.sendMessage(m.chat, { image: { url: 'https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=' + text }, caption: 'Here you go!' }, { quoted: m })
-			}
-			break
-                
-                
-			case 'ssweb': {
-				if (!text) return replygcxlicon(`Example: ${prefix + command} https://github.com/MXKPCODE`)
-				if (!text.startsWith('http')) {
-					let buf = 'https://image.thum.io/get/width/1900/crop/1000/fullpage/https://' + q;
-					await XliconBotInc.sendMessage(m.chat, { image: { url: buf }, caption: 'Done' }, { quoted: m })
-				} else {
-					let buf = 'https://image.thum.io/get/width/1900/crop/1000/fullpage/' + q;
-					await XliconBotInc.sendMessage(m.chat, { image: { url: buf }, caption: 'Done' }, { quoted: m })
-				}
-			}
-			break
-                
-			case'smeta': {
+
+      case 'toqr': case 'qr': {
+        if (!text) return replygcxlicon(`Please include a text or link\n\nFor Example:\n*${prefix + command}* wassup`)
+        XliconStickWait()
+        await XliconBotInc.sendMessage(m.chat, { image: { url: 'https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=' + text }, caption: 'Here you go!' }, { quoted: m })
+      }
+      break
+
+
+      case 'ssweb': {
+        if (!text) return replygcxlicon(`Example: ${prefix + command} https://github.com/MXKPCODE`)
+        if (!text.startsWith('http')) {
+          let buf = 'https://image.thum.io/get/width/1900/crop/1000/fullpage/https://' + q;
+          await XliconBotInc.sendMessage(m.chat, { image: { url: buf }, caption: 'Done' }, { quoted: m })
+        } else {
+          let buf = 'https://image.thum.io/get/width/1900/crop/1000/fullpage/' + q;
+          await XliconBotInc.sendMessage(m.chat, { image: { url: buf }, caption: 'Done' }, { quoted: m })
+        }
+      }
+      break
+
+      case'smeta': {
 if (!/webp/.test(mime)) return replygcxlicon('Reply sticker!')
   var stiker = false
     try {
@@ -14831,7 +14831,7 @@ if (!/webp/.test(mime)) return replygcxlicon('Reply sticker!')
                                                                               }
                                                                               }       
                                                                               break
-			
+
             case 's': case 'sticker': case 'stiker': {
 if (!quoted) return replygcxlicon(`Send/Reply Images/Videos/Gifs With Captions ${prefix+command}\nVideo Duration 1-9 Seconds`)
 if (/image/.test(mime)) {
@@ -14867,7 +14867,7 @@ replygcxlicon(`Photo/Video?`)
 }
 }
 break
-			case 'smeme': case 'stickermeme': case 'stickmeme': {
+      case 'smeme': case 'stickermeme': case 'stickmeme': {
 if (!/webp/.test(mime) && /image/.test(mime)) {
 if (!text) return replygcxlicon(`Usage: ${prefix + command} text1|text2`)
 let { TelegraPh } = require('./lib/uploader.js')
@@ -14882,120 +14882,120 @@ replygcxlicon(`Send/reply image with caption ${prefix + command} text1|text2`)
 }
 }
 break
-                
-			case 'write': {
-				replygcxlicon(`*Example*\n${prefix}writeleft text\n${prefix}writeright text\n${prefix}folioleft text\n${prefix}folioright text`)
-			}
-			break
-                
-			case 'writeleft': {
-				if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
-				XliconStickWait()
-				const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
-				const fixHeight = splitText.split('\n').slice(0, 31).join('\n')
-				spawn('convert', [
-					'./src/write/images/book/beforeleft.jpg',
-					'-font',
-					'./src/write/font/Indie-Flower.ttf',
-					'-size',
-					'960x1280',
-					'-pointsize',
-					'23',
-					'-interline-spacing',
-					'2',
-					'-annotate',
-					'+140+153',
-					fixHeight,
-					'./src/write/images/book/afterleft.jpg'
-				])
-				.on('error', () => replygcxlicon(mess.error))
-				.on('exit', () => {
-					XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/book/afterleft.jpg'), caption: 'Here you go!' }, { quoted: m })
-				})
-			}
-			break
-                
-			case 'writeright': {
-				if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
-				XliconStickWait()
-				const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
-				const fixHeight = splitText.split('\n').slice(0, 31).join('\n')
-				spawn('convert', [
-					'./src/write/images/book/beforeright.jpg',
-					'-font',
-					'./src/write/font/Indie-Flower.ttf',
-					'-size',
-					'960x1280',
-					'-pointsize',
-					'23',
-					'-interline-spacing',
-					'2',
-					'-annotate',
-					'+128+129',
-					fixHeight,
-					'./src/write/images/book/afterright.jpg'
-				])
-				.on('error', () => replygcxlicon(mess.error))
-				.on('exit', () => {
-					XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/book/afterright.jpg'), caption: 'Here you go!' }, { quoted: m })
-				})
-			}
-			break
-                
-			case 'folioleft': {
-				if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
-				XliconStickWait()
-				const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
-				const fixHeight = splitText.split('\n').slice(0, 38).join('\n')
-				spawn('convert', [
-					'./src/write/images/folio/beforeleft.jpg',
-					'-font',
-					'./src/write/font/Indie-Flower.ttf',
-					'-size',
-					'1720x1280',
-					'-pointsize',
-					'23',
-					'-interline-spacing',
-					'4',
-					'-annotate',
-					'+48+185',
-					fixHeight,
-					'./src/write/images/folio/afterleft.jpg'
-				])
-				.on('error', () => replygcxlicon(mess.error))
-				.on('exit', () => {
-					XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/folio/afterleft.jpg'), caption: 'Here you go!' }, { quoted: m })
-				})
-			}
-			break
-                
-			case 'folioright': {
-				if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
-				XliconStickWait()
-				const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
-				const fixHeight = splitText.split('\n').slice(0, 38).join('\n')
-				spawn('convert', [
-					'./src/write/images/folio/beforeright.jpg',
-					'-font',
-					'./src/write/font/Indie-Flower.ttf',
-					'-size',
-					'1720x1280',
-					'-pointsize',
-					'23',
-					'-interline-spacing',
-					'4',
-					'-annotate',
-					'+89+190',
-					fixHeight,
-					'./src/write/images/folio/afterright.jpg'
-				])
-				.on('error', () => replygcxlicon(mess.error))
-				.on('exit', () => {
-					XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/folio/afterright.jpg'), caption: 'Here you go!' }, { quoted: m })
-				})
-			}
-			break
-			
+
+      case 'write': {
+        replygcxlicon(`*Example*\n${prefix}writeleft text\n${prefix}writeright text\n${prefix}folioleft text\n${prefix}folioright text`)
+      }
+      break
+
+      case 'writeleft': {
+        if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
+        XliconStickWait()
+        const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
+        const fixHeight = splitText.split('\n').slice(0, 31).join('\n')
+        spawn('convert', [
+          './src/write/images/book/beforeleft.jpg',
+          '-font',
+          './src/write/font/Indie-Flower.ttf',
+          '-size',
+          '960x1280',
+          '-pointsize',
+          '23',
+          '-interline-spacing',
+          '2',
+          '-annotate',
+          '+140+153',
+          fixHeight,
+          './src/write/images/book/afterleft.jpg'
+        ])
+        .on('error', () => replygcxlicon(mess.error))
+        .on('exit', () => {
+          XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/book/afterleft.jpg'), caption: 'Here you go!' }, { quoted: m })
+        })
+      }
+      break
+
+      case 'writeright': {
+        if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
+        XliconStickWait()
+        const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
+        const fixHeight = splitText.split('\n').slice(0, 31).join('\n')
+        spawn('convert', [
+          './src/write/images/book/beforeright.jpg',
+          '-font',
+          './src/write/font/Indie-Flower.ttf',
+          '-size',
+          '960x1280',
+          '-pointsize',
+          '23',
+          '-interline-spacing',
+          '2',
+          '-annotate',
+          '+128+129',
+          fixHeight,
+          './src/write/images/book/afterright.jpg'
+        ])
+        .on('error', () => replygcxlicon(mess.error))
+        .on('exit', () => {
+          XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/book/afterright.jpg'), caption: 'Here you go!' }, { quoted: m })
+        })
+      }
+      break
+
+      case 'folioleft': {
+        if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
+        XliconStickWait()
+        const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
+        const fixHeight = splitText.split('\n').slice(0, 38).join('\n')
+        spawn('convert', [
+          './src/write/images/folio/beforeleft.jpg',
+          '-font',
+          './src/write/font/Indie-Flower.ttf',
+          '-size',
+          '1720x1280',
+          '-pointsize',
+          '23',
+          '-interline-spacing',
+          '4',
+          '-annotate',
+          '+48+185',
+          fixHeight,
+          './src/write/images/folio/afterleft.jpg'
+        ])
+        .on('error', () => replygcxlicon(mess.error))
+        .on('exit', () => {
+          XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/folio/afterleft.jpg'), caption: 'Here you go!' }, { quoted: m })
+        })
+      }
+      break
+
+      case 'folioright': {
+        if (!text) return replygcxlicon(`Send command *${prefix + command}* text`)
+        XliconStickWait()
+        const splitText = text.replace(/(\S+\s*){1,9}/g, '$&\n')
+        const fixHeight = splitText.split('\n').slice(0, 38).join('\n')
+        spawn('convert', [
+          './src/write/images/folio/beforeright.jpg',
+          '-font',
+          './src/write/font/Indie-Flower.ttf',
+          '-size',
+          '1720x1280',
+          '-pointsize',
+          '23',
+          '-interline-spacing',
+          '4',
+          '-annotate',
+          '+89+190',
+          fixHeight,
+          './src/write/images/folio/afterright.jpg'
+        ])
+        .on('error', () => replygcxlicon(mess.error))
+        .on('exit', () => {
+          XliconBotInc.sendMessage(m.chat, { image: fs.readFileSync('./src/write/images/folio/afterright.jpg'), caption: 'Here you go!' }, { quoted: m })
+        })
+      }
+      break
+
 
 
 
@@ -15006,20 +15006,20 @@ break
 
 // █▄ ▄█ █▀▀ █▄ █ █ █   █▀▀ █▀█ █▄ ▄█ █▄ ▄█ ▄▀▄ █▄ █ █▀▄ █▀▀ 
 // █ ▀ █ ██▄ █ ▀█ █▄█   █▄▄ █▄█ █ ▀ █ █ ▀ █ █▀█ █ ▀█ █▄▀ ▄██ 
-		
-      
-			
 
-    
-      
 
-			// Menu
-		    case 'menu': case 'help': case 'alive': {
+
+
+
+
+
+      // Menu
+        case 'menu': case 'help': case 'alive': {
             const timestampe = speed()
             const latensie = speed() - timestampe
             const a = db.users[sender]
             const me = m.sender
-			const xmenu_oh = `
+      const xmenu_oh = `
 ╭───❍「 *🤖 GREETING* 」
 │ ✨ *Hello!* 👋
 │ 🏷️ *Name* : ${m.pushName || 'No Name'}
@@ -15083,24 +15083,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -15143,7 +15126,7 @@ if (typemenu === 'v1') {
               title: botname,
               body: ownername,
               thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
-              sourceUrl: ``,
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -15169,7 +15152,7 @@ if (typemenu === 'v1') {
               title: ownername,
               body: botname,
               thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
-              sourceUrl: websitex,
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -15858,24 +15841,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -15917,8 +15883,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -15943,8 +15909,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16057,24 +16023,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16116,8 +16065,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16142,8 +16091,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16234,24 +16183,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16293,8 +16225,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16319,8 +16251,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16363,24 +16295,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16422,8 +16337,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16448,8 +16363,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16522,24 +16437,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16581,8 +16479,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16607,8 +16505,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16685,24 +16583,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16744,8 +16625,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16770,8 +16651,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16816,24 +16697,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -16875,8 +16739,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16901,8 +16765,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -16992,24 +16856,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17051,8 +16898,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17077,8 +16924,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17119,24 +16966,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17178,8 +17008,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17204,8 +17034,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17244,24 +17074,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17303,8 +17116,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17329,8 +17142,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17381,24 +17194,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17440,8 +17236,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17466,8 +17262,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17514,24 +17310,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17573,8 +17352,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17599,8 +17378,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17699,24 +17478,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17758,8 +17520,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17784,8 +17546,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17825,24 +17587,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -17884,8 +17629,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -17910,8 +17655,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18089,24 +17834,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -18148,8 +17876,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18174,8 +17902,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18218,24 +17946,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -18277,8 +17988,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18303,8 +18014,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18342,24 +18053,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -18401,8 +18095,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18427,8 +18121,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18482,24 +18176,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -18541,8 +18218,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18567,8 +18244,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18623,24 +18300,7 @@ if (typemenu === 'v1') {
   }, {
       quoted: m
   })
-} else if (typemenu === 'v2') {
-  XliconBotInc.sendMessage(m.chat, {
-      text: xmenu_oh,
-      contextInfo: {
-          externalAdReply: {
-              showAdAttribution: true,
-              title: botname,
-              body: ownername,
-              thumbnail: fs.readFileSync('./XliconMedia/theme/XliconPic.jpg'),
-              sourceUrl: wagc,
-              mediaType: 1,
-              renderLargerThumbnail: true
-          }
-      }
-  }, {
-      quoted: m
-  })
-} else if (typemenu === 'v3') {
+}  else if (typemenu === 'v3') {
   XliconBotInc.sendMessage(m.chat, {
       video: fs.readFileSync('./XliconMedia/theme/Xlicon-Video.mp4'),
       caption: xmenu_oh
@@ -18682,8 +18342,8 @@ if (typemenu === 'v1') {
           externalAdReply: {
               title: botname,
               body: ownername,
-              thumbnailUrl: 'https://i.ibb.co/yhgtCXh/68747470733a2f2f69696c692e696f2f64455433756b582e6d642e706e67.png',
-              sourceUrl: ``,
+              thumbnailUrl: 'https://i.ibb.co/SfWq6Lj/naruto.jpg',
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18708,8 +18368,8 @@ if (typemenu === 'v1') {
               showAdAttribution: true,
               title: ownername,
               body: botname,
-              thumbnailUrl: "https://i.ibb.co/y0nLDSB/XLICON-IMG.jpg",
-              sourceUrl: websitex,
+              thumbnailUrl: "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+              sourceUrl: `https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W`,
               mediaType: 1,
               renderLargerThumbnail: true
           }
@@ -18728,7 +18388,7 @@ default:
     if (!XliconTheCreator) return; // Ensure only the bot creator can run this command
     const codeToEvaluate = budy.slice(2).trim(); // Slice and trim the code after the '>' symbol
     if (!codeToEvaluate) return m.reply("❌ No code provided for evaluation.");
-  
+
     try {
       let evaled = await eval(codeToEvaluate); // Evaluate the code synchronously
       if (typeof evaled !== 'string') evaled = require('util').inspect(evaled); // Ensure the result is a string
@@ -18738,12 +18398,12 @@ default:
       await m.reply(`❌ Error in evaluation: ${String(err)}`); // Return the error message to the user
     }
   }
-  
+
   if (budy.startsWith('=>')) {
     if (!XliconTheCreator) return; // Ensure only the bot creator can run this command
     const codeToEvaluate = budy.slice(2).trim(); // Slice and trim the code after the '<' symbol
     if (!codeToEvaluate) return m.reply("❌ No code provided for evaluation.");
-  
+
     try {
       let evaled = await eval(`(async () => { ${codeToEvaluate} })()`); // Execute asynchronous code inside an async function
       if (typeof evaled !== 'string') evaled = require('util').inspect(evaled); // Ensure the result is a string
@@ -18753,7 +18413,7 @@ default:
       await m.reply(`❌ Error in evaluation: ${String(err)}`); // Return the error message to the user
     }
   }
-  
+
 const { exec } = require('child_process'); // Import exec
 
 if (budy.startsWith('$')) {
@@ -18786,29 +18446,29 @@ if (budy.startsWith('$')) {
   });
 }
 
-			if (m.message && budy.toLowerCase() != undefined) {
+      if (m.message && budy.toLowerCase() != undefined) {
 if (m.chat.endsWith('broadcast')) return
 if (m.isBaileys) return
 let msgs = global.db.database
 if (!(budy.toLowerCase() in msgs)) return
 XliconBotInc.copyNForward(m.chat, msgs[budy.toLowerCase()], true, {quoted: m})
 }
-		}
-	} catch (err) {
-		console.log(util.format(err))
+    }
+  } catch (err) {
+    console.log(util.format(err))
         let e = String(err)
 XliconBotInc.sendMessage(XliconBotInc.user.id, { text: "An error occured:" + util.format(e), 
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true
 }})
-	}
+  }
 }
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
-	fs.unwatchFile(file)
-	console.log(chalk.redBright(`Update ${__filename}`))
-	delete require.cache[file]
-	require(file)
+  fs.unwatchFile(file)
+  console.log(chalk.redBright(`Update ${__filename}`))
+  delete require.cache[file]
+  require(file)
 });
