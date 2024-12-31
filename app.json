@@ -1,0 +1,77 @@
+
+{
+  "name": "NARUTO-V1",
+  "description": "WhatsApp Bot Using Lib Baileys",
+  "repository": "https://github.com/MXKPCODE/NARUTO-V1",
+  "logo": "https://i.ibb.co/SfWq6Lj/naruto.jpg",
+  "keywords": ["muti-device"],
+  "stack": "container",
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "Standard-2X"
+    }
+    },
+  "env": {
+    "SESSION_ID": {
+      "description": "Enter session id here; must start with NARUTO~",
+      "required": true
+    },
+    "BOT_NAME": {
+      "value": "NARUTO-V1",
+      "description": "Bot Name",
+       "required": true 
+    },
+    "OWNER_NUMBER": {
+      "value": "2349021506036",
+      "description": "Owner Number",
+       "required": true
+    },
+    "OWNER_NAME": {
+      "value": "MXKPCODER",
+      "description": "Owner Name",
+       "required": true
+    },
+    "PACK_NAME": {
+      "value": "MXKPCODER",
+      "description": "Sticker Package Name",
+       "required": false
+    },
+    "AUTHOR_NAME": {
+      "value": "MΛDΣ BY MXKPCODER",
+      "description": "Sticker Author Name",
+       "required": false
+    },
+    "PREFIX": {
+      "value": ".",
+      "description": "Bot Prefix",
+       "required": true
+    },
+    "PREMIUM_NUMBER": {
+      "value": "2349021506036",
+      "description": "Premium User IDs (comma-separated)",
+      "required": true
+    },
+    "MENU_TYPE": {
+      "value": "v2",
+      "description": "Menu Type (v1/v2)",
+       "required": false
+    },
+    "AUTOBLOCK_COUNTRYCODE": {
+      "value": "212",
+      "description": "Auto-Block Country Code",
+       "required": false
+    },
+    "ANTIFOREIGN_COUNTRYCODE": {
+      "value": "91",
+      "description": "Anti-Foreign Number Country Code",
+       "required": false
+    }
+  },
+  "buildpacks": [
+    { "url": "heroku/nodejs" },
+    { "url": "https://github.com/DuckyTeam/heroku-buildpack-imagemagick.git" },
+    { "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest" },
+    { "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git" }
+  ]
+}
