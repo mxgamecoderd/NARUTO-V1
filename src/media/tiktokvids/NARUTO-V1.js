@@ -1,0 +1,3 @@
+{
+	"name": "NARUTO-V1"
+}
