@@ -1,6 +1,3 @@
-
-NARUTO-V1
-
 require('../settings');
 const fs = require('fs');
 const path = require('path');
