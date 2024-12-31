@@ -39,9 +39,9 @@ global.ownername = process.env.OWNER_NAME || 'MXKPCODE';
 
 
 //~~~~~~<Website and Social Links>~~~~~~~~~~\\
-global.websitex = process.env.WEBSITE_URL || "https://youtube.com/@s4salmanyt";
+global.websitex = process.env.WEBSITE_URL || "https://youtube.com/@mxgamecoder";
 
-global.wagc = process.env.WHATSAPP_CHANNEL || "https://whatsapp.com/channel/0029VaINgEZK0IBaK1nDtE3f";
+global.wagc = process.env.WHATSAPP_CHANNEL || "https://whatsapp.com/channel/0029Vavz0e6E50Ugp30Z6z0W";
 
 
 //~~~~~~~~<Theme and Miscellaneous>~~~~~~~~~~\\
